@@ -1,4 +1,4 @@
-language: android
+language: java
 
 jdk:
   - oraclejdk8
@@ -22,24 +22,28 @@ cache:
     - $HOME/.android/build-cache
 
 install:
-  - yes | sdkmanager "tools" &>/dev/null
-  - yes | sdkmanager "platform-tools" &>/dev/null
-  - yes | sdkmanager "platforms;android-28" &>/dev/null
-  - yes | sdkmanager --update &>/dev/null
-  - yes | sdkmanager --licenses &>/dev/null
+  # Download and unzip the Android SDK tools (if not already there thanks to the cache mechanism)
+  # Latest version available here: https://developer.android.com/studio/#command-tools
+  - if test ! -e $HOME/android-sdk-dl/sdk-tools.zip ; then curl https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip > $HOME/android-sdk-dl/sdk-tools.zip ; fi
+  - unzip -qq -n $HOME/android-sdk-dl/sdk-tools.zip -d $HOME/android-sdk
+
+  # Install or update Android SDK components (will not do anything if already up to date thanks to the cache mechanism)
+  - echo y | $HOME/android-sdk/tools/bin/sdkmanager 'platform-tools' > /dev/null
+  - echo y | $HOME/android-sdk/tools/bin/sdkmanager 'build-tools;28.0.3' > /dev/null
+  - echo y | $HOME/android-sdk/tools/bin/sdkmanager 'platforms;android-28' > /dev/null
 
 # https://github.com/kt3k/coveralls-gradle-plugin
 env:
   - ANDROID_HOME=$HOME/android-sdk
 
-#before_script:
-#  - echo $CI_NAME
-#  - echo $CI_BUILD_NUMBER
-#  - echo $CI_BUILD_URL
-#  - echo $CI_BRANCH
+before_script:
+  - echo $CI_NAME
+  - echo $CI_BUILD_NUMBER
+  - echo $CI_BUILD_URL
+  - echo $CI_BRANCH
 
 script:
-  - ./gradlew assembleRelease --stacktrace
+  - ./gradlew --no-daemon --parallel lintDebug testDebug
 
 after_success:
   - ./gradlew jacocoTestReport coveralls
