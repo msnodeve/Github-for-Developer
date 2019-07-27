@@ -38,8 +38,5 @@ before_script:
   - echo $CI_BUILD_URL
   - echo $CI_BRANCH
 
-script:
-  - ./gradlew clean assembleDebug assembleRelease testDebug
-
 after_success:
   - ./gradlew jacocoTestReport coveralls
