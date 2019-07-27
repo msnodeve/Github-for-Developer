@@ -39,7 +39,7 @@ before_script:
   - echo $CI_BRANCH
 
 script:
-  - ./gradlew --no-daemon --parallel lintDebug testDebug
+  - ./gradlew clean assembleDebug assembleRelease testDebug
 
 after_success:
   - ./gradlew jacocoTestReport coveralls
