@@ -32,11 +32,14 @@ install:
 env:
   - ANDROID_HOME=$HOME/android-sdk
 
-before_script:
-  - echo $CI_NAME
-  - echo $CI_BUILD_NUMBER
-  - echo $CI_BUILD_URL
-  - echo $CI_BRANCH
+#before_script:
+#  - echo $CI_NAME
+#  - echo $CI_BUILD_NUMBER
+#  - echo $CI_BUILD_URL
+#  - echo $CI_BRANCH
+
+script:
+  - ./gradlew assembleRelease --stacktrace
 
 after_success:
   - ./gradlew jacocoTestReport coveralls
