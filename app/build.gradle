@@ -7,11 +7,13 @@ apply plugin: 'kotlin-android-extensions'
 // https://medium.com/@android2ee/playing-with-gradle-3-and-some-few-code-coverage-on-android-with-jacoco-47df7c9328ae
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'jacoco-android'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-android-extensions' // 익스텐션 플러그인 적용
 
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.nexters.wiw.strolling_of_time"
+        applicationId "com.seok.gitfordeveloper"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -64,4 +66,13 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.0.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
+
+    // firebase를 통한 github login
+    implementation 'com.google.firebase:firebase-core:16.0.7'
+    implementation 'com.google.firebase:firebase-auth:16.1.0'
+
+    // OkHttp && logger
+    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.2'
+
 }

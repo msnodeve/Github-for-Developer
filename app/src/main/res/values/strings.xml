@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Git for developer</string>
+
+    <string name="github_app_id">e4b5fa42b2d4ca832269</string>
+    <string name="github_app_secret">858c7bfdae184700423bd338136322d828dd4c11</string>
+    <string name="github_app_url">https://github-for-developer.firebaseapp.com/__/auth/handler</string>
 </resources>

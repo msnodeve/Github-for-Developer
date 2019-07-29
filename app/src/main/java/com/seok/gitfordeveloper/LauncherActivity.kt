@@ -13,8 +13,8 @@ class LauncherActivity : AppCompatActivity() {
         setContentView(R.layout.activity_launcher)
 
         Handler().postDelayed(Runnable {
-            startActivity(Intent(this,MainActivity::class.java))
-        }, 2000)
-        finish()
+            startActivity(Intent(this,LoginActivity::class.java))
+            finish()
+        }, 100)
     }
 }
