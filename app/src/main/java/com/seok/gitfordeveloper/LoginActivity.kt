@@ -18,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         val httpUrl = HttpUrl.Builder()
-            .scheme("http")
+            .scheme("https")
             .host("github.com")
             .addPathSegment("login")
             .addPathSegment("oauth")
@@ -29,7 +29,20 @@ class LoginActivity : AppCompatActivity() {
             .addQueryParameter("scope", "user")
             .addQueryParameter("allow_signup","false")
             .build()
-        www.loadUrl(httpUrl.toString())
-        Log.d("astef", Uri.parse(httpUrl.toString()).toString())
+            www.loadUrl(httpUrl.toString())
+//        login_github_btn.setOnClickListener {
+//            www.loadUrl(httpUrl.toString())
+//            //www.webViewClient = HelloWebViewClient()
+//
+//        }
+        Log.d("astef2", Uri.parse(httpUrl.toString()).toString())
+
+    }
+}
+class HelloWebViewClient : WebViewClient() {
+    override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+        Log.d("astef3", url)
+        return true
+
     }
 }
