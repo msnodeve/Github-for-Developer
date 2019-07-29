@@ -39,6 +39,9 @@ android {
             includeAndroidResources = true
         }
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 coveralls {
