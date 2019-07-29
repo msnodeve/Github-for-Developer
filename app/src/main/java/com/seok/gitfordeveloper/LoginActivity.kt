@@ -29,20 +29,18 @@ class LoginActivity : AppCompatActivity() {
             .addQueryParameter("scope", "user")
             .addQueryParameter("allow_signup","false")
             .build()
+        www.clearCache(false)
+        login_github_btn.setOnClickListener {
+            www!!.settings.javaScriptEnabled = true
+            www.webViewClient = HelloWebViewClient()
             www.loadUrl(httpUrl.toString())
-//        login_github_btn.setOnClickListener {
-//            www.loadUrl(httpUrl.toString())
-//            //www.webViewClient = HelloWebViewClient()
-//
-//        }
-        Log.d("astef2", Uri.parse(httpUrl.toString()).toString())
-
+        }
+        Log.d("astef", Uri.parse(httpUrl.toString()).toString())
     }
 }
 class HelloWebViewClient : WebViewClient() {
     override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
         Log.d("astef3", url)
-        return true
-
+        return super.shouldOverrideUrlLoading(view, url)
     }
 }
