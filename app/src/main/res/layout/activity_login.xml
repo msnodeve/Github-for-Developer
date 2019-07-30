@@ -7,18 +7,10 @@
         android:layout_height="match_parent"
         tools:context="com.seok.gitfordeveloper.LoginActivity" android:orientation="vertical">
 
-    <WebView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/www" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent" android:layout_weight="1">
-    </WebView>
     <Button
-            android:text="Button"
+            android:text="Github Login"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:id="@+id/login_github_btn" android:layout_weight="10"/>
+            android:layout_height="wrap_content" android:id="@+id/login_github_btn"/>
 
 
 </LinearLayout>
