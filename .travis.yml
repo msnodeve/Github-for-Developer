@@ -43,7 +43,7 @@ before_script:
   - echo $CI_BRANCH
 
 script:
-  - ./gradlew --no-daemon --parallel lintDebug testDebug
+  - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
 
 after_success:
   - ./gradlew jacocoTestReport coveralls
