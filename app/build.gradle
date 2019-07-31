@@ -7,7 +7,6 @@ apply plugin: 'kotlin-android-extensions'
 // https://medium.com/@android2ee/playing-with-gradle-3-and-some-few-code-coverage-on-android-with-jacoco-47df7c9328ae
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'jacoco-android'
-apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android-extensions' // 익스텐션 플러그인 적용
 
 android {
@@ -84,3 +83,5 @@ dependencies {
     // Using the Glide Library for Image loading
     implementation 'com.github.bumptech.glide:glide:3.7.0'
 }
+
+apply plugin: 'com.google.gms.google-services'
