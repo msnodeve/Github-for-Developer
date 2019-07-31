@@ -1,7 +1,7 @@
 language: java
 
 jdk:
-  - openjdk8
+  - oraclejdk8
 
 before_cache:
   # Do not cache a few Gradle files/directories (see https://docs.travis-ci.com/user/languages/java/#Caching)
@@ -43,7 +43,7 @@ before_script:
   - echo $CI_BRANCH
 
 script:
-  - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
+  - ./gradlew --no-daemon --parallel lintDebug testDebug
 
 after_success:
   - ./gradlew jacocoTestReport coveralls
