@@ -72,6 +72,7 @@ class AuthGithub constructor(context: Context) {
 
     private fun signInWithToken(token : String){
         // sendPost함수가 성공적으로 response를 받았다면 MainActivity로 전달
+        Log.d("token", token)
         UserInfo.access_token = token
         var intent = Intent(context, MainActivity::class.java)
         context.startActivity(intent)
