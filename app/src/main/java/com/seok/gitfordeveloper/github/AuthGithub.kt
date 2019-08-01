@@ -51,17 +51,17 @@ class AuthGithub constructor(context: Context) {
         })
     }
 
-    private fun makeForm(code : String): FormBody{
+    public fun makeForm(code : String): FormBody{
         // token을 얻어오기 위한 form 생성 함수
         var form = FormBody.Builder()
-            .add("client_id", this.context.getString(R.string.github_app_id))
-            .add("client_secret", this.context.getString(R.string.github_app_secret))
+            .add("client_id", context.getString(R.string.github_app_id))
+            .add("client_secret", context.getString(R.string.github_app_secret))
             .add("code", code)
             .build()
         return form
     }
 
-    private fun makeRequest(form : FormBody) : Request{
+    public fun makeRequest(form : FormBody) : Request{
         // github로 request를 보내기위한 생성 함수
         val requset = Request.Builder()
             .url("https://github.com/login/oauth/access_token")
@@ -75,8 +75,5 @@ class AuthGithub constructor(context: Context) {
         UserInfo.access_token = token
         var intent = Intent(context, MainActivity::class.java)
         context.startActivity(intent)
-    }
-    public fun t(a : Int, b : Int):Int{
-        return a + b
     }
 }

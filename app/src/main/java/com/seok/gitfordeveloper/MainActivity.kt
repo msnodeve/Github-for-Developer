@@ -8,15 +8,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
-import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val okHttpClient: OkHttpClient = OkHttpClient()
-        Glide.with(this).load("https://avatars0.githubusercontent.com/u/42924361?v=4").into(user_profile)
+        val okHttpClient = OkHttpClient()
+
 
         var requset = Request.Builder()
             .url("https://api.github.com/user")
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             .build()
         okHttpClient.newCall(requset).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Log.d("asdfasdf", "asdf")
+                Log.d("dLog-main-onFailure", e.toString())
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -32,8 +31,13 @@ class MainActivity : AppCompatActivity() {
                 var jsonObject = JSONObject(responseBody)
                 user_name.setText(jsonObject.getString("login"))
                 user_mail.setText(jsonObject.getString("html_url"))
-
-                val str : String = jsonObject.getString("avatar_url")
+                runOnUiThread(object : Runnable {
+                    override fun run() {
+                        Glide.with(this@MainActivity)
+                            .load(jsonObject.getString("avatar_url"))
+                            .into(user_profile)
+                    }
+                })
             }
         })
     }
