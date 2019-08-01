@@ -25,7 +25,7 @@ class AuthFirebase {
         mAuth.addAuthStateListener(mAuthListener)
     }
 
-    private fun getUser(auth: FirebaseAuth): FirebaseUser? {
+    public fun getUser(auth: FirebaseAuth): FirebaseUser? {
         return auth.currentUser!!
     }
 

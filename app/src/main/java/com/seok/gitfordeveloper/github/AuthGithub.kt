@@ -76,4 +76,7 @@ class AuthGithub constructor(context: Context) {
         var intent = Intent(context, MainActivity::class.java)
         context.startActivity(intent)
     }
+    public fun t(a : Int, b : Int):Int{
+        return a + b
+    }
 }
