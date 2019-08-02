@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.seok.gitfordeveloper.response.ResponseBody
 import com.seok.gitfordeveloper.retrofit.ApiUtils
 import com.seok.gitfordeveloper.retrofit.models.UserInfoService
 import kotlinx.android.synthetic.main.activity_main.*
@@ -61,10 +62,10 @@ class MainActivity : AppCompatActivity() {
                     response: retrofit2.Response<UserInfoService>
                 ) {
                     if (response.isSuccessful) {
-                        var body = response.body()!!
-                        user_name.setText(body.login)
-                        user_mail.setText(body.html_url)
-                        Glide.with(this@MainActivity).load(body.avatar_url).into(user_profile)
+                        var responseBody = ResponseBody(response)
+                        user_name.setText(responseBody.getLogin())
+                        user_mail.setText(responseBody.getHtmlURL())
+                        Glide.with(this@MainActivity).load(responseBody.getAvatarURL()).into(user_profile)
                     }
                 }
             })
