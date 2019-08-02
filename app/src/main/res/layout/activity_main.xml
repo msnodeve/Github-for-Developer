@@ -36,8 +36,23 @@
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:layout_weight="2">
+        <Button
+                android:text="Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/button" android:layout_weight="1"/>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_weight="7">
+            <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:layout_weight="7" android:fillViewport="false">
+                <RelativeLayout android:layout_width="700sp" android:layout_height="match_parent"
+                                android:orientation="horizontal" android:id="@+id/dynamicArea"/>
+            </HorizontalScrollView>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

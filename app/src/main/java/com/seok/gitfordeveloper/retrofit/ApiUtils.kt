@@ -1,9 +1,7 @@
 package com.seok.gitfordeveloper.retrofit
 
-import android.util.Log
+
 import com.seok.gitfordeveloper.retrofit.models.UserInfoApi
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 
 class ApiUtils {
 

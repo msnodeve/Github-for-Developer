@@ -6,7 +6,7 @@ import retrofit2.http.Header
 import retrofit2.http.Headers
 
 data class UserInfoService(
-    var login: String,
+    val login: String,
     val id : Int,
     val node_id: String,
     val avatar_url: String,
@@ -40,7 +40,6 @@ data class UserInfoService(
 )
 
 interface UserInfoApi {
-
     @GET("user")
     fun getUserInfo(@Header("Authorization") token: String): Call<UserInfoService>
 }

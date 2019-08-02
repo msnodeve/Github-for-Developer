@@ -84,11 +84,15 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.6.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
 
     // Using the Glide Library for Image loading
     implementation 'com.github.bumptech.glide:glide:4.4.0'
     kapt 'com.github.bumptech.glide:compiler:4.4.0'
 
+    //jsoup, anko
+    implementation 'org.jsoup:jsoup:1.11.3'
+    implementation "org.jetbrains.anko:anko:$anko_version"
 }
 
 apply plugin: 'com.google.gms.google-services'
