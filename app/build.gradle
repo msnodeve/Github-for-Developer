@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
 // https://www.androidhuman.com/lecture/quality/2016/02/13/jacoco_unit_test_android/
 // https://jojoldu.tistory.com/275
 // https://medium.com/@android2ee/playing-with-gradle-3-and-some-few-code-coverage-on-android-with-jacoco-47df7c9328ae
