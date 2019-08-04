@@ -41,6 +41,7 @@ before_script:
   - echo $CI_BUILD_NUMBER
   - echo $CI_BUILD_URL
   - echo $CI_BRANCH
+  - make set_env
 
 script:
   - ./gradlew --no-daemon --parallel lintDebug testDebug
