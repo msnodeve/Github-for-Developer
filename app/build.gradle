@@ -1,11 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
 // https://www.androidhuman.com/lecture/quality/2016/02/13/jacoco_unit_test_android/
 // https://jojoldu.tistory.com/275
 // https://medium.com/@android2ee/playing-with-gradle-3-and-some-few-code-coverage-on-android-with-jacoco-47df7c9328ae
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'jacoco-android'
+apply plugin: 'kotlin-android-extensions' // 익스텐션 플러그인 적용
 
 android {
     compileSdkVersion 28
@@ -25,6 +27,9 @@ android {
         }
         debug {
             testCoverageEnabled true
+            buildConfigField "String", "CLIENT_ID", CLIENT_ID
+            buildConfigField "String", "CLIENT_SECRET", CLIENT_SECRET
+            buildConfigField "String", "CALLBACK_URL", CALLBACK_URL
         }
     }
     compileOptions {
@@ -35,6 +40,9 @@ android {
         unitTests {
             includeAndroidResources = true
         }
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
@@ -62,4 +70,14 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.0.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
+
+    // OkHttp && logger
+    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.2'
+
+    // Retrofit2
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
 }
