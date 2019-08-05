@@ -14,10 +14,7 @@
             tools:ignore="GoogleAppIndexingWarning">
 
         <activity android:name=".LoginActivity"
-                  android:launchMode="singleTask"/>
-        <activity
-                android:name=".RedirectedActivity"
-                android:theme="@android:style/Theme.Translucent.NoTitleBar">
+                  android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

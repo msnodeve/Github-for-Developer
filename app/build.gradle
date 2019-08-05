@@ -39,6 +39,7 @@ android {
     testOptions {
         unitTests {
             includeAndroidResources = true
+            returnDefaultValues = true
         }
     }
     lintOptions {
@@ -61,6 +62,9 @@ dependencies {
 
     // test implementation
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.robolectric:robolectric:3.4.2'
+    testImplementation 'org.powermock:powermock-api-mockito:1.4.12'
+    testImplementation 'org.powermock:powermock-module-junit4:1.6.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation 'androidx.test:runner:1.1.0'
