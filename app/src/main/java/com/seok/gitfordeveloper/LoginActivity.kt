@@ -5,8 +5,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.seok.gitfordeveloper.room.database.CommitDB
 import com.seok.gitfordeveloper.room.model.User
 import com.seok.gitfordeveloper.room.database.UserDB
+import com.seok.gitfordeveloper.room.model.Commit
 import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.*
 import java.io.IOException
@@ -24,7 +26,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         authGithub = AuthGithub()
         userDb = UserDB.getInstance(this)
-
         login_img_login.setOnClickListener{
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(
                 authGithub.buildHttpUrl(BuildConfig.CLIENT_ID)))

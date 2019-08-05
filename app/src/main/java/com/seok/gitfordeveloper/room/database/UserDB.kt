@@ -1,9 +1,11 @@
-package com.seok.gitfordeveloper.room
+package com.seok.gitfordeveloper.room.database
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
+import com.seok.gitfordeveloper.room.dao.UserDao
+import com.seok.gitfordeveloper.room.model.User
 
 @Database(entities = [User::class], version = 2)
 abstract class UserDB: RoomDatabase() {

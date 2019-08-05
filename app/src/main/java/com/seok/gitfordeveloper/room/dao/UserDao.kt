@@ -1,10 +1,10 @@
-package com.seok.gitfordeveloper.room
+package com.seok.gitfordeveloper.room.dao
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.arch.persistence.room.Query
-import com.seok.gitfordeveloper.BuildConfig
+import com.seok.gitfordeveloper.room.model.User
 
 @Dao
 interface UserDao {
