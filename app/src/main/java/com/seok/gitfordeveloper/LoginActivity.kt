@@ -6,7 +6,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_login.*
-import okhttp3.HttpUrl
+import okhttp3.*
+import java.io.IOException
 import java.net.HttpURLConnection
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -31,5 +32,30 @@ class LoginActivity : AppCompatActivity() {
         val uri = intent!!.data
         val authGithub = AuthGithub()
         val code = authGithub.getCode(uri.toString())
+        sendPost(code)
+    }
+
+    private fun sendPost(code : String){
+        val request = makeRequest(code)
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+            override fun onResponse(call: Call, response: Response) {
+                val accessToken = authGithub.getToken(response.body()!!.string())
+                Log.d("test", accessToken)
+            }
+            override fun onFailure(call: Call, e: IOException) {
+                Log.d("dLog-AGH-sendPost", e.toString())
+            }
+        })
+    }
+    private fun makeRequest(code : String) :Request{
+        var form = FormBody.Builder()
+            .add("client_id", BuildConfig.CLIENT_ID)
+            .add("client_secret", BuildConfig.CLIENT_SECRET)
+            .add("code", code)
+            .build()
+        return Request.Builder()
+            .url("https://github.com/login/oauth/access_token")
+            .post(form)
+            .build()
     }
 }

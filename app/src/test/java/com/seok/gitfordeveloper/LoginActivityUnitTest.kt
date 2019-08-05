@@ -29,4 +29,17 @@ class LoginActivityUnitTest {
         assert("84a6df8c50f260978039" == code)
     }
 
+    @Test
+    fun test_getToken() {
+        val response = "access_token=e339b92de18be7529bc27c28e3ee4d6ad7994fb7&scope=&token_type=bearer"
+        val authGithub = AuthGithub()
+        val token = try {
+            val responses = response.split("=","&")
+            check(responses[0]=="access_token"){"Incorrect $response"}
+            authGithub.getToken(response)
+        } catch (e: Exception) {
+            assert(false) { e.message.toString() }
+        }
+        assert("e339b92de18be7529bc27c28e3ee4d6ad7994fb7" == token)
+    }
 }
