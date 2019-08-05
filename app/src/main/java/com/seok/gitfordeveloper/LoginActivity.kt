@@ -1,20 +1,16 @@
 package com.seok.gitfordeveloper
 
 import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Base64
 import android.util.Log
-import com.seok.gitfordeveloper.room.User
-import com.seok.gitfordeveloper.room.UserDB
+import com.seok.gitfordeveloper.room.model.User
+import com.seok.gitfordeveloper.room.database.UserDB
 import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.*
 import java.io.IOException
 import java.net.HttpURLConnection
-import java.security.MessageDigest
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class LoginActivity : AppCompatActivity() {
