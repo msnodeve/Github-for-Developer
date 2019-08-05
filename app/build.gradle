@@ -8,6 +8,9 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'jacoco-android'
 apply plugin: 'kotlin-android-extensions' // 익스텐션 플러그인 적용
+// https://blog.yena.io/studynote/2018/09/08/Android-Kotlin-Room.html
+// https://kotlinlang.org/docs/reference/using-gradle.html
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -84,4 +87,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
+
+    // room
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    kapt "android.arch.persistence.room:compiler:1.1.1"
+    kaptTest "android.arch.persistence.room:testing:1.1.1"
 }
