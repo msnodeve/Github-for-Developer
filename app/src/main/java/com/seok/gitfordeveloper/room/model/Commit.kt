@@ -7,10 +7,9 @@ import java.util.*
 
 @Entity(tableName = "commit")
 class Commit(
-    @PrimaryKey(autoGenerate = true) var id: Int,
-    @ColumnInfo var date: String,
+    @PrimaryKey var date: String,
     @ColumnInfo var commit: Int
 ) {
-    constructor() : this(0, Date(System.currentTimeMillis()).toString(), 0)
+    constructor() : this(Date(System.currentTimeMillis()).toString(), 0)
 }
 

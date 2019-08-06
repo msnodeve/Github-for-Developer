@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.seok.gitfordeveloper.room.database.CommitDB
 import com.seok.gitfordeveloper.room.model.User
-import com.seok.gitfordeveloper.room.database.UserDB
+import com.seok.gitfordeveloper.room.database.UsersDB
 import com.seok.gitfordeveloper.room.model.Commit
 import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.*
@@ -19,18 +19,20 @@ class LoginActivity : AppCompatActivity() {
 
     private  lateinit var authGithub: AuthGithub
 
-    private var userDb : UserDB? = null
+    private var userDb : UsersDB? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         authGithub = AuthGithub()
-        userDb = UserDB.getInstance(this)
+        userDb = UsersDB.getInstance(this)
         login_img_login.setOnClickListener{
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(
                 authGithub.buildHttpUrl(BuildConfig.CLIENT_ID)))
             startActivityForResult(intent, HttpURLConnection.HTTP_OK)
         }
+
+
     }
 
     override fun onNewIntent(intent: Intent?){

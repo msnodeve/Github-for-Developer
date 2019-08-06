@@ -5,18 +5,21 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import com.seok.gitfordeveloper.room.dao.UserDao
+import com.seok.gitfordeveloper.room.dao.UserInfoDao
 import com.seok.gitfordeveloper.room.model.User
+import com.seok.gitfordeveloper.room.model.UserInfo
 
-@Database(entities = [User::class], version = 2)
-abstract class UserDB: RoomDatabase() {
+@Database(entities = [User::class, UserInfo::class], version = 5)
+abstract class UsersDB: RoomDatabase() {
     abstract fun userDao(): UserDao
+    abstract fun userInfoDao(): UserInfoDao
     companion object {
-        private var INSTANCE: UserDB? = null
-        fun getInstance(context: Context): UserDB? {
+        private var INSTANCE: UsersDB? = null
+        fun getInstance(context: Context): UsersDB? {
             if (INSTANCE == null) {
-                synchronized(UserDB::class) {
+                synchronized(UsersDB::class) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
-                        UserDB::class.java, "user.db")
+                        UsersDB::class.java, "user.db")
                         .fallbackToDestructiveMigration()
                         .build()
                 }

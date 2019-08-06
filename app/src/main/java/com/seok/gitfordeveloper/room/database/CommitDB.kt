@@ -9,7 +9,7 @@ import com.seok.gitfordeveloper.room.dao.UserDao
 import com.seok.gitfordeveloper.room.model.Commit
 import com.seok.gitfordeveloper.room.model.User
 
-@Database(entities = [Commit::class], version = 1)
+@Database(entities = [Commit::class], version = 2)
 abstract class CommitDB: RoomDatabase() {
     abstract fun commitDao(): CommitDao
     companion object {
