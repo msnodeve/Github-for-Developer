@@ -15,8 +15,6 @@ interface CommitDao {
     @Query("SELECT * FROM 'commit' WHERE date=:date")
     fun getTodayCommit(date :String): Commit
 
-
-
     /* import android.arch.persistence.room.OnConflictStrategy.REPLACE */
     @Insert(onConflict = REPLACE)
     fun insert(commit: Commit)

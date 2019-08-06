@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.util.Log
+import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -17,7 +18,9 @@ import com.seok.gitfordeveloper.room.database.UsersDB
 import com.seok.gitfordeveloper.room.model.Commit
 import com.seok.gitfordeveloper.room.model.UserInfo
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.margin
 import org.jsoup.Jsoup
 import retrofit2.Call
 import retrofit2.Response
@@ -71,39 +74,45 @@ class MainActivity : AppCompatActivity() {
         doAsync { setUI() }
     }
 
+    private fun test() {
+        for (i in 0 until (53 * 7)) {
+            val layout = LinearLayout(this)
+            var param = LinearLayout.LayoutParams(65,65)
+            param.margin = 4
+            layout.layoutParams = param
+            val txt = TextView(this)
+            txt.text = i.toString()
+            layout.gravity = Gravity.CENTER
+            layout.addView(txt)
+            layout.backgroundColor = R.color.nonCommit
+            contribute.addView(layout)
+        }
+    }
+
     private fun setUI() {
         commits = commitDb?.commitDao()?.getAll()!!
         runOnUiThread {
-            var x = 0
-            var y = 0
+            contribute.columnCount = 53
+            contribute.rowCount = 7
             for (i in 0 until commits.size) {
-                if (i % 7 == 0 && i != 0) {
-                    x += 40
-                    y = 0
-                }
-                var topTv1 = TextView(this@MainActivity)
-                topTv1.layoutParams =
-                    LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ActionBar.LayoutParams.WRAP_CONTENT
-                    )
-                topTv1.setTextColor(Color.parseColor("#000000"))
+                Log.d("testtest", commits[i].date)
+                val layout = LinearLayout(this)
+                var param = LinearLayout.LayoutParams(65,65)
+                param.margin = 4
+                layout.layoutParams = param
+                val txt = TextView(this)
+                txt.text = commits[i].commit.toString()
+                layout.gravity = Gravity.CENTER
+                layout.addView(txt)
                 val count = commits[i].commit
-                val color = when {
-                    count == 0 -> "#ebedf0"
-                    count < 4 -> "#c6e48b"
-                    count < 7 -> "#7bc96f"
-                    count < 10 -> "#239a3b"
-                    else -> "#196127"
-                }
-                topTv1.setBackgroundColor(Color.parseColor(color))
-                topTv1.textSize = 12f
-                topTv1.setPadding(2, 0, 2, 0)
-                topTv1.text = count.toString()
-                topTv1.x = x.toFloat()
-                topTv1.y = y.toFloat()
-                dynamicArea.addView(topTv1)
-                y += 40
+                layout.backgroundColor = resources.getColor(when {
+                    count == 0 -> R.color.nonCommit
+                    count < 4 -> R.color.stCommit
+                    count < 7 -> R.color.ndCommit
+                    count < 10 -> R.color.thCommit
+                    else -> R.color.fiCommit
+                })
+                contribute.addView(layout)
             }
             try {
                 tv_today_commit.text = "Today commit : ${commits[commits.size - 1].commit}"
@@ -134,7 +143,7 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
 
         }
-        doAsync { setUI() }
+        // 새로 초기화해줘야할 것같다.
     }
 
 

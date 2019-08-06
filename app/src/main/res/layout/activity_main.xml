@@ -54,23 +54,21 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
+        <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" android:layout_weight="10">
             <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                <LinearLayout android:layout_width="wrap_content" android:layout_height="match_parent"
-                              android:orientation="vertical">
-                    <RelativeLayout
-                            android:orientation="vertical"
-                            android:layout_width="800dp"
-                            android:layout_height="match_parent" android:id="@+id/dynamicArea">
-                    </RelativeLayout>
-                </LinearLayout>
+                <android.support.v7.widget.GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:orientation="vertical"
+                        android:id="@+id/contribute">
+
+                </android.support.v7.widget.GridLayout>
             </HorizontalScrollView>
-        </LinearLayout>
+        </ScrollView>
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
