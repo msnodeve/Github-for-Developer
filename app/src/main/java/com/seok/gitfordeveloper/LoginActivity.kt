@@ -5,10 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.seok.gitfordeveloper.room.database.CommitDB
 import com.seok.gitfordeveloper.room.model.User
 import com.seok.gitfordeveloper.room.database.UsersDB
-import com.seok.gitfordeveloper.room.model.Commit
 import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.*
 import java.io.IOException

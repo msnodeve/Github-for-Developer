@@ -5,10 +5,10 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import java.util.*
 
-@Entity(tableName = "commit")
-class Commit(
+@Entity(tableName = "commits")
+class Commits(
     @PrimaryKey var date: String,
-    @ColumnInfo var commit: Int
+    @ColumnInfo var commits: Int
 ) {
     constructor() : this(Date(System.currentTimeMillis()).toString(), 0)
 }

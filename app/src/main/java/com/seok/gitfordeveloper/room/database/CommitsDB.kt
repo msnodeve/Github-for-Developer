@@ -4,21 +4,19 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
-import com.seok.gitfordeveloper.room.dao.CommitDao
-import com.seok.gitfordeveloper.room.dao.UserDao
-import com.seok.gitfordeveloper.room.model.Commit
-import com.seok.gitfordeveloper.room.model.User
+import com.seok.gitfordeveloper.room.dao.CommitsDao
+import com.seok.gitfordeveloper.room.model.Commits
 
-@Database(entities = [Commit::class], version = 2)
-abstract class CommitDB: RoomDatabase() {
-    abstract fun commitDao(): CommitDao
+@Database(entities = [Commits::class], version = 4)
+abstract class CommitsDB: RoomDatabase() {
+    abstract fun commitDao(): CommitsDao
     companion object {
-        private var INSTANCE: CommitDB? = null
-        fun getInstance(context: Context): CommitDB? {
+        private var INSTANCE: CommitsDB? = null
+        fun getInstance(context: Context): CommitsDB? {
             if (INSTANCE == null) {
-                synchronized(CommitDB::class) {
+                synchronized(CommitsDB::class) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
-                        CommitDB::class.java, "commit.db")
+                        CommitsDB::class.java, "commits.db")
                         .fallbackToDestructiveMigration()
                         .build()
                 }
