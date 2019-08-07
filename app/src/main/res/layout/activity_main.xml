@@ -9,16 +9,16 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:layout_weight="10">
+            android:layout_height="match_parent" android:layout_weight="10" android:background="@color/colorTopBar">
     </LinearLayout>
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:layout_weight="1">
+            android:layout_height="match_parent" android:layout_weight="1" android:layout_marginTop="10dp">
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="12">
+                android:layout_height="wrap_content">
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="7">
+                    android:layout_height="match_parent" android:layout_weight="5">
                 <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="match_parent"
@@ -54,25 +54,78 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-        <ScrollView
+        <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="10">
-            <HorizontalScrollView
+                android:layout_height="wrap_content" android:layout_marginLeft="5dp" android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp" android:layout_marginBottom="10dp">
+            <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                <android.support.v7.widget.GridLayout
+                    android:layout_height="match_parent" android:layout_weight="10">
+                <TextView
+                        android:text="MON"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:orientation="vertical"
-                        android:id="@+id/contribute">
+                        android:layout_height="match_parent" android:id="@+id/textView" android:layout_weight="10"
+                        android:gravity="center"/>
+                <TextView
+                        android:text="TUE"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:id="@+id/textView2" android:layout_weight="10"
+                        android:gravity="center"/>
+                <TextView
+                        android:text="WEN"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:id="@+id/textView3" android:layout_weight="10"
+                        android:gravity="center"/>
+                <TextView
+                        android:text="THU"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:id="@+id/textView4" android:layout_weight="10"
+                        android:gravity="center"/>
+                <TextView
+                        android:text="FRI"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:id="@+id/textView5" android:layout_weight="10"
+                        android:gravity="center"/>
+                <TextView
+                        android:text="SAT"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:id="@+id/textView6" android:layout_weight="10"
+                        android:gravity="center"/>
+                <TextView
+                        android:text="SUN"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:id="@+id/textView7" android:layout_weight="10"
+                        android:gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:layout_weight="1">
+                <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none">
+                    <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/scroll_contribute"
+                            android:scrollbars="none">
+                        <android.support.v7.widget.GridLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:orientation="vertical"
+                                android:id="@+id/contribute">
 
-                </android.support.v7.widget.GridLayout>
-            </HorizontalScrollView>
-        </ScrollView>
+                        </android.support.v7.widget.GridLayout>
+                    </HorizontalScrollView>
+                </ScrollView>
+            </LinearLayout>
+        </LinearLayout>
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="10">
-        </LinearLayout>
+                android:layout_height="match_parent"/>
     </LinearLayout>
 </LinearLayout>
