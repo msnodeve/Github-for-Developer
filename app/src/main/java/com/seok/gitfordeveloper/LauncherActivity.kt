@@ -14,6 +14,6 @@ class LauncherActivity : AppCompatActivity() {
         Handler().postDelayed({
             startActivity(Intent(this,LoginActivity::class.java))
             finish()
-        }, 100)
+        }, 1000)
     }
 }

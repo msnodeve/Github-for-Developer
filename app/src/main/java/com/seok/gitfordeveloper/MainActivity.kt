@@ -14,9 +14,7 @@ import com.seok.gitfordeveloper.room.model.User
 import com.seok.gitfordeveloper.room.database.UsersDB
 import com.seok.gitfordeveloper.room.model.Commits
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.margin
+import org.jetbrains.anko.*
 import org.jsoup.Jsoup
 import retrofit2.Call
 import retrofit2.Response
@@ -25,10 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     private var usersDb: UsersDB? = null
     private var commitDb: CommitsDB? = null
-
     private var user = User()
     private var commits = listOf<Commits>()
-    private var commit = Commits()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +33,7 @@ class MainActivity : AppCompatActivity() {
         usersDb = UsersDB.getInstance(this)
         commitDb = CommitsDB.getInstance(this)
 
-//        Thread(Runnable {
-//            usersDb?.userDao()?.deleteAll()
-//            usersDb?.userInfoDao()?.deleteAll()
-//            commitDb?.commitDao()?.deleteAll()
-//        }).start()
+        longToast("로딩 중 입니다.\n잠시만 기다려주세요.")
 
         Thread(Runnable {
             try {
@@ -74,25 +66,28 @@ class MainActivity : AppCompatActivity() {
         commits = commitDb?.commitDao()?.getAll()!!
         val maxCommit = commitDb?.commitDao()?.getMaxCommit()?.commits
         runOnUiThread {
-            contribute.columnCount = commits.size/7 + 1
+            contribute.removeAllViews()
+            contribute.columnCount = commits.size / 7 + 1
             contribute.rowCount = 7
             for (i in 0 until commits.size) {
-                val layout = LinearLayout(this)
-                var param = LinearLayout.LayoutParams(65,65)
+                val layout = LinearLayout(this@MainActivity)
+                val param = LinearLayout.LayoutParams(65, 65)
                 param.margin = 4
                 layout.layoutParams = param
-                val txt = TextView(this)
+                val txt = TextView(this@MainActivity)
                 txt.text = commits[i].commits.toString()
                 layout.gravity = Gravity.CENTER
                 layout.addView(txt)
                 val count = commits[i].commits
-                layout.backgroundColor = resources.getColor(when {
-                    count == 0 -> R.color.nonCommit
-                    count < maxCommit!! /4 -> R.color.stCommit
-                    count < maxCommit!!/2 -> R.color.ndCommit
-                    count < maxCommit!!/8*5 -> R.color.thCommit
-                    else -> R.color.fiCommit
-                })
+                layout.backgroundColor = resources.getColor(
+                    when {
+                        count == 0 -> R.color.nonCommit
+                        count < maxCommit!! / 4 -> R.color.stCommit
+                        count < maxCommit!! / 2 -> R.color.ndCommit
+                        count < maxCommit!! / 8 * 5 -> R.color.thCommit
+                        else -> R.color.fiCommit
+                    }
+                )
                 contribute.addView(layout)
             }
             try {
@@ -102,6 +97,7 @@ class MainActivity : AppCompatActivity() {
                 Log.e(this@MainActivity.localClassName, e.message.toString())
             }
         }
+        scroll_contribute.smoothScrollTo(contribute.width, contribute.height)
     }
 
     fun getCommits(url: String) {
@@ -124,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
 
         }
-        // 새로 초기화해줘야할 것같다.
+        doAsync { setUI() }
     }
 
     override fun onDestroy() {
