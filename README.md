@@ -3,4 +3,4 @@
 
 ***
 
-v1.0.0 작업중입니다.
+v1.0.0 릴리즈 [Google Paly Store](https://play.google.com/store/apps/details?id=com.seok.gitfordeveloper)
