@@ -1,10 +1,14 @@
-package com.seok.gitfordeveloper.retrofit.models
+package com.seok.gitfordeveloper.retrofit.domain
 
+import lombok.Getter
+import lombok.Setter
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
 
-data class GithubApiUserInfo (
+@Getter
+@Setter
+public class GithubUser (
     val login: String,
     val id: Long,
     val node_id: String,
@@ -35,9 +39,6 @@ data class GithubApiUserInfo (
     val followers: Long,
     val following: Long,
     val created_at: String,
-    val updated_at: String
+    val updated_at: String,
+    val message: String
 )
-interface UserInfoApi {
-    @GET("user")
-    fun getUserInfo(@Header("Authorization") token: String): Call<GithubApiUserInfo>
-}

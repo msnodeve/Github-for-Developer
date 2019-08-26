@@ -7,7 +7,6 @@ apply plugin: 'kotlin-android-extensions'
 // https://medium.com/@android2ee/playing-with-gradle-3-and-some-few-code-coverage-on-android-with-jacoco-47df7c9328ae
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'jacoco-android'
-apply plugin: 'kotlin-android-extensions' // 익스텐션 플러그인 적용
 // https://blog.yena.io/studynote/2018/09/08/Android-Kotlin-Room.html
 // https://kotlinlang.org/docs/reference/using-gradle.html
 apply plugin: 'kotlin-kapt'
@@ -18,7 +17,7 @@ android {
         applicationId "com.seok.gitfordeveloper"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 2
+        versionCode 3
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -27,12 +26,17 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             testCoverageEnabled false
+//            buildConfigField "String", "CLIENT_ID", CLIENT_ID
+//            buildConfigField "String", "CLIENT_SECRET", CLIENT_SECRET
+//            buildConfigField "String", "CALLBACK_URL", CALLBACK_URL
         }
         debug {
             testCoverageEnabled true
-            buildConfigField "String", "CLIENT_ID", CLIENT_ID
-            buildConfigField "String", "CLIENT_SECRET", CLIENT_SECRET
-            buildConfigField "String", "CALLBACK_URL", CALLBACK_URL
+            buildConfigField "String", "GITHUB_CLIENT_ID", GITHUB_CLIENT_ID
+            buildConfigField "String", "GITHUB_CLIENT_SECRET", GITHUB_CLIENT_SECRET
+            buildConfigField "String", "REDIRECT_CALLBACK_URL", REDIRECT_CALLBACK_URL
+            buildConfigField "String", "PREFERENCES_FILE", PREFERENCES_FILE
+            buildConfigField "String", "PREFERENCES_TOKEN_KEY", PREFERENCES_TOKEN_KEY
         }
     }
     compileOptions {
@@ -86,12 +90,15 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.6.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
 
     // room
-    implementation "android.arch.persistence.room:runtime:1.1.1"
-    kapt "android.arch.persistence.room:compiler:1.1.1"
-    kaptTest "android.arch.persistence.room:testing:1.1.1"
+    implementation "android.arch.persistence.room:runtime:$rootProject.room_version"
+    kapt "android.arch.persistence.room:compiler:$rootProject.room_version"
+    kaptTest "android.arch.persistence.room:testing:$rootProject.room_version"
+
+    // Lifecycle components
+    implementation "android.arch.lifecycle:extensions:$rootProject.archlifecycle_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archlifecycle_version"
 
     // Using the Glide Library for Image loading
     implementation 'com.github.bumptech.glide:glide:4.4.0'
@@ -99,6 +106,10 @@ dependencies {
 
     //jsoup, anko
     implementation 'org.jsoup:jsoup:1.11.3'
-    implementation "org.jetbrains.anko:anko:$anko_version"
+    implementation "org.jetbrains.anko:anko:$rootProject.anko_version"
     implementation 'com.android.support:gridlayout-v7:28.0.0'
+
+    //lombok
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
 }

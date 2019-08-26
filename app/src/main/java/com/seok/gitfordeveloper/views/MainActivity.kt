@@ -1,4 +1,4 @@
-package com.seok.gitfordeveloper
+package com.seok.gitfordeveloper.views
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -7,8 +7,9 @@ import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.seok.gitfordeveloper.R
 import com.seok.gitfordeveloper.retrofit.ApiUtils
-import com.seok.gitfordeveloper.retrofit.models.GithubApiUserInfo
+import com.seok.gitfordeveloper.retrofit.domain.GithubUser
 import com.seok.gitfordeveloper.room.database.CommitsDB
 import com.seok.gitfordeveloper.room.model.User
 import com.seok.gitfordeveloper.room.database.UsersDB
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private var usersDb: UsersDB? = null
     private var commitDb: CommitsDB? = null
-    private var user = User()
+    private var user = User("","",true,"")
     private var commits = listOf<Commits>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,14 +38,15 @@ class MainActivity : AppCompatActivity() {
 
         Thread(Runnable {
             try {
-                user = usersDb?.userDao()?.getUser(BuildConfig.CLIENT_ID)!!
-                ApiUtils.getUserService().getUserInfo("token " + user.token)
-                    .enqueue(object : retrofit2.Callback<GithubApiUserInfo> {
-                        override fun onFailure(call: Call<GithubApiUserInfo>, t: Throwable) {
+                val usersDb1 = usersDb
+//                user = (if (usersDb1 != null) usersDb1.userDao() else null)?.getUser(BuildConfig.CLIENT_ID)!!
+                ApiUtils.getUserService().getGithubApi("token " + user.token)
+                    .enqueue(object : retrofit2.Callback<GithubUser> {
+                        override fun onFailure(call: Call<GithubUser>, t: Throwable) {
                             Log.d(this@MainActivity.localClassName, t.message)
                         }
 
-                        override fun onResponse(call: Call<GithubApiUserInfo>, response: Response<GithubApiUserInfo>) {
+                        override fun onResponse(call: Call<GithubUser>, response: Response<GithubUser>) {
                             if (response.isSuccessful) {
                                 val body = response.body()
                                 tv_user_id.text = body?.login

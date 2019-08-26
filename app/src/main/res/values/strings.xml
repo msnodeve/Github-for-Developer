@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Git for developer</string>
+
+    <string name="no_token">Empty Token</string>
+
+    <string name="github_base_url">https://api.github.com/</string>
+    <string name="github_oauth_url">https://github.com/login/oauth/authorize</string>
+
 </resources>
