@@ -1,9 +1,9 @@
 package com.seok.gitfordeveloper.room.repository
 
 import android.app.Application
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import android.database.Observable
 import com.seok.gitfordeveloper.room.dao.UserDao
 import com.seok.gitfordeveloper.room.database.UserDB

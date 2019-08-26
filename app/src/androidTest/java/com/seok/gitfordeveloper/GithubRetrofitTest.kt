@@ -1,6 +1,6 @@
 package com.seok.gitfordeveloper
 
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.seok.gitfordeveloper.retrofit.domain.GithubUser
 import com.seok.gitfordeveloper.retrofit.service.GithubUserService
 import org.junit.Before

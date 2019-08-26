@@ -1,8 +1,8 @@
 package com.seok.gitfordeveloper
 
-import android.arch.persistence.room.Room
-import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
+import androidx.room.Room
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import android.util.Log
 import com.seok.gitfordeveloper.room.dao.CommitsDao
 import com.seok.gitfordeveloper.room.database.CommitsDB

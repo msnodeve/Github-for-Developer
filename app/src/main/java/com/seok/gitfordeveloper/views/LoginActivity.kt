@@ -3,8 +3,8 @@ package com.seok.gitfordeveloper.views
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.annotation.RequiresPermission
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.RequiresPermission
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import com.seok.gitfordeveloper.AuthGithub
 import com.seok.gitfordeveloper.BuildConfig

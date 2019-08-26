@@ -1,12 +1,16 @@
 package com.seok.gitfordeveloper.views
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.seok.gitfordeveloper.R
 import com.seok.gitfordeveloper.retrofit.ApiUtils
 import com.seok.gitfordeveloper.retrofit.domain.GithubUser
@@ -31,6 +35,40 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        MobileAds.initialize(this, getString(R.string.admob_app_id))
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+
+
+        adView.adListener = object : AdListener(){
+            override fun onAdImpression() {
+                super.onAdImpression()
+            }
+
+            override fun onAdLeftApplication() {
+                super.onAdLeftApplication()
+            }
+
+            override fun onAdClicked() {
+                super.onAdClicked()
+            }
+
+            override fun onAdFailedToLoad(p0: Int) {
+                super.onAdFailedToLoad(p0)
+            }
+
+            override fun onAdClosed() {
+                super.onAdClosed()
+            }
+
+            override fun onAdOpened() {
+                super.onAdOpened()
+            }
+
+            override fun onAdLoaded() {
+                super.onAdLoaded()
+            }
+        }
         usersDb = UsersDB.getInstance(this)
         commitDb = CommitsDB.getInstance(this)
 
@@ -129,4 +167,6 @@ class MainActivity : AppCompatActivity() {
         UsersDB.destroyInstance()
         super.onDestroy()
     }
+
+
 }

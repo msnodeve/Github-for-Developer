@@ -112,20 +112,33 @@
                             android:layout_height="match_parent"
                             android:id="@+id/scroll_contribute"
                             android:scrollbars="none">
-                        <android.support.v7.widget.GridLayout
+                        <androidx.gridlayout.widget.GridLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 app:orientation="vertical"
                                 android:id="@+id/contribute">
 
-                        </android.support.v7.widget.GridLayout>
+                        </androidx.gridlayout.widget.GridLayout>
                     </HorizontalScrollView>
                 </ScrollView>
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical" >
+
+            <com.google.android.gms.ads.AdView
+                    android:id="@+id/adView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    app:adSize="BANNER"
+                    app:adUnitId="@string/banner_ad_unit_id_for_test"></com.google.android.gms.ads.AdView>
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

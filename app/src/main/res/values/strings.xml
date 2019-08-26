@@ -5,5 +5,8 @@
 
     <string name="github_base_url">https://api.github.com/</string>
     <string name="github_oauth_url">https://github.com/login/oauth/authorize</string>
-
+    
+    <string name="admob_app_id">ca-app-pub-2766237193476584~8461542866</string>
+    <string name="banner_ad_unit_id">ca-app-pub-2766237193476584/5575239666</string>
+    <string name="banner_ad_unit_id_for_test">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

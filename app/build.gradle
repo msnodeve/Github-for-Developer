@@ -15,11 +15,11 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.seok.gitfordeveloper"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 3
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -64,16 +64,16 @@ jacocoAndroidUnitTestReport {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     // test implementation
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.robolectric:robolectric:3.4.2'
     testImplementation 'org.powermock:powermock-api-mockito:1.4.12'
     testImplementation 'org.powermock:powermock-module-junit4:1.6.2'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test:rules:1.1.0'
     androidTestImplementation 'androidx.test:core:1.0.0'
@@ -81,6 +81,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.0.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
+
+    // Google Ads
+    implementation 'com.google.android.gms:play-services-ads:18.1.1'
 
     // OkHttp && logger
     implementation 'com.squareup.okhttp3:okhttp:3.8.1'
@@ -92,13 +95,13 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
 
     // room
-    implementation "android.arch.persistence.room:runtime:$rootProject.room_version"
-    kapt "android.arch.persistence.room:compiler:$rootProject.room_version"
-    kaptTest "android.arch.persistence.room:testing:$rootProject.room_version"
+    implementation 'androidx.room:room-runtime:2.0.0'
+    kapt 'androidx.room:room-compiler:2.0.0'
+    kaptTest 'androidx.room:room-testing:2.0.0'
 
     // Lifecycle components
-    implementation "android.arch.lifecycle:extensions:$rootProject.archlifecycle_version"
-    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archlifecycle_version"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.0.0'
 
     // Using the Glide Library for Image loading
     implementation 'com.github.bumptech.glide:glide:4.4.0'
@@ -107,7 +110,7 @@ dependencies {
     //jsoup, anko
     implementation 'org.jsoup:jsoup:1.11.3'
     implementation "org.jetbrains.anko:anko:$rootProject.anko_version"
-    implementation 'com.android.support:gridlayout-v7:28.0.0'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
 
     //lombok
     compileOnly 'org.projectlombok:lombok:1.18.8'
