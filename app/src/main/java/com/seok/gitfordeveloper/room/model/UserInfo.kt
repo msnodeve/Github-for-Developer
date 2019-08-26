@@ -8,7 +8,7 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "userinfo",
     foreignKeys = [ForeignKey(entity = User::class,
-        parentColumns = arrayOf("mac"),
+        parentColumns = arrayOf("user_id"),
         childColumns = arrayOf("id"),
         onDelete = CASCADE)]
 )
