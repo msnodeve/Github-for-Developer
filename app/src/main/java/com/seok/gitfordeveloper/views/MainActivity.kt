@@ -7,10 +7,9 @@ import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.seok.gitfordeveloper.BuildConfig
 import com.seok.gitfordeveloper.R
 import com.seok.gitfordeveloper.retrofit.ApiUtils
 import com.seok.gitfordeveloper.retrofit.domain.GithubUser
@@ -26,6 +25,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
+    private var accessToken: String = ""
+
     private var usersDb: UsersDB? = null
     private var commitDb: CommitsDB? = null
     private var user = User("","",true,"")
@@ -35,40 +36,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        MobileAds.initialize(this, getString(R.string.admob_app_id))
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
+        init()
 
-
-        adView.adListener = object : AdListener(){
-            override fun onAdImpression() {
-                super.onAdImpression()
-            }
-
-            override fun onAdLeftApplication() {
-                super.onAdLeftApplication()
-            }
-
-            override fun onAdClicked() {
-                super.onAdClicked()
-            }
-
-            override fun onAdFailedToLoad(p0: Int) {
-                super.onAdFailedToLoad(p0)
-            }
-
-            override fun onAdClosed() {
-                super.onAdClosed()
-            }
-
-            override fun onAdOpened() {
-                super.onAdOpened()
-            }
-
-            override fun onAdLoaded() {
-                super.onAdLoaded()
-            }
-        }
         usersDb = UsersDB.getInstance(this)
         commitDb = CommitsDB.getInstance(this)
 
@@ -101,7 +70,14 @@ class MainActivity : AppCompatActivity() {
         }).start()
         doAsync { setUI() }
     }
-
+    private fun init(){
+        val pref = getSharedPreferences(BuildConfig.PREFERENCES_FILE, MODE_PRIVATE)
+        accessToken = pref.getString(BuildConfig.PREFERENCES_TOKEN_KEY,null)
+        Log.d("test", accessToken)
+        MobileAds.initialize(this, getString(R.string.admob_app_id))
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+    }
     private fun setUI() {
         commits = commitDb?.commitDao()?.getAll()!!
         val maxCommit = commitDb?.commitDao()?.getMaxCommit()?.commits

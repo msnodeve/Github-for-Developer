@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -7,23 +7,20 @@
         tools:context=".views.LoginActivity" android:orientation="vertical">
 
     <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounding_background"
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" android:layout_weight="10">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+                android:id="@+id/login_img_login"
+                android:layout_width="300sp"
+                android:layout_height="100sp"
+                app:srcCompat="@drawable/github_logo_white" />
     </LinearLayout>
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" android:layout_weight="1" android:gravity="center">
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="70dp" android:layout_marginLeft="50dp" android:layout_marginRight="50dp"
-                android:background="@drawable/rounding_background">
-            <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" app:srcCompat="@drawable/github_logo_white"
-                    android:id="@+id/login_img_login"/>
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
