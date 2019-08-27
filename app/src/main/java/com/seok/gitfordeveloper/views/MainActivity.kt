@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private var usersDb: UsersDB? = null
     private var commitDb: CommitsDB? = null
-    private var user = User("","",true,"")
+    private var user = User("", "", true, "")
     private var commits = listOf<Commits>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,12 +37,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         init()
-
-        usersDb = UsersDB.getInstance(this)
-        commitDb = CommitsDB.getInstance(this)
-
         longToast("로딩 중 입니다.\n잠시만 기다려주세요.")
 
+//        usersDb = UsersDB.getInstance(this)
+//        commitDb = CommitsDB.getInstance(this)
+
+    }
+    private fun init() {
+        val pref = getSharedPreferences(BuildConfig.PREFERENCES_FILE, MODE_PRIVATE)
+        accessToken = pref.getString(BuildConfig.PREFERENCES_TOKEN_KEY, null)
+        Log.d("test", accessToken)
+        MobileAds.initialize(this, getString(R.string.admob_app_id))
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+    }
+    private fun 이전() {
         Thread(Runnable {
             try {
                 val usersDb1 = usersDb
@@ -53,12 +62,16 @@ class MainActivity : AppCompatActivity() {
                             Log.d(this@MainActivity.localClassName, t.message)
                         }
 
-                        override fun onResponse(call: Call<GithubUser>, response: Response<GithubUser>) {
+                        override fun onResponse(
+                            call: Call<GithubUser>,
+                            response: Response<GithubUser>
+                        ) {
                             if (response.isSuccessful) {
                                 val body = response.body()
                                 tv_user_id.text = body?.login
                                 tv_github_url.text = body?.html_url
-                                Glide.with(this@MainActivity).load(body?.avatar_url).into(user_img_profile)
+                                Glide.with(this@MainActivity).load(body?.avatar_url)
+                                    .into(user_img_profile)
                                 doAsync { getCommits(body?.html_url.toString()) }
                             }
                         }
@@ -70,14 +83,9 @@ class MainActivity : AppCompatActivity() {
         }).start()
         doAsync { setUI() }
     }
-    private fun init(){
-        val pref = getSharedPreferences(BuildConfig.PREFERENCES_FILE, MODE_PRIVATE)
-        accessToken = pref.getString(BuildConfig.PREFERENCES_TOKEN_KEY,null)
-        Log.d("test", accessToken)
-        MobileAds.initialize(this, getString(R.string.admob_app_id))
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
-    }
+
+
+
     private fun setUI() {
         commits = commitDb?.commitDao()?.getAll()!!
         val maxCommit = commitDb?.commitDao()?.getMaxCommit()?.commits
@@ -123,7 +131,8 @@ class MainActivity : AppCompatActivity() {
         var i = 1
         try {
             while (doc.select("g").select("rect")[i].toString().startsWith("<rect class")) {
-                val matchResult: MatchResult? = regex.find(doc.select("g").select("rect")[i++].toString())
+                val matchResult: MatchResult? =
+                    regex.find(doc.select("g").select("rect")[i++].toString())
                 val value = matchResult!!.value.replace("\"", "")
                 val split: List<String> = value.split(" ")
                 val commitCount: List<String> = split[0].split("=")
