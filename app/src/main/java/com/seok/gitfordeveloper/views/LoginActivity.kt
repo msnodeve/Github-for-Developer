@@ -3,7 +3,6 @@ package com.seok.gitfordeveloper.views
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.annotation.RequiresPermission
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import com.seok.gitfordeveloper.AuthGithub
@@ -11,30 +10,34 @@ import com.seok.gitfordeveloper.BuildConfig
 import com.seok.gitfordeveloper.R
 import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.*
-import retrofit2.Retrofit
 import java.io.IOException
 import java.net.HttpURLConnection
 
 
-import android.Manifest.permission.INTERNET
-import com.seok.gitfordeveloper.retrofit.domain.GithubUser
-import com.seok.gitfordeveloper.retrofit.service.GithubUserService
-import retrofit2.converter.gson.GsonConverterFactory
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.seok.gitfordeveloper.retrofit.service.UserService
+import com.seok.gitfordeveloper.viewmodel.LoginViewModel
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var githubUserService: GithubUserService
-
+    private lateinit var viewModel : LoginViewModel
+    private lateinit var githubUserService: UserService
     private  lateinit var authGithub: AuthGithub
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        init()
-        initRetrofit()
-        setUp()
+        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+
+        viewModel.getGithubApi("cd967ce5f09cdded2c3a5968552d3de7ffb2ad7c").observe(this, Observer {test->
+            textView8.text = test.avatar_url
+        })
+
+//        init()
+//        setUp()
 
         login_img_login.setOnClickListener{
             requestIntent()
@@ -44,34 +47,25 @@ class LoginActivity : AppCompatActivity() {
         authGithub = AuthGithub()
     }
 
-    @RequiresPermission(allOf=[INTERNET])
-    private fun initRetrofit(){
-        val retrofit = Retrofit.Builder()
-            .baseUrl(getString(R.string.github_base_url))
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        githubUserService = retrofit.create(GithubUserService::class.java)
-    }
-
     private fun setUp(){
         val accessToken = getAccessToken()
         if(accessToken != getString(R.string.no_token)){
             val validApiCall = githubUserService.getGithubApi("Bearer $accessToken")
-            validApiCall.enqueue(object : retrofit2.Callback<GithubUser>{
-                override fun onResponse(call: retrofit2.Call<GithubUser>, response: retrofit2.Response<GithubUser>) {
-                    if(response.isSuccessful){
-                        if(response.body()==null){
-                            // 토큰은 저장되어있으나 맞지 않는 토큰 일경우 로그인 버튼 자동 클릭
-                            requestIntent()
-                        }else{
-                            goToMainActivity()
-                        }
-                    }
-                }
-                override fun onFailure(call: retrofit2.Call<GithubUser>, t: Throwable) {
-                    Log.e(this.javaClass.simpleName, t.message.toString())
-                }
-            })
+//            validApiCall.enqueue(object : retrofit2.Callback<User>{
+//                override fun onResponse(call: retrofit2.Call<User>, response: retrofit2.Response<User>) {
+//                    if(response.isSuccessful){
+//                        if(response.body()==null){
+//                            // 토큰은 저장되어있으나 맞지 않는 토큰 일경우 로그인 버튼 자동 클릭
+//                            requestIntent()
+//                        }else{
+//                            goToMainActivity()
+//                        }
+//                    }
+//                }
+//                override fun onFailure(call: retrofit2.Call<User>, t: Throwable) {
+//                    Log.e(this.javaClass.simpleName, t.message.toString())
+//                }
+//            })
 
         }
     }
@@ -127,7 +121,7 @@ class LoginActivity : AppCompatActivity() {
             .add("code", code)
             .build()
         return Request.Builder()
-            .url("https://github.com/login/oauth/access_token")
+            .url(getString(R.string.github_oauth_url))
             .post(form)
             .build()
     }

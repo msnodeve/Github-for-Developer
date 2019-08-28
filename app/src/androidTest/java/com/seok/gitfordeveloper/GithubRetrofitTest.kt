@@ -1,8 +1,7 @@
 package com.seok.gitfordeveloper
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.seok.gitfordeveloper.retrofit.domain.GithubUser
-import com.seok.gitfordeveloper.retrofit.service.GithubUserService
+import com.seok.gitfordeveloper.retrofit.service.UserService
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -15,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class GithubRetrofitTest {
     private val TAG = javaClass.simpleName
 
-    private lateinit var githubUserService : GithubUserService
+    private lateinit var githubUserService : UserService
 
     @Before
     fun setUp(){
@@ -24,7 +23,7 @@ class GithubRetrofitTest {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        githubUserService = retrofit.create(GithubUserService::class.java)
+        githubUserService = retrofit.create(UserService::class.java)
     }
 
     @Test
