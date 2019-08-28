@@ -12,7 +12,7 @@ import retrofit2.http.Header
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
+class User {
     var login: String = ""
     var id: Long = 0
     var node_id: String = ""
@@ -44,11 +44,15 @@ public class User {
     var following: Long = 0
     var created_at: String = ""
     var updated_at: String = ""
-    var message: String = ""
+    var code: Int = 0
 
-    constructor(login: String, html_url: String, avatar_url: String) {
+    constructor(login: String, html_url: String, avatar_url: String, code : Int) {
         this.login = login
         this.html_url = html_url
         this.avatar_url = avatar_url
+        this.code = code
+    }
+    constructor(code : Int){
+        this.code = code
     }
 }
