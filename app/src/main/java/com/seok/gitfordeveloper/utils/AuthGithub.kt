@@ -1,4 +1,4 @@
-package com.seok.gitfordeveloper
+package com.seok.gitfordeveloper.utils
 
 import okhttp3.HttpUrl
 import java.net.URI

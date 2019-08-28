@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             tv_user_id.text = pref.getString(getString(R.string.user_id),null)
             tv_github_url.text = pref.getString(getString(R.string.user_url),null)
         }else{
-            val getUserInfoCall = githubUserService.getGithubApi("token $accessToken")
+            val getUserInfoCall = githubUserService.githubUserApi("token $accessToken")
 //            getUserInfoCall.enqueue(object : Callback<User>{
 //                override fun onResponse(call: Call<User>, response: Response<User>) {
 //                    if(response.isSuccessful) {
@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 val usersDb1 = usersDb
 //                user = (if (usersDb1 != null) usersDb1.userDao() else null)?.getUser(BuildConfig.CLIENT_ID)!!
-//                ApiUtils.getUserService().getGithubApi("token " + user.token)
+//                ApiUtils.getUserService().githubUserApi("token " + user.token)
 //                    .enqueue(object : Callback<User> {
 //                        override fun onFailure(call: Call<User>, t: Throwable) {
 //                            Log.d(this@MainActivity.localClassName, t.message)
