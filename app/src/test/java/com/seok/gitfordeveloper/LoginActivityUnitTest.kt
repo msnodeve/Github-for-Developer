@@ -1,5 +1,6 @@
 package com.seok.gitfordeveloper
 
+import com.seok.gitfordeveloper.utils.AuthGithub
 import org.junit.Assert
 import org.junit.Test
 

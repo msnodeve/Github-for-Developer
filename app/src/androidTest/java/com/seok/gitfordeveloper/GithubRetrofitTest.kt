@@ -28,7 +28,7 @@ class GithubRetrofitTest {
 
     @Test
     fun 깃허브_엑세스_토큰_테스트(){
-        val getAccessTokenCall = githubUserService.getGithubApi("Bearer e339b92de18be7529bc27c28e3ee4d6ad7994fb7")
+        val getAccessTokenCall = githubUserService.githubUserApi("Bearer e339b92de18be7529bc27c28e3ee4d6ad7994fb7")
         val getAccessTokenRes = getAccessTokenCall.execute()
         assert(getAccessTokenRes.isSuccessful)
         val body = getAccessTokenRes.body()
