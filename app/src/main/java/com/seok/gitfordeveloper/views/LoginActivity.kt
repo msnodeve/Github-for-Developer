@@ -4,8 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import android.util.Log
-import com.seok.gitfordeveloper.utils.AuthGithub
 import com.seok.gitfordeveloper.BuildConfig
 import com.seok.gitfordeveloper.R
 import kotlinx.android.synthetic.main.activity_login.*
@@ -14,7 +12,7 @@ import java.net.HttpURLConnection
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.seok.gitfordeveloper.utils.SharedPreference
+import com.seok.gitfordeveloper.utils.AuthToken
 import com.seok.gitfordeveloper.viewmodel.LoginViewModel
 import org.jetbrains.anko.longToast
 
@@ -22,27 +20,26 @@ import org.jetbrains.anko.longToast
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var viewModel: LoginViewModel
-    private lateinit var sharedReference: SharedPreference
-    private lateinit var authGithub: AuthGithub
+    private lateinit var authToken: AuthToken
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         init()
         checkForSignIn()
-
         login_img_login.setOnClickListener {
-            requestIntent()
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(authToken.buildHttpUrl(BuildConfig.GITHUB_CLIENT_ID)))
+            startActivityForResult(intent, HttpURLConnection.HTTP_OK)
         }
     }
 
     private fun init() {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
-        sharedReference = SharedPreference(application)
-        authGithub = AuthGithub()
+        authToken = AuthToken(application)
     }
+
     private fun checkForSignIn() {
-        val accessToken = getToken()
+        val accessToken = authToken.getToken(BuildConfig.PREFERENCES_TOKEN_KEY)
         if (accessToken != getString(R.string.no_token)) {
             viewModel.githubUserApi(accessToken).observe(this, Observer { body ->
                 if (body.code == HttpURLConnection.HTTP_OK) {
@@ -56,31 +53,18 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun getToken(): String {
-        return if (sharedReference.checkForToken(BuildConfig.PREFERENCES_TOKEN_KEY)) {
-            sharedReference.getToken(BuildConfig.PREFERENCES_TOKEN_KEY)
-        } else {
-            getString(R.string.no_token)
-        }
-    }
-
-    private fun requestIntent() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(authGithub.buildHttpUrl(BuildConfig.GITHUB_CLIENT_ID)))
-        startActivityForResult(intent, HttpURLConnection.HTTP_OK)
-    }
-
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         val uri = intent!!.data
-        val authGithub = AuthGithub()
-        val code = authGithub.getCode(uri.toString())
+        val code = authToken.getCode(uri.toString())
         getAccessToken(code)
     }
+
     private fun getAccessToken(code:String){
         viewModel.getGithubCode(BuildConfig.GITHUB_CLIENT_ID, BuildConfig.GITHUB_CLIENT_SECRET,code)
             .observe(this, Observer { body ->
                 if(body.code == HttpURLConnection.HTTP_OK) {
-                    sharedReference.editToken(BuildConfig.PREFERENCES_TOKEN_KEY, body.access_token)
+                    authToken.editToken(BuildConfig.PREFERENCES_TOKEN_KEY, body.access_token)
                     goToMainActivity()
                 }else{
                     longToast(getString(R.string.invalid_token))

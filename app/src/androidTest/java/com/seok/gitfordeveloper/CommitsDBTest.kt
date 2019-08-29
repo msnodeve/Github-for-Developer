@@ -24,8 +24,8 @@ class CommitsDBTest {
     @Before
     @Throws(Exception::class)
     fun start() {
-        val context = InstrumentationRegistry.getTargetContext()
-        commitsDB = Room.inMemoryDatabaseBuilder(context, CommitsDB::class.java).build()
+//        val context = InstrumentationRegistry.getTargetContext()
+//        commitsDB = Room.inMemoryDatabaseBuilder(context, CommitsDB::class.java).build()
         commitsDao = commitsDB.commitDao()
     }
 
