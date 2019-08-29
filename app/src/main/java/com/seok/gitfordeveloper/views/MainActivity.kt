@@ -14,10 +14,10 @@ import com.google.android.gms.ads.MobileAds
 import com.seok.gitfordeveloper.BuildConfig
 import com.seok.gitfordeveloper.R
 import com.seok.gitfordeveloper.retrofit.service.UserService
-import com.seok.gitfordeveloper.room.database.CommitsDB
-import com.seok.gitfordeveloper.room.database.UsersDB
-import com.seok.gitfordeveloper.room.model.Commits
-import com.seok.gitfordeveloper.room.model.User
+import com.seok.gitfordeveloper.database.database.CommitsDB
+import com.seok.gitfordeveloper.database.database.UsersDB
+import com.seok.gitfordeveloper.database.model.Commits
+import com.seok.gitfordeveloper.database.model.User
 import com.seok.gitfordeveloper.utils.AuthUserInfo
 import com.seok.gitfordeveloper.utils.AuthUserToken
 import com.seok.gitfordeveloper.viewmodel.MainViewModel

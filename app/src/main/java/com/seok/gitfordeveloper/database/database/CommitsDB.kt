@@ -1,11 +1,11 @@
-package com.seok.gitfordeveloper.room.database
+package com.seok.gitfordeveloper.database.database
 
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import android.content.Context
-import com.seok.gitfordeveloper.room.dao.CommitsDao
-import com.seok.gitfordeveloper.room.model.Commits
+import com.seok.gitfordeveloper.database.dao.CommitsDao
+import com.seok.gitfordeveloper.database.model.Commits
 
 @Database(entities = [Commits::class], version = 4)
 abstract class CommitsDB: RoomDatabase() {

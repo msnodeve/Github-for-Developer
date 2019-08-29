@@ -1,13 +1,11 @@
-package com.seok.gitfordeveloper.room.repository
+package com.seok.gitfordeveloper.database.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import android.database.Observable
-import com.seok.gitfordeveloper.room.dao.UserDao
-import com.seok.gitfordeveloper.room.database.UserDB
-import com.seok.gitfordeveloper.room.model.User
+import com.seok.gitfordeveloper.database.dao.UserDao
+import com.seok.gitfordeveloper.database.database.UserDB
+import com.seok.gitfordeveloper.database.model.User
 
 class UserRepo(application: Application) : ViewModel(){
     private val userDao : UserDao by lazy {

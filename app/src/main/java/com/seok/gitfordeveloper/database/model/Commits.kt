@@ -1,4 +1,4 @@
-package com.seok.gitfordeveloper.room.model
+package com.seok.gitfordeveloper.database.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

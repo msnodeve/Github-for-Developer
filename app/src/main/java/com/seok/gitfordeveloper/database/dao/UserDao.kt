@@ -1,12 +1,11 @@
-package com.seok.gitfordeveloper.room.dao
+package com.seok.gitfordeveloper.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import com.seok.gitfordeveloper.room.model.User
+import com.seok.gitfordeveloper.database.model.User
 
 @Dao
 interface UserDao {

@@ -1,12 +1,10 @@
 package com.seok.gitfordeveloper
 
-import androidx.room.Room
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import android.util.Log
-import com.seok.gitfordeveloper.room.dao.CommitsDao
-import com.seok.gitfordeveloper.room.database.CommitsDB
-import com.seok.gitfordeveloper.room.model.Commits
+import com.seok.gitfordeveloper.database.dao.CommitsDao
+import com.seok.gitfordeveloper.database.database.CommitsDB
+import com.seok.gitfordeveloper.database.model.Commits
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

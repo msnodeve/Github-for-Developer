@@ -1,8 +1,6 @@
 package com.seok.gitfordeveloper.retrofit
 
-import android.util.Log
 import com.google.gson.GsonBuilder
-import com.seok.gitfordeveloper.retrofit.adapter.LiveDataCallAdapterFactory
 import com.seok.gitfordeveloper.retrofit.service.UserService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
