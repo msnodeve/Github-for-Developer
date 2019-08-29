@@ -8,7 +8,7 @@ import okhttp3.HttpUrl
 import java.net.URI
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class AuthToken(private val application: Application) {
+class AuthUserToken(private val application: Application) {
     private val pref = application.getSharedPreferences(
         BuildConfig.PREFERENCES_FILE,
         AppCompatActivity.MODE_PRIVATE

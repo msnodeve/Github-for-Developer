@@ -7,9 +7,13 @@
     <string name="invalid_token">로그인 토큰 발급을 실패하였습니다\n다시 시도 해주세요</string>
 
     <!-- Project String env -->
-    <string name="no_token">Empty Token</string>
+    <string name="no_token">Empty token</string>
+    <string name="no_user_id">Empty user id</string>
+    <string name="no_user_email">Empty user email</string>
+    <string name="no_user_image">Empty user image</string>
     <string name="user_id">user_id</string>
-    <string name="user_url">user_url</string>
+    <string name="user_email">user_email</string>
+    <string name="user_image">user_image</string>
 
     <!-- Github Request Url -->
     <string name="github_base_url">https://api.github.com/</string>

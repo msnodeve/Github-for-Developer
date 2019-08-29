@@ -1,13 +1,14 @@
 package com.seok.gitfordeveloper.views
 
-import android.Manifest.permission.INTERNET
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.annotation.RequiresPermission
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.seok.gitfordeveloper.BuildConfig
@@ -17,17 +18,23 @@ import com.seok.gitfordeveloper.room.database.CommitsDB
 import com.seok.gitfordeveloper.room.database.UsersDB
 import com.seok.gitfordeveloper.room.model.Commits
 import com.seok.gitfordeveloper.room.model.User
+import com.seok.gitfordeveloper.utils.AuthUserInfo
+import com.seok.gitfordeveloper.utils.AuthUserToken
+import com.seok.gitfordeveloper.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.*
 import org.jsoup.Jsoup
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var authUserToken: AuthUserToken
+    private lateinit var authUserInfo: AuthUserInfo
+    private lateinit var viewModel: MainViewModel
+
+
     private var accessToken: String = ""
-    private var userId : String = ""
-    private var userUrl : String = ""
+    private var userId: String = ""
+    private var userUrl: String = ""
     private lateinit var githubUserService: UserService
 
     private var usersDb: UsersDB? = null
@@ -40,39 +47,59 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         init()
-        initRetrofit()
-        initUserInfo()
+        checkForUserInfo()
 
-        longToast("로딩 중 입니다.\n잠시만 기다려주세요.")
+
+//        longToast("로딩 중 입니다.\n잠시만 기다려주세요.")
 
 //        usersDb = UsersDB.getInstance(this)
 //        commitDb = CommitsDB.getInstance(this)
 
     }
 
-    @RequiresPermission(allOf=[INTERNET])
-    private fun initRetrofit(){
-        // cd967ce5f09cdded2c3a5968552d3de7ffb2ad7c
-        val retrofit = Retrofit.Builder()
-            .baseUrl(getString(R.string.github_base_url))
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        githubUserService = retrofit.create(UserService::class.java)
-    }
     private fun init() {
-        val pref = getSharedPreferences(BuildConfig.PREFERENCES_FILE, MODE_PRIVATE)
-        accessToken = pref.getString(BuildConfig.PREFERENCES_TOKEN_KEY, null)
-        Log.d("test", accessToken)
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        authUserToken = AuthUserToken(application)
+        authUserInfo = AuthUserInfo(application)
+
         MobileAds.initialize(this, getString(R.string.admob_app_id))
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
     }
-    private fun initUserInfo(){
+
+    private fun checkForUserInfo() {
+        val user = authUserInfo.getUser(
+            getString(R.string.user_id),
+            getString(R.string.user_email),
+            getString(R.string.user_image)
+        )
+        if (user) {
+            tv_user_id.text = authUserInfo.getUserId(getString(R.string.user_id))
+            tv_github_url.text = authUserInfo.getUserEmail(getString(R.string.user_email))
+            Glide.with(this).load(authUserInfo.getUserImage(getString(R.string.user_image)))
+                .into(user_img_profile)
+        } else {
+            viewModel.githubUserApi(authUserToken.getToken(BuildConfig.PREFERENCES_TOKEN_KEY))
+                .observe(this, Observer { body ->
+                    authUserInfo.setUser(body.login, body.html_url, body.avatar_url)
+                    tv_user_id.text = authUserInfo.getUserId(getString(R.string.user_id))
+                    tv_github_url.text = authUserInfo.getUserEmail(getString(R.string.user_email))
+                    Glide.with(this).load(authUserInfo.getUserImage(getString(R.string.user_image)))
+                })
+        }
+    }
+
+    private fun beforeInit() {
         val pref = getSharedPreferences(BuildConfig.PREFERENCES_FILE, MODE_PRIVATE)
-        if(pref.contains(getString(R.string.user_id)) && pref.contains(getString(R.string.user_url))){
-            tv_user_id.text = pref.getString(getString(R.string.user_id),null)
-            tv_github_url.text = pref.getString(getString(R.string.user_url),null)
-        }else{
+        accessToken = pref.getString(BuildConfig.PREFERENCES_TOKEN_KEY, null)
+    }
+
+    private fun initUserInfo() {
+        val pref = getSharedPreferences(BuildConfig.PREFERENCES_FILE, MODE_PRIVATE)
+        if (pref.contains(getString(R.string.user_id)) && pref.contains(getString(R.string.user_email))) {
+            tv_user_id.text = pref.getString(getString(R.string.user_id), null)
+            tv_github_url.text = pref.getString(getString(R.string.user_email), null)
+        } else {
             val getUserInfoCall = githubUserService.githubUserApi("token $accessToken")
 //            getUserInfoCall.enqueue(object : Callback<User>{
 //                override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -94,6 +121,7 @@ class MainActivity : AppCompatActivity() {
 //            })
         }
     }
+
     private fun 이전() {
         Thread(Runnable {
             try {
@@ -128,7 +156,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     private fun setUI() {
         commits = commitDb?.commitDao()?.getAll()!!
         val maxCommit = commitDb?.commitDao()?.getMaxCommit()?.commits
@@ -136,7 +163,7 @@ class MainActivity : AppCompatActivity() {
             contribute.removeAllViews()
             contribute.columnCount = commits.size / 7 + 1
             contribute.rowCount = 7
-            for (i in 0 until commits.size) {
+            for (i in commits.indices) {
                 val layout = LinearLayout(this@MainActivity)
                 val param = LinearLayout.LayoutParams(65, 65)
                 param.margin = 4

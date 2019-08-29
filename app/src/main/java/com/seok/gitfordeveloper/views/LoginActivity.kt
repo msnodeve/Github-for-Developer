@@ -12,7 +12,7 @@ import java.net.HttpURLConnection
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.seok.gitfordeveloper.utils.AuthToken
+import com.seok.gitfordeveloper.utils.AuthUserToken
 import com.seok.gitfordeveloper.viewmodel.LoginViewModel
 import org.jetbrains.anko.longToast
 
@@ -20,7 +20,7 @@ import org.jetbrains.anko.longToast
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var viewModel: LoginViewModel
-    private lateinit var authToken: AuthToken
+    private lateinit var authToken: AuthUserToken
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun init() {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
-        authToken = AuthToken(application)
+        authToken = AuthUserToken(application)
     }
 
     private fun checkForSignIn() {
