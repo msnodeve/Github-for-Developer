@@ -72,6 +72,10 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:4.3'
     testImplementation 'org.powermock:powermock-api-mockito:1.4.12'
     testImplementation 'org.powermock:powermock-module-junit4:1.6.2'
+    testImplementation 'org.mockito:mockito-core:2.28.2'
+    testImplementation 'androidx.arch.core:core-testing:2.0.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test:runner:1.2.0'
@@ -103,6 +107,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation 'android.arch.lifecycle:viewmodel:1.1.1'
     annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.0.0'
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
 
     // Using the Glide Library for Image loading
     implementation 'com.github.bumptech.glide:glide:4.9.0'

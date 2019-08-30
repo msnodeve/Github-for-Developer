@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [Commits::class], version = 1, exportSchema = false)
 abstract class CommitsDatabase : RoomDatabase(){
-    abstract val commitsDatabaseDao : CommitsDatabaseDao
+    abstract fun commitsDatabaseDao(): CommitsDatabaseDao
     companion object{
         @Volatile
         private var INSTANCE: CommitsDatabase? = null

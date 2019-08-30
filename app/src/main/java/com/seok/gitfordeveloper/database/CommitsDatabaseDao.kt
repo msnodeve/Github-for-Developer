@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
-interface CommitsDatabaseDao {
+interface CommitsDatabaseDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(commits : Commits)
 
@@ -16,4 +16,7 @@ interface CommitsDatabaseDao {
 
     @Query("SELECT * FROM commits")
     fun getAllCommits() : LiveData<List<Commits>>
+
+    @Query("SELECT * FROM commits WHERE data_date = :dataDate")
+    fun getCommits(dataDate: String) : LiveData<Commits>
 }

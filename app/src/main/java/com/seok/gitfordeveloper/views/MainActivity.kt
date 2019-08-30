@@ -2,10 +2,6 @@ package com.seok.gitfordeveloper.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
@@ -14,12 +10,10 @@ import com.google.android.gms.ads.MobileAds
 import com.seok.gitfordeveloper.BuildConfig
 import com.seok.gitfordeveloper.R
 import com.seok.gitfordeveloper.retrofit.service.UserService
-import com.seok.gitfordeveloper.database.database.CommitsDB
-import com.seok.gitfordeveloper.database.database.UsersDB
-import com.seok.gitfordeveloper.database.model.Commits
-import com.seok.gitfordeveloper.database.model.User
 import com.seok.gitfordeveloper.utils.AuthUserInfo
 import com.seok.gitfordeveloper.utils.AuthUserToken
+import com.seok.gitfordeveloper.utils.GithubCrawler
+import com.seok.gitfordeveloper.utils.ValidationCheck
 import com.seok.gitfordeveloper.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.*
@@ -29,38 +23,29 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var authUserToken: AuthUserToken
     private lateinit var authUserInfo: AuthUserInfo
-    private lateinit var viewModel: MainViewModel
-
+    private lateinit var mainViewModel: MainViewModel
+    private lateinit var githubCrawler: GithubCrawler
+    private lateinit var validationCheck: ValidationCheck
 
     private var accessToken: String = ""
     private var userId: String = ""
     private var userUrl: String = ""
     private lateinit var githubUserService: UserService
 
-    private var usersDb: UsersDB? = null
-    private var commitDb: CommitsDB? = null
-    private var user = User("", "", true, "")
-    private var commits = listOf<Commits>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         init()
         checkForUserInfo()
-
-
-//        longToast("로딩 중 입니다.\n잠시만 기다려주세요.")
-
-//        usersDb = UsersDB.getInstance(this)
-//        commitDb = CommitsDB.getInstance(this)
 
     }
 
     private fun init() {
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         authUserToken = AuthUserToken(application)
         authUserInfo = AuthUserInfo(application)
+        validationCheck = ValidationCheck(application)
+        githubCrawler = GithubCrawler()
 
         MobileAds.initialize(this, getString(R.string.admob_app_id))
         val adRequest = AdRequest.Builder().build()
@@ -79,14 +64,23 @@ class MainActivity : AppCompatActivity() {
             Glide.with(this).load(authUserInfo.getUserImage(getString(R.string.user_image)))
                 .into(user_img_profile)
         } else {
-            viewModel.githubUserApi(authUserToken.getToken(BuildConfig.PREFERENCES_TOKEN_KEY))
+            mainViewModel.githubUserApi(authUserToken.getToken(BuildConfig.PREFERENCES_TOKEN_KEY))
                 .observe(this, Observer { body ->
                     authUserInfo.setUser(body.login, body.html_url, body.avatar_url)
                     tv_user_id.text = authUserInfo.getUserId(getString(R.string.user_id))
                     tv_github_url.text = authUserInfo.getUserEmail(getString(R.string.user_email))
                     Glide.with(this).load(authUserInfo.getUserImage(getString(R.string.user_image)))
+                        .into(user_img_profile)
                 })
         }
+    }
+
+    private fun checkForCommits() {
+//        val commits =
+//            githubCrawler.getCommitCrawler(authUserInfo.getUserEmail(getString(R.string.user_email)))
+//        for(commit in commits) {
+//            Log.d("testtest", commit.dataDate)
+//        }
     }
 
     private fun beforeInit() {
@@ -125,7 +119,6 @@ class MainActivity : AppCompatActivity() {
     private fun 이전() {
         Thread(Runnable {
             try {
-                val usersDb1 = usersDb
 //                user = (if (usersDb1 != null) usersDb1.userDao() else null)?.getUser(BuildConfig.CLIENT_ID)!!
 //                ApiUtils.getUserService().githubUserApi("token " + user.token)
 //                    .enqueue(object : Callback<User> {
@@ -143,7 +136,7 @@ class MainActivity : AppCompatActivity() {
 //                                tv_github_url.text = body?.html_url
 //                                Glide.with(this@MainActivity).load(body?.avatar_url)
 //                                    .into(user_img_profile)
-//                                doAsync { getCommits(body?.html_url.toString()) }
+//                                doAsync { getCommit(body?.html_url.toString()) }
 //                            }
 //                        }
 //                    })
@@ -157,40 +150,40 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setUI() {
-        commits = commitDb?.commitDao()?.getAll()!!
-        val maxCommit = commitDb?.commitDao()?.getMaxCommit()?.commits
-        runOnUiThread {
-            contribute.removeAllViews()
-            contribute.columnCount = commits.size / 7 + 1
-            contribute.rowCount = 7
-            for (i in commits.indices) {
-                val layout = LinearLayout(this@MainActivity)
-                val param = LinearLayout.LayoutParams(65, 65)
-                param.margin = 4
-                layout.layoutParams = param
-                val txt = TextView(this@MainActivity)
-                txt.text = commits[i].commits.toString()
-                layout.gravity = Gravity.CENTER
-                layout.addView(txt)
-                val count = commits[i].commits
-                layout.backgroundColor = resources.getColor(
-                    when {
-                        count == 0 -> R.color.nonCommit
-                        count < maxCommit!! / 4 -> R.color.stCommit
-                        count < maxCommit!! / 2 -> R.color.ndCommit
-                        count < maxCommit!! / 8 * 5 -> R.color.thCommit
-                        else -> R.color.fiCommit
-                    }
-                )
-                contribute.addView(layout)
-            }
-            try {
-                tv_today_commit.text = "Today commits : ${commits[commits.size - 1].commits}"
-            } catch (e: ArrayIndexOutOfBoundsException) {
-                tv_today_commit.text = "Today commits : 0"
-                Log.e(this@MainActivity.localClassName, e.message.toString())
-            }
-        }
+//        commits = commitDb?.commitDao()?.getAll()!!
+//        val maxCommit = commitDb?.commitDao()?.getMaxCommit()?.commits
+//        runOnUiThread {
+//            contribute.removeAllViews()
+//            contribute.columnCount = commits.size / 7 + 1
+//            contribute.rowCount = 7
+//            for (i in commits.indices) {
+//                val layout = LinearLayout(this@MainActivity)
+//                val param = LinearLayout.LayoutParams(65, 65)
+//                param.margin = 4
+//                layout.layoutParams = param
+//                val txt = TextView(this@MainActivity)
+//                txt.text = commits[i].commits.toString()
+//                layout.gravity = Gravity.CENTER
+//                layout.addView(txt)
+//                val count = commits[i].commits
+//                layout.backgroundColor = resources.getColor(
+//                    when {
+//                        count == 0 -> R.color.nonCommit
+//                        count < maxCommit!! / 4 -> R.color.stCommit
+//                        count < maxCommit!! / 2 -> R.color.ndCommit
+//                        count < maxCommit!! / 8 * 5 -> R.color.thCommit
+//                        else -> R.color.fiCommit
+//                    }
+//                )
+//                contribute.addView(layout)
+//            }
+//            try {
+//                tv_today_commit.text = "Today commit : ${commits[commits.size - 1].commits}"
+//            } catch (e: ArrayIndexOutOfBoundsException) {
+//                tv_today_commit.text = "Today commit : 0"
+//                Log.e(this@MainActivity.localClassName, e.message.toString())
+//            }
+//        }
         scroll_contribute.smoothScrollTo(contribute.width, contribute.height)
     }
 
@@ -207,10 +200,10 @@ class MainActivity : AppCompatActivity() {
                 val split: List<String> = value.split(" ")
                 val commitCount: List<String> = split[0].split("=")
                 val commitDate: List<String> = split[1].split("=")
-                val commit = Commits()
-                commit.date = commitDate[1]
-                commit.commits = commitCount[1].toInt()
-                commitDb!!.commitDao()?.insert(commit)
+//                val commit = Commits()
+//                commit.date = commitDate[1]
+//                commit.commits = commitCount[1].toInt()
+//                commitDb!!.commitDao()?.insert(commit)
             }
         } catch (e: Exception) {
 
@@ -219,7 +212,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        UsersDB.destroyInstance()
+//        UsersDB.destroyInstance()
         super.onDestroy()
     }
 

@@ -8,11 +8,11 @@ import androidx.room.PrimaryKey
 data class Commits(
     @PrimaryKey
     @ColumnInfo(name = "data_date")
-    var dataDate: String = "",
+    val dataDate: String,
 
     @ColumnInfo(name = "data_count")
-    var dataCount: Int = 0,
+    val dataCount: Int,
 
     @ColumnInfo(name = "fill")
-    var fill: String = ""
+    val fill: String
 )
