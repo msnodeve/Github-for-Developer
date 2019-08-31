@@ -6,10 +6,9 @@ import java.util.*
 
 class ValidationCheck(application: Application) {
 
-    fun existTodayCommit(dataDate: String) : Boolean{
+    fun existTodayCommit() : String{
         val formatter = SimpleDateFormat("yyyy-MM-dd")
         val date = Date(System.currentTimeMillis())
-        val today = formatter.format(date)
-        return today== dataDate
+        return formatter.format(date)
     }
 }

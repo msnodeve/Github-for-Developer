@@ -19,6 +19,7 @@ class MainViewModelTest {
     val rule = InstantTaskExecutorRule()
     private lateinit var viewModel: MainViewModel
     private val observer: Observer<Commits> = mock()
+    private val observers: Observer<List<Commits>> = mock()
     private val application : Application = mock(Application::class.java)
 
 
@@ -27,6 +28,7 @@ class MainViewModelTest {
         MockitoAnnotations.initMocks(this)
         viewModel = MainViewModel(application)
         viewModel.commit.observeForever(observer)
+        viewModel.commits.observeForever(observers)
     }
 
     @Test
@@ -39,6 +41,17 @@ class MainViewModelTest {
         captor.run {
             Mockito.verify(observer, Mockito.times(1)).onChanged(capture())
             Assert.assertEquals(expectedUser, value)
+        }
+    }
+
+    @Test
+    fun commitsTest(){
+        val commit = Commits("2018-01-01",5,"#ef22fe")
+        viewModel.setCommit(commit)
+        val captor = ArgumentCaptor.forClass(Commits::class.java)
+        captor.run {
+            Mockito.verify(observers, Mockito.times(1)).onChanged(listOf(capture()))
+            Assert.assertEquals(commit, value)
         }
     }
 }

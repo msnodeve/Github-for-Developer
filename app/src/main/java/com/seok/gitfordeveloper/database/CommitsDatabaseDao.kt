@@ -15,8 +15,8 @@ interface CommitsDatabaseDao{
     fun maxCommit() : Commits
 
     @Query("SELECT * FROM commits")
-    fun getAllCommits() : LiveData<List<Commits>>
+    fun getAllCommits() : List<Commits>
 
     @Query("SELECT * FROM commits WHERE data_date = :dataDate")
-    fun getCommits(dataDate: String) : LiveData<Commits>
+    fun getCommits(dataDate: String) : Commits
 }

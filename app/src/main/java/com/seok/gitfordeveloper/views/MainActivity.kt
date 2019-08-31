@@ -9,6 +9,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.seok.gitfordeveloper.BuildConfig
 import com.seok.gitfordeveloper.R
+import com.seok.gitfordeveloper.database.Commits
 import com.seok.gitfordeveloper.retrofit.service.UserService
 import com.seok.gitfordeveloper.utils.AuthUserInfo
 import com.seok.gitfordeveloper.utils.AuthUserToken
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var authUserToken: AuthUserToken
     private lateinit var authUserInfo: AuthUserInfo
-    private lateinit var mainViewModel: MainViewModel
+    private lateinit var viewModel: MainViewModel
     private lateinit var githubCrawler: GithubCrawler
     private lateinit var validationCheck: ValidationCheck
 
@@ -37,21 +38,66 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         init()
         checkForUserInfo()
-
+        initViewModelFun()
     }
 
     private fun init() {
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         authUserToken = AuthUserToken(application)
         authUserInfo = AuthUserInfo(application)
         validationCheck = ValidationCheck(application)
         githubCrawler = GithubCrawler()
 
+
         MobileAds.initialize(this, getString(R.string.admob_app_id))
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
     }
-
+    private fun initViewModelFun(){
+        viewModel.commits.observe(this, Observer { body ->
+            setCommitUI(body)
+        })
+        viewModel.existCommit.observe(this, Observer { flag ->
+            if (flag) {
+                viewModel.getCommits(authUserInfo.getUserEmail(getString(R.string.user_email)))
+            }
+        })
+    }
+    private fun setCommitUI(body: List<Commits>) {
+        runOnUiThread {
+            contribute.removeAllViews()
+            contribute.columnCount = body.size / 7 + 1
+            contribute.rowCount = 7
+            for (i in commits.indices) {
+                val layout = LinearLayout(this@MainActivity)
+                val param = LinearLayout.LayoutParams(65, 65)
+                param.margin = 4
+                layout.layoutParams = param
+                val txt = TextView(this@MainActivity)
+                txt.text = commits[i].commits.toString()
+                layout.gravity = Gravity.CENTER
+                layout.addView(txt)
+                val count = commits[i].commits
+                layout.backgroundColor = resources.getColor(
+                    when {
+                        count == 0 -> R.color.nonCommit
+                        count < maxCommit!! / 4 -> R.color.stCommit
+                        count < maxCommit!! / 2 -> R.color.ndCommit
+                        count < maxCommit!! / 8 * 5 -> R.color.thCommit
+                        else -> R.color.fiCommit
+                    }
+                )
+                contribute.addView(layout)
+            }
+            try {
+                tv_today_commit.text = "Today commit : ${commits[commits.size - 1].commits}"
+            } catch (e: ArrayIndexOutOfBoundsException) {
+                tv_today_commit.text = "Today commit : 0"
+                Log.e(this@MainActivity.localClassName, e.message.toString())
+            }
+        }
+        scroll_contribute.smoothScrollTo(contribute.width, contribute.height)
+    }
     private fun checkForUserInfo() {
         val user = authUserInfo.getUser(
             getString(R.string.user_id),
@@ -63,24 +109,18 @@ class MainActivity : AppCompatActivity() {
             tv_github_url.text = authUserInfo.getUserEmail(getString(R.string.user_email))
             Glide.with(this).load(authUserInfo.getUserImage(getString(R.string.user_image)))
                 .into(user_img_profile)
+            viewModel.getAllCommits()
         } else {
-            mainViewModel.githubUserApi(authUserToken.getToken(BuildConfig.PREFERENCES_TOKEN_KEY))
+            viewModel.githubUserApi(authUserToken.getToken(BuildConfig.PREFERENCES_TOKEN_KEY))
                 .observe(this, Observer { body ->
                     authUserInfo.setUser(body.login, body.html_url, body.avatar_url)
                     tv_user_id.text = authUserInfo.getUserId(getString(R.string.user_id))
                     tv_github_url.text = authUserInfo.getUserEmail(getString(R.string.user_email))
                     Glide.with(this).load(authUserInfo.getUserImage(getString(R.string.user_image)))
                         .into(user_img_profile)
+                    viewModel.checkCommit()
                 })
         }
-    }
-
-    private fun checkForCommits() {
-//        val commits =
-//            githubCrawler.getCommitCrawler(authUserInfo.getUserEmail(getString(R.string.user_email)))
-//        for(commit in commits) {
-//            Log.d("testtest", commit.dataDate)
-//        }
     }
 
     private fun beforeInit() {
