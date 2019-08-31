@@ -46,7 +46,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getAllCommits() {
         doAsync {
-            _commits.postValue(commitsDatabase.commitsDatabaseDao().getAllCommits())
+            val data = commitsDatabase.commitsDatabaseDao().getYearCommits().asReversed()
+            _commits.postValue(data)
         }
     }
 
