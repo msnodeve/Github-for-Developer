@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Git for developer</string>
+    <string name="app_name">Github for developer</string>
 
     <!-- Project text -->
     <string name="fail_token">깃허브 토큰이 만료되었습니다.\n로그인을 다시 시도 해주세요</string>
@@ -19,6 +19,7 @@
     <string name="github_base_url">https://api.github.com/</string>
     <string name="github_oauth_url">https://github.com/login/oauth/authorize/</string>
     <string name="github_get_access_token_url">"https://github.com/login/oauth/"</string>
+
     <!-- AdMob key -->
     <string name="admob_app_id">ca-app-pub-2766237193476584~8461542866</string>
     <string name="banner_ad_unit_id">ca-app-pub-2766237193476584/5575239666</string>
