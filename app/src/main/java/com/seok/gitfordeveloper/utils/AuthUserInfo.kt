@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import com.seok.gitfordeveloper.BuildConfig
 import com.seok.gitfordeveloper.R
-import com.seok.gitfordeveloper.retrofit.domain.User
 
 class AuthUserInfo(private val application: Application) {
     private val pref = application.getSharedPreferences(
@@ -15,7 +14,7 @@ class AuthUserInfo(private val application: Application) {
 
     fun getUser(keyId: String, keyEmail: String, keyImage: String): Boolean {
         val userId = getUserId(keyId) != application.getString(R.string.no_user_id)
-        val userEmail = getUserEmail(keyEmail) != application.getString(R.string.no_user_email)
+        val userEmail = getUserUrl(keyEmail) != application.getString(R.string.no_user_email)
         val userImage = getUserImage(keyImage) != application.getString(R.string.no_user_image)
         return userId && userEmail && userImage
     }
@@ -28,7 +27,7 @@ class AuthUserInfo(private val application: Application) {
         }
     }
 
-    fun getUserEmail(userEmail: String): String {
+    fun getUserUrl(userEmail: String): String {
         return if (pref.contains(userEmail)) {
             this.pref.getString(userEmail, null)
         } else {
@@ -49,7 +48,7 @@ class AuthUserInfo(private val application: Application) {
     }
     fun setUser(userId: String, userEmail: String, userImage: String) {
         editor.putString(application.getString(R.string.user_id), userId)
-        editor.putString(application.getString(R.string.user_email), userEmail)
+        editor.putString(application.getString(R.string.user_url), userEmail)
         editor.putString(application.getString(R.string.user_image), userImage)
         editor.commit()
     }

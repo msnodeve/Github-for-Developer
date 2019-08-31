@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Today commit : 0"
+                android:text="Today contribution : 0"
                 android:textColor="#C4000000"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -59,12 +59,21 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_marginBottom="16dp"
-                android:text="github URL"
+                android:text="https://github/gitfordeveloper"
                 android:textColor="#C4000000"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/user_img_profile"
                 app:layout_constraintTop_toBottomOf="@+id/tv_today_commit" />
+
+        <TextView
+                android:id="@+id/tv_max_commit"
+                android:layout_width="127dp"
+                android:layout_height="wrap_content"
+                android:text="Max contribution : 0"
+                android:textColor="#C4000000"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_user_id"
+                app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -85,6 +94,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="10"
                 android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:gravity="center"
+                    android:text="SUN" />
 
             <TextView
                     android:id="@+id/textView"
@@ -134,13 +151,6 @@
                     android:gravity="center"
                     android:text="SAT" />
 
-            <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10"
-                    android:gravity="center"
-                    android:text="SUN" />
         </LinearLayout>
 
         <LinearLayout
@@ -179,7 +189,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             app:adSize="BANNER"
-            app:adUnitId="@string/banner_ad_unit_id_for_test"
+            app:adUnitId="@string/banner_ad_unit_id"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>

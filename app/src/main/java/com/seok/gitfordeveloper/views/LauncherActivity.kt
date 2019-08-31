@@ -22,8 +22,8 @@ class LauncherActivity : AppCompatActivity() {
         Handler().postDelayed({
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-            finish()
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        }, 500)
+            finish()
+        }, 1500)
     }
 }

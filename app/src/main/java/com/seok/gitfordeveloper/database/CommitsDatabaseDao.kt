@@ -20,7 +20,7 @@ interface CommitsDatabaseDao{
     @Query("SELECT * FROM commits WHERE data_date = :dataDate")
     fun getCommits(dataDate: String) : Commits
 
-    @Query("SELECT * FROM commits ORDER BY data_date DESC LIMIT 363")
+    @Query("SELECT * FROM commits ORDER BY data_date DESC")
     fun getYearCommits() : List<Commits>
 
 }

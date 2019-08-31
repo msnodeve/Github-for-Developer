@@ -17,8 +17,8 @@ android {
         applicationId "com.seok.gitfordeveloper"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 3
-        versionName "1.0"
+        versionCode 4
+        versionName "0.6.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -26,9 +26,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             testCoverageEnabled false
-//            buildConfigField "String", "CLIENT_ID", CLIENT_ID
-//            buildConfigField "String", "CLIENT_SECRET", CLIENT_SECRET
-//            buildConfigField "String", "CALLBACK_URL", CALLBACK_URL
+            buildConfigField "String", "GITHUB_CLIENT_ID", GITHUB_CLIENT_ID
+            buildConfigField "String", "GITHUB_CLIENT_SECRET", GITHUB_CLIENT_SECRET
+            buildConfigField "String", "REDIRECT_CALLBACK_URL", REDIRECT_CALLBACK_URL
+            buildConfigField "String", "PREFERENCES_FILE", PREFERENCES_FILE
+            buildConfigField "String", "PREFERENCES_TOKEN_KEY", PREFERENCES_TOKEN_KEY
         }
         debug {
             testCoverageEnabled true
@@ -124,4 +126,7 @@ dependencies {
     //lombok
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
+
+    //ProgressBar
+    implementation 'com.wang.avi:library:2.1.3'
 }
