@@ -27,6 +27,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _commit = MutableLiveData<Commits>()
     private val _commits = MutableLiveData<List<Commits>>()
     private val _existCommit = MutableLiveData<Boolean>()
+    private val _getAllCommitsComplete = MutableLiveData<Boolean>()
 
     val commit: LiveData<Commits>
         get() = _commit
@@ -34,6 +35,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         get() = _commits
     val existCommit: LiveData<Boolean>
         get() = _existCommit
+    val getAllCommitsComplete : LiveData<Boolean>
+        get() = _getAllCommitsComplete
 
     fun githubUserApi(token: String): LiveData<User> {
         return userRepository.getUserMutableData(token)
@@ -82,7 +85,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
     fun getCommits(url : String){
-        Log.d("testtest", url)
         doAsync {
             val doc = Jsoup.connect(url).get()
             val regex =
@@ -103,5 +105,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _commits.postValue(commits)
             setCommits(commits)
         }
+    }
+
+    fun completeGetCommits(){
+        _getAllCommitsComplete.postValue(true)
     }
 }

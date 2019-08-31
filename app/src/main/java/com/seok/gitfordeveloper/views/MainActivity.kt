@@ -1,5 +1,6 @@
 package com.seok.gitfordeveloper.views
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -33,11 +34,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var githubCrawler: GithubCrawler
     private lateinit var validationCheck: ValidationCheck
 
-    private var accessToken: String = ""
-    private var userId: String = ""
-    private var userUrl: String = ""
-    private lateinit var githubUserService: UserService
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -53,12 +49,12 @@ class MainActivity : AppCompatActivity() {
         validationCheck = ValidationCheck(application)
         githubCrawler = GithubCrawler()
 
-
         MobileAds.initialize(this, getString(R.string.admob_app_id))
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
     }
-    private fun initViewModelFun(){
+
+    private fun initViewModelFun() {
         viewModel.commits.observe(this, Observer { body ->
             setCommitUI(body)
         })
@@ -67,7 +63,14 @@ class MainActivity : AppCompatActivity() {
                 viewModel.getCommits(authUserInfo.getUserEmail(getString(R.string.user_email)))
             }
         })
+        viewModel.getAllCommitsComplete.observe(this, Observer { flag ->
+            if (flag) {
+                scroll_contribute.smoothScrollTo(contribute.width, contribute.height)
+            }
+        })
     }
+
+    @SuppressLint("SetTextI18n")
     private fun setCommitUI(body: List<Commits>) {
         runOnUiThread {
             contribute.removeAllViews()
@@ -85,25 +88,32 @@ class MainActivity : AppCompatActivity() {
                 layout.backgroundColor = Color.parseColor(commit.fill)
                 contribute.addView(layout)
             }
+            tv_today_commit.text =
+                getString(R.string.today_commit) + " " + body[body.size - 1].dataCount
+            viewModel.completeGetCommits()
         }
-        scroll_contribute.smoothScrollTo(contribute.width, contribute.height)
     }
+
     private fun checkForUserInfo() {
         val user = authUserInfo.getUser(
             getString(R.string.user_id),
             getString(R.string.user_email),
             getString(R.string.user_image)
         )
+
         if (user) {
             tv_user_id.text = authUserInfo.getUserId(getString(R.string.user_id))
             tv_github_url.text = authUserInfo.getUserEmail(getString(R.string.user_email))
             Glide.with(this).load(authUserInfo.getUserImage(getString(R.string.user_image)))
                 .into(user_img_profile)
+            viewModel.checkCommit()
             viewModel.getAllCommits()
         } else {
             viewModel.githubUserApi(authUserToken.getToken(BuildConfig.PREFERENCES_TOKEN_KEY))
                 .observe(this, Observer { body ->
-                    authUserInfo.setUser(body.login, body.html_url, body.avatar_url)
+                    authUserInfo.setKeyValue(getString(R.string.user_id), body.login)
+                    authUserInfo.setKeyValue(getString(R.string.user_email), body.html_url)
+                    authUserInfo.setKeyValue(getString(R.string.user_image), body.avatar_url)
                     tv_user_id.text = authUserInfo.getUserId(getString(R.string.user_id))
                     tv_github_url.text = authUserInfo.getUserEmail(getString(R.string.user_email))
                     Glide.with(this).load(authUserInfo.getUserImage(getString(R.string.user_image)))

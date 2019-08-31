@@ -43,7 +43,10 @@ class AuthUserInfo(private val application: Application) {
             application.getString(R.string.no_user_image)
         }
     }
-
+    fun setKeyValue(key:String, value : String){
+        editor.putString(key, value)
+        editor.commit()
+    }
     fun setUser(userId: String, userEmail: String, userImage: String) {
         editor.putString(application.getString(R.string.user_id), userId)
         editor.putString(application.getString(R.string.user_email), userEmail)
