@@ -6,7 +6,7 @@
 ***
 
 # Release
-v0.6.2 릴리즈 [Google Paly Store](https://play.google.com/store/apps/details?id=com.seok.gitfordeveloper)
+v0.6.2 릴리즈 [Google Play Store](https://play.google.com/store/apps/details?id=com.seok.gitfordeveloper)
 
 # Preview
 
@@ -17,6 +17,5 @@ v0.6.2 릴리즈 [Google Paly Store](https://play.google.com/store/apps/details?
 
 v0.6.2 릴리즈 작업 완료
 - Backend 작업
-- UI 개선 작업
-- 사용자 UI 개선
+- UX/UI 개선 작업
 - 자동 로그인 구현
