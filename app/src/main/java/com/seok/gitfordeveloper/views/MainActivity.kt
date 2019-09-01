@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.seok.gitfordeveloper.BuildConfig
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this, getString(R.string.admob_app_id))
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
+
     }
     private fun initViewModelFun() {
         viewModel.commits.observe(this, Observer { body ->
