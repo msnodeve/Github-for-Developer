@@ -26,7 +26,7 @@ class MainViewModelTest {
     @Before
     fun before() {
         MockitoAnnotations.initMocks(this)
-        viewModel = MainViewModel(application)
+//        viewModel = MainViewModel(application)
         viewModel.commit.observeForever(observer)
         viewModel.commits.observeForever(observers)
     }
