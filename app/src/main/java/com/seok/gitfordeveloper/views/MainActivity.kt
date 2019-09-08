@@ -4,6 +4,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
+import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -11,12 +12,14 @@ import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.seok.gitfordeveloper.BuildConfig
 import com.seok.gitfordeveloper.R
 import com.seok.gitfordeveloper.database.Commits
 import com.seok.gitfordeveloper.utils.*
 import com.seok.gitfordeveloper.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main2.*
 import org.jetbrains.anko.*
 
 class MainActivity : AppCompatActivity() {
@@ -30,10 +33,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        init()
-        checkForUserInfo()
-        initViewModelFun()
+        setContentView(R.layout.activity_main2)
+        bottom_navigation.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                 R.id.nav_menu_f -> longToast("1")
+                R.id.nav_menu_s -> longToast("2")
+            }
+            true
+        }
+
+//        init()
+//        checkForUserInfo()
+//        initViewModelFun()
     }
 
     private fun init() {

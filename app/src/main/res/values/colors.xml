@@ -13,5 +13,5 @@
 
     <!-- APP UI Color -->
     <color name="colorTopBar">#444444</color>
-
+    <color name="iconText">#e4f9f5</color>
 </resources>
