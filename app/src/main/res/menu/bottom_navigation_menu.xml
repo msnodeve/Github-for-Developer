@@ -6,7 +6,7 @@
             android:icon="@mipmap/ic_launcher_foreground_gfd"
             android:enabled="true"/>
     <item android:id="@+id/nav_menu_s"
-            android:title="@string/navigation_menu_main"
+            android:title="Sub"
             android:icon="@mipmap/ic_launcher_foreground_gfd"
             android:enabled="true"/>
 </menu>
