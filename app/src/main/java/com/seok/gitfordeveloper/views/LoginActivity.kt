@@ -27,15 +27,12 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        startActivity(Intent(this, Main2Activity::class.java))
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        finish()
-//        init()
-//        checkForSignIn()
-//        login_img_login.setOnClickListener {
-//            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(authToken.buildHttpUrl(BuildConfig.GITHUB_CLIENT_ID)))
-//            startActivityForResult(intent, HttpURLConnection.HTTP_OK)
-//        }
+        init()
+        checkForSignIn()
+        login_img_login.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(authToken.buildHttpUrl(BuildConfig.GITHUB_CLIENT_ID)))
+            startActivityForResult(intent, HttpURLConnection.HTTP_OK)
+        }
     }
 
     private fun init() {
