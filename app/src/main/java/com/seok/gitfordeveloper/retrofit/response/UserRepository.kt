@@ -26,7 +26,7 @@ class UserRepository(application: Application) {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 user = if (response.isSuccessful) {
                     val body = response.body()!!
-                    User(body.login, body.html_url, body.avatar_url, HttpURLConnection.HTTP_OK)
+                    User(body.login, body.html_url, body.avatar_url, body.id, HttpURLConnection.HTTP_OK)
                 }else{
                     User(HttpURLConnection.HTTP_UNAUTHORIZED)
                 }

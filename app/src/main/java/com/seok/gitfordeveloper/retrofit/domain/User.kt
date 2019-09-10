@@ -52,6 +52,13 @@ class User {
         this.avatar_url = avatar_url
         this.code = code
     }
+    constructor(login: String, html_url: String, avatar_url: String, id: Long, code : Int) {
+        this.login = login
+        this.html_url = html_url
+        this.avatar_url = avatar_url
+        this.id = id
+        this.code = code
+    }
     constructor(login: String, html_url: String, avatar_url: String){
         this.login = login
         this.html_url = html_url
