@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
@@ -19,7 +18,6 @@ import com.seok.gitfordeveloper.R
 import com.seok.gitfordeveloper.utils.AuthUserInfo
 import com.seok.gitfordeveloper.utils.AuthUserToken
 import com.seok.gitfordeveloper.viewmodel.MainFragmentViewModel
-import com.seok.gitfordeveloper.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -47,7 +45,6 @@ class MainFragment : Fragment() {
     }
 
     private fun init() {
-        viewModel = ViewModelProviders.of(this).get(MainFragmentViewModel::class.java)
         authUserToken = AuthUserToken(this.activity?.application!!)
         authUserInfo = AuthUserInfo(this.activity?.application!!)
 
@@ -65,10 +62,8 @@ class MainFragment : Fragment() {
             getString(R.string.user_url),
             getString(R.string.user_image)
         )
-        if (user) {
-            setUserInfoUI(authUserInfo.getUserId(getString(R.string.user_id)),
-                authUserInfo.getUserId(getString(R.string.user_url)),
-                authUserInfo.getUserId(getString(R.string.user_image)))
+        if(user) {
+
         } else {
             viewModel.githubUserApi(authUserToken.getToken(BuildConfig.PREFERENCES_TOKEN_KEY))
                 .observe(this, Observer {
