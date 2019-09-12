@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         })
         viewModel.getAllCommitsComplete.observe(this, Observer { flag ->
             if (flag) {
-                scroll_contribute.smoothScrollTo(contribute.width, contribute.height)
+                scroll_contribute.smoothScrollTo(contribute2.width, contribute2.height)
             }
             progressbarDialog.finish()
         })
@@ -68,9 +68,9 @@ class MainActivity : AppCompatActivity() {
     private fun setCommitUI(body: List<Commits>) {
         val maxCommit = findMaxCommit(body)
         runOnUiThread {
-            contribute.removeAllViews()
-            contribute.columnCount = 53
-            contribute.rowCount = 7
+            contribute2.removeAllViews()
+            contribute2.columnCount = 53
+            contribute2.rowCount = 7
             for (commit in body) {
                 val layout = LinearLayout(this@MainActivity)
                 val param = LinearLayout.LayoutParams(65, 65)
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
                     layout.background = getDrawable(R.drawable.rect_background)
                     tv_max_commit.text= getString(R.string.max_contribution) + " "+ commit.dataCount
                 }
-                contribute.addView(layout)
+                contribute2.addView(layout)
             }
             tv_today_commit.text = getString(R.string.today_contribution) + " " + body[body.size - 1].dataCount
             viewModel.completeGetCommits()
