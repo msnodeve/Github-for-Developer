@@ -3,7 +3,7 @@
 
     <item android:id="@+id/nav_menu_f"
             android:title="@string/navigation_menu_main"
-            android:icon="@mipmap/ic_launcher_foreground_gfd"
+            android:icon="@drawable/bottom_test"
             android:enabled="true"/>
     <item android:id="@+id/nav_menu_s"
             android:title="Sub"
