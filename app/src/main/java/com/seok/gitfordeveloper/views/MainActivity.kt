@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         })
         viewModel.existCommit.observe(this, Observer { flag ->
             if (flag) {
-                viewModel.getCommits(authUserInfo.getUserUrl(getString(R.string.user_url)))
+                viewModel.getCommits(authUserInfo.getUserInfo(getString(R.string.user_url)))
             }
         })
         viewModel.getAllCommitsComplete.observe(this, Observer { flag ->
@@ -108,9 +108,9 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.user_image)
         )
         if (user) {
-            tv_user_id.text = authUserInfo.getUserId(getString(R.string.user_id))
-            tv_github_url.text = authUserInfo.getUserUrl(getString(R.string.user_url))
-            Glide.with(this).load(authUserInfo.getUserImage(getString(R.string.user_image)))
+            tv_user_id.text = authUserInfo.getUserInfo(getString(R.string.user_id))
+            tv_github_url.text = authUserInfo.getUserInfo(getString(R.string.user_url))
+            Glide.with(this).load(authUserInfo.getUserInfo(getString(R.string.user_image)))
                 .into(user_img_profile)
             viewModel.checkCommit()
             viewModel.getAllCommits()
@@ -120,9 +120,9 @@ class MainActivity : AppCompatActivity() {
                     authUserInfo.setKeyValue(getString(R.string.user_id), body.login)
                     authUserInfo.setKeyValue(getString(R.string.user_url), body.html_url)
                     authUserInfo.setKeyValue(getString(R.string.user_image), body.avatar_url)
-                    tv_user_id.text = authUserInfo.getUserId(getString(R.string.user_id))
-                    tv_github_url.text = authUserInfo.getUserUrl(getString(R.string.user_url))
-                    Glide.with(this).load(authUserInfo.getUserImage(getString(R.string.user_image)))
+                    tv_user_id.text = authUserInfo.getUserInfo(getString(R.string.user_id))
+                    tv_github_url.text = authUserInfo.getUserInfo(getString(R.string.user_url))
+                    Glide.with(this).load(authUserInfo.getUserInfo(getString(R.string.user_image)))
                         .into(user_img_profile)
                     viewModel.checkCommit()
                 })

@@ -18,6 +18,7 @@
 
     <!-- Project String env -->
     <string name="no_token">Empty token</string>
+    <string name="no_user_key">Empty key</string>
     <string name="no_user_id">Empty user id</string>
     <string name="no_user_email">Empty user url</string>
     <string name="no_user_image">Empty user image</string>
