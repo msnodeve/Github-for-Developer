@@ -11,15 +11,13 @@ import com.seok.gitfordeveloper.database.Commits
 import com.seok.gitfordeveloper.database.CommitsDatabase
 import com.seok.gitfordeveloper.retrofit.RetrofitClient
 import com.seok.gitfordeveloper.retrofit.domain.User
-import com.seok.gitfordeveloper.retrofit.response.UserRepository
 import com.seok.gitfordeveloper.utils.AuthUserToken
 import com.seok.gitfordeveloper.utils.SharedPreferencesForUser
 import com.seok.gitfordeveloper.utils.ValidationCheck
-import kotlinx.android.synthetic.main.fragment_main.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.doAsync
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element

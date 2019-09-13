@@ -80,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goToMainActivity() {
-        startActivity(Intent(this, Main2Activity::class.java))
+        startActivity(Intent(this, MainActivity::class.java))
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         finish()
     }
