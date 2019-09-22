@@ -1,4 +1,4 @@
-package com.seok.gitfordeveloper.retrofit.response
+package com.seok.gitfordeveloper.retrofit.repository
 
 import android.app.Application
 import android.util.Log
@@ -9,7 +9,6 @@ import com.seok.gitfordeveloper.retrofit.domain.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 import java.net.HttpURLConnection
 
 class UserRepository(application: Application) {
