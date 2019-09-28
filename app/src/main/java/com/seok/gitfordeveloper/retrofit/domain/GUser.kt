@@ -10,19 +10,15 @@ import lombok.Setter
 @NoArgsConstructor
 @AllArgsConstructor
 class GUser {
-    private val id : Long
+    var userId: String = ""
 
-    private val userId: String
+    var userUrl: String = ""
 
-    private val userGId: String
+    var profileImage: String = ""
 
-    private val userUrl: String
-
-    private val profileImage: String
-
-    private val createDate: String
-
-    constructor(userId : String, userGid : String, userUrl : String, profileImage: String){
-
+    constructor(userId : String, userUrl : String, profileImage: String){
+        this.userId = userId
+        this.userUrl = userUrl
+        this.profileImage = profileImage
     }
 }

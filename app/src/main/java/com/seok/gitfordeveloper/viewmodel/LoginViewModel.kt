@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.seok.gitfordeveloper.retrofit.domain.Token
 import com.seok.gitfordeveloper.retrofit.domain.User
-import com.seok.gitfordeveloper.retrofit.response.UserRepository
+import com.seok.gitfordeveloper.retrofit.repository.UserRepository
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private val userRepository = UserRepository(application)

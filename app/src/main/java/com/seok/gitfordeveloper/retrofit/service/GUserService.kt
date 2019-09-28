@@ -4,12 +4,18 @@ import com.seok.gitfordeveloper.retrofit.domain.GUser
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface GUserService {
     @GET("users")
-    fun getUserList() : Call<List<GUser>>
+    fun getUserList(
+        @Header("Authorization") authKey: String
+    ): Call<List<GUser>>
 
     @POST("users")
-    fun signUpUser(@Body gUser: GUser) : Call<GUser>
+    fun signUpUser(
+        @Header("Authorization") authKey: String,
+        @Body gUser: GUser
+    ): Call<GUser>
 }

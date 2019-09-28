@@ -31,6 +31,7 @@ android {
             buildConfigField "String", "REDIRECT_CALLBACK_URL", REDIRECT_CALLBACK_URL
             buildConfigField "String", "PREFERENCES_FILE", PREFERENCES_FILE
             buildConfigField "String", "PREFERENCES_TOKEN_KEY", PREFERENCES_TOKEN_KEY
+            buildConfigField "String", "BASIC_AUTH_KEY", BASIC_AUTH_KEY
         }
         debug {
             testCoverageEnabled true
@@ -39,6 +40,7 @@ android {
             buildConfigField "String", "REDIRECT_CALLBACK_URL", REDIRECT_CALLBACK_URL
             buildConfigField "String", "PREFERENCES_FILE", PREFERENCES_FILE
             buildConfigField "String", "PREFERENCES_TOKEN_KEY", PREFERENCES_TOKEN_KEY
+            buildConfigField "String", "BASIC_AUTH_KEY", BASIC_AUTH_KEY
         }
     }
     compileOptions {

@@ -8,13 +8,12 @@ import androidx.lifecycle.MutableLiveData
 import com.seok.gitfordeveloper.database.Commits
 import com.seok.gitfordeveloper.database.CommitsDatabase
 import com.seok.gitfordeveloper.retrofit.domain.User
-import com.seok.gitfordeveloper.retrofit.response.UserRepository
+import com.seok.gitfordeveloper.retrofit.repository.UserRepository
 import com.seok.gitfordeveloper.utils.ValidationCheck
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 import org.jetbrains.anko.doAsync
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
