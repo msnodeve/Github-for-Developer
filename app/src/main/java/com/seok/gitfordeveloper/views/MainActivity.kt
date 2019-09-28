@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
     private val fragmentManager = supportFragmentManager
 
     private val mainFragment = MainFragment()
-    private val subFragment = SubFragment()
+    private val subFragment = RankFragment()
 
     private var activeFragment : Fragment = mainFragment
 
