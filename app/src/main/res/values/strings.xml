@@ -15,6 +15,16 @@
     <string name="thu">THU</string>
     <string name="fri">FRI</string>
     <string name="sat">SAT</string>
+    <string name="main_view_user_id">User ID</string>
+    <string name="main_view_user_sample_url">https://github/gfd</string>
+    <string name="rank_view_today_rank">금일 컨트리뷰션 랭킹</string>
+    <string name="rank_view_sample_rank">0</string>
+    <string name="rank_view_rank_txt">등</string>
+    <string name="rank_view_sample_commit">0</string>
+    <string name="rank_view_commit_txt">Contribution</string>
+    <string name="rv_rank_num">0</string>
+    <string name="rv_rank_user_name">gfd</string>
+    <string name="rv_rank_commit">0</string>
 
     <!-- Project String env -->
     <string name="no_token">Empty token</string>
