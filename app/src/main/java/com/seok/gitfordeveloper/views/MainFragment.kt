@@ -3,7 +3,6 @@ package com.seok.gitfordeveloper.views
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -113,6 +112,6 @@ class MainFragment : Fragment() {
     private fun setUserInfoUI(userId: String, userUrl: String, userImage: String) {
         user_id.text = userId
         user_url.text = userUrl
-        Glide.with(this).load(userImage).into(user_profile)
+        Glide.with(this).load(userImage).into(img_mv_user_profile)
     }
 }
