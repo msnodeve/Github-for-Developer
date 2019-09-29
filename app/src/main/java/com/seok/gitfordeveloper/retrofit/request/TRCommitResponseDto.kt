@@ -16,9 +16,9 @@ class TRCommitResponseDto {
 
     var dataDate : String = ""
 
-    var dataCount : String = ""
+    var dataCount : Int = 0
 
-    constructor(id : Long, userId : String, dataCount : String, dataDate : String){
+    constructor(id : Long, userId : String, dataCount : Int, dataDate : String){
         this.id = id
         this.userId = userId
         this.dataDate = dataDate

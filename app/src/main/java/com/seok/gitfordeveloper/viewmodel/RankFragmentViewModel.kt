@@ -1,5 +1,6 @@
 package com.seok.gitfordeveloper.viewmodel
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -22,6 +23,7 @@ class RankFragmentViewModel(application: Application) : AndroidViewModel(applica
         get() = _rankList
 
 
+    @SuppressLint("SimpleDateFormat")
     fun getTodayRankList(){
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
 
@@ -31,15 +33,12 @@ class RankFragmentViewModel(application: Application) : AndroidViewModel(applica
             dateFormat.format(Date()))
         getTodayRankListCall.enqueue(object : Callback<List<TRCommitResponseDto>>{
             override fun onResponse(call: Call<List<TRCommitResponseDto>>, response: Response<List<TRCommitResponseDto>>) {
-                if(response.isSuccessful){
-                    val body = response.body()
-                    body
+                val body = if(response.isSuccessful){
+                    response.body()
                 }else{
-                    val body =0
-                    body
+                    null
                 }
-
-//                _rankList.postValue(body)
+                _rankList.postValue(body)
             }
             override fun onFailure(call: Call<List<TRCommitResponseDto>>, t: Throwable) {
                 Log.e(this.javaClass.simpleName, t.message.toString())
