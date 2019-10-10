@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.seok.gitfordeveloper.R
@@ -38,6 +39,7 @@ class RankFragment : Fragment() {
         rankViewModel = ViewModelProviders.of(this).get(RankFragmentViewModel::class.java)
         sharedPreferencesForUser = SharedPreferencesForUser(this.activity?.application!!)
         rv_rank.layoutManager = LinearLayoutManager(activity)
+        rv_rank.addItemDecoration(DividerItemDecoration(this.context, 1))
         rv_rank.setHasFixedSize(true)
     }
     private fun initViewModelFun(){
