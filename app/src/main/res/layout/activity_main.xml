@@ -19,9 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/thCommit"
-            app:itemIconTint="@color/iconText"
-            app:itemTextColor="@color/iconText"
+            android:background="@color/stCommit"
+            app:itemIconTint="@color/fiCommit"
+            app:itemTextColor="@color/fiCommit"
             app:labelVisibilityMode="selected"
             app:menu="@menu/bottom_navigation_menu" />
 
