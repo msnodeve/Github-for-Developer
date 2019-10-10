@@ -20,7 +20,9 @@ import com.seok.gitfordeveloper.database.Commits
 import com.seok.gitfordeveloper.utils.AuthUserInfo
 import com.seok.gitfordeveloper.utils.SharedPreferencesForUser
 import com.seok.gitfordeveloper.viewmodel.MainFragmentViewModel
+import com.seok.gitfordeveloper.viewmodel.RankFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_rank.*
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.margin
 
@@ -29,7 +31,8 @@ class MainFragment : Fragment() {
     private lateinit var sharedPreferencesForUser: SharedPreferencesForUser
 
     private lateinit var authUserInfo: AuthUserInfo
-    private lateinit var viewModel: MainFragmentViewModel
+    private lateinit var mainViewModel: MainFragmentViewModel
+    private lateinit var rankViewModel: RankFragmentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +50,8 @@ class MainFragment : Fragment() {
     }
 
     private fun init() {
-        viewModel = ViewModelProviders.of(this).get(MainFragmentViewModel::class.java)
+        mainViewModel = ViewModelProviders.of(this).get(MainFragmentViewModel::class.java)
+        rankViewModel = ViewModelProviders.of(this).get(RankFragmentViewModel::class.java)
         sharedPreferencesForUser = SharedPreferencesForUser(this.activity?.application!!)
 
         authUserInfo = AuthUserInfo(this.activity?.application!!)
@@ -61,17 +65,17 @@ class MainFragment : Fragment() {
     }
 
     private fun initViewModelFun() {
-        viewModel.user.observe(this, Observer {
+        mainViewModel.user.observe(this, Observer {
             setUserInfoUI(it.login, it.html_url, it.avatar_url)
-            viewModel.getCommitsFromGithub()
+            mainViewModel.getCommitsFromGithub()
         })
-        viewModel.commits.observe(this, Observer {
+        mainViewModel.commits.observe(this, Observer {
             setCommitUI(it)
         })
-        viewModel.commit.observe(this, Observer {
+        mainViewModel.commit.observe(this, Observer {
             max_commit.text = it.dataCount.toString()
         })
-        viewModel.completeGetAllCommits.observe(this, Observer {
+        mainViewModel.completeGetAllCommits.observe(this, Observer {
             if(it) {
                 scroll_contribute.smoothScrollTo(contribute.width, contribute.height)
             }
@@ -79,7 +83,7 @@ class MainFragment : Fragment() {
     }
 
     private fun checkForUserInfo() {
-        viewModel.setUserInfo()
+        mainViewModel.setUserInfo()
     }
 
     private fun setCommitUI(it: List<Commits>) {
@@ -104,8 +108,10 @@ class MainFragment : Fragment() {
                 }
                 contribute.addView(layout)
             }
-            today_commit.text = it[it.size - 1].dataCount.toString()
-            viewModel.completeGetAllCommits()
+            val todayCommit = it[it.size - 1].dataCount
+            today_commit.text = todayCommit.toString()
+            mainViewModel.completeGetAllCommits()
+            rankViewModel.updateTodayRankCommit(sharedPreferencesForUser.getValue(getString(R.string.user_id)) , todayCommit)
         }
     }
 

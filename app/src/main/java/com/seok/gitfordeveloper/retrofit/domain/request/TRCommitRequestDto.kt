@@ -1,4 +1,4 @@
-package com.seok.gitfordeveloper.retrofit.request
+package com.seok.gitfordeveloper.retrofit.domain.request
 
 import lombok.AllArgsConstructor
 import lombok.Getter
@@ -10,10 +10,10 @@ import lombok.Setter
 @NoArgsConstructor
 @AllArgsConstructor
 class TRCommitRequestDto {
-    var userId : String =""
-    var dataCount : Int =0
+    var userId: String = ""
+    var dataCount: Int = 0
 
-    constructor(userId : String, dataCount : Int){
+    constructor(userId: String, dataCount: Int) {
         this.userId = userId
         this.dataCount = dataCount
     }

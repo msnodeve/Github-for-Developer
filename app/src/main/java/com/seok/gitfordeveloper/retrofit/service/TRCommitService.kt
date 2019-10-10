@@ -1,7 +1,7 @@
 package com.seok.gitfordeveloper.retrofit.service
 
-import com.seok.gitfordeveloper.retrofit.request.TRCommitResponseDto
-import com.seok.gitfordeveloper.retrofit.request.TRCommitRequestDto
+import com.seok.gitfordeveloper.retrofit.domain.resopnse.TRCommitResponseDto
+import com.seok.gitfordeveloper.retrofit.domain.request.TRCommitRequestDto
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -12,10 +12,10 @@ interface TRCommitService {
     ): Call<List<TRCommitResponseDto>>
 
     @POST("trc")
-    fun insertTRCommit(
+    fun updateTRCommit(
         @Header("Authorization") authKey: String,
         @Body trCommitRequestDto: TRCommitRequestDto
-    ): Call<TRCommitResponseDto>
+    ): Call<String>
 
     @GET("trc/{date}")
     fun getTRCommitList(
@@ -23,9 +23,4 @@ interface TRCommitService {
         @Path("date") date: String
     ): Call<List<TRCommitResponseDto>>
 
-    @PATCH
-    fun updateTRCommit(
-        @Header("Authorization") authKey :String,
-        @Body trCommitRequestDto: TRCommitRequestDto
-    ): Call<TRCommitResponseDto>
 }

@@ -8,7 +8,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.seok.gitfordeveloper.BuildConfig
 import com.seok.gitfordeveloper.retrofit.RetrofitClient
-import com.seok.gitfordeveloper.retrofit.request.TRCommitResponseDto
+import com.seok.gitfordeveloper.retrofit.domain.request.TRCommitRequestDto
+import com.seok.gitfordeveloper.retrofit.domain.resopnse.TRCommitResponseDto
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,20 +23,70 @@ class RankFragmentViewModel(application: Application) : AndroidViewModel(applica
     val rankList: LiveData<List<TRCommitResponseDto>>
         get() = _rankList
 
+    private val _serverResult = MutableLiveData<Boolean>()
+    val serverResult: LiveData<Boolean>
+        get() = _serverResult
 
     @SuppressLint("SimpleDateFormat")
-    fun getTodayRankList(){
+    fun getTodayRankList() {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
 
         val getTodayRankListService = RetrofitClient.trCommitService()
         val getTodayRankListCall = getTodayRankListService.getTRCommitList(
             BuildConfig.BASIC_AUTH_KEY,
+            dateFormat.format(Date())
+        )
+        getTodayRankListCall.enqueue(object : Callback<List<TRCommitResponseDto>> {
+            override fun onResponse(
+                call: Call<List<TRCommitResponseDto>>,
+                response: Response<List<TRCommitResponseDto>>
+            ) {
+                val body = if (response.isSuccessful) {
+                    response.body()
+                } else {
+                    null
+                }
+                _rankList.postValue(body)
+            }
+
+            override fun onFailure(call: Call<List<TRCommitResponseDto>>, t: Throwable) {
+                Log.e(this.javaClass.simpleName, t.message.toString())
+            }
+        })
+    }
+
+    fun updateTodayRankCommit(userId: String, dataCount: Int) {
+        val updateTodayRankCommitService = RetrofitClient.trCommitService()
+        val updateTodayRankCommitCall = updateTodayRankCommitService.updateTRCommit(
+            BuildConfig.BASIC_AUTH_KEY,
+            TRCommitRequestDto(userId, dataCount)
+        )
+        updateTodayRankCommitCall.enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if (response.body().equals("CREATE")) {
+                    _serverResult.postValue(true)
+                }
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.e(this.javaClass.simpleName, t.message.toString())
+            }
+        })
+    }
+    fun getTodayRankCommitList(){
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val getTodayRankListService = RetrofitClient.trCommitService()
+        val getTodayRankListCall = getTodayRankListService.getTRCommitList(
+            BuildConfig.BASIC_AUTH_KEY,
             dateFormat.format(Date()))
         getTodayRankListCall.enqueue(object : Callback<List<TRCommitResponseDto>>{
-            override fun onResponse(call: Call<List<TRCommitResponseDto>>, response: Response<List<TRCommitResponseDto>>) {
-                val body = if(response.isSuccessful){
+            override fun onResponse(
+                call: Call<List<TRCommitResponseDto>>,
+                response: Response<List<TRCommitResponseDto>>
+            ) {
+                val body = if (response.isSuccessful) {
                     response.body()
-                }else{
+                } else {
                     null
                 }
                 _rankList.postValue(body)

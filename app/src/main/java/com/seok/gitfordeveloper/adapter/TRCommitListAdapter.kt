@@ -1,44 +1,55 @@
 package com.seok.gitfordeveloper.adapter
 
+import android.app.Activity
+import android.app.Application
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.seok.gitfordeveloper.R
-import com.seok.gitfordeveloper.retrofit.request.TRCommitResponseDto
+import com.seok.gitfordeveloper.retrofit.domain.resopnse.TRCommitResponseDto
+import com.seok.gitfordeveloper.utils.SharedPreferencesForUser
+import kotlinx.android.synthetic.main.fragment_rank.*
+import kotlinx.android.synthetic.main.fragment_rank.view.*
+import kotlinx.android.synthetic.main.fragment_rank.view.img_rv_profile
 import kotlinx.android.synthetic.main.rv_rank_item.view.*
 
-class TRCommitListAdapter(private val items: List<TRCommitResponseDto>) :
+class TRCommitListAdapter(private val application: Application, private val items: List<TRCommitResponseDto>, private val fragment: Fragment) :
     RecyclerView.Adapter<TRCommitListAdapter.TRCommitRankViewHolder>() {
+
+    private lateinit var sharedPreferencesForUser: SharedPreferencesForUser
 
     override fun getItemCount() = items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TRCommitRankViewHolder {
-        val inflatedView =
-            LayoutInflater.from(parent.context).inflate(R.layout.rv_rank_item, parent, false)
-        return TRCommitListAdapter.TRCommitRankViewHolder(inflatedView)
+        sharedPreferencesForUser = SharedPreferencesForUser(application)
+        val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.rv_rank_item, parent, false)
+        return TRCommitRankViewHolder(inflatedView)
     }
 
     override fun onBindViewHolder(holder: TRCommitRankViewHolder, position: Int) {
         val item = items[position]
-        val listener = View.OnClickListener {
-            Toast.makeText(it.context, "Clicked: ${item.userId}", Toast.LENGTH_SHORT)
+        val rank = (position+1).toString()
+        if(item.uid == sharedPreferencesForUser.getValue(application.getString(R.string.user_id))){
+            fragment.tv_rv_rank.text = rank
+            fragment.tv_rv_commit.text = item.data_count.toString()
+            Glide.with(fragment).load(item.profile_image).into(fragment.img_rv_profile)
         }
         holder.apply {
-            bind(listener, item)
+            bind(rank, item)
             itemView.tag = item
         }
     }
 
-    class TRCommitRankViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private var view: View = view
-        fun bind(listener: View.OnClickListener, item: TRCommitResponseDto) {
-            view.tv_rv_rank_username.text = item.userId
-            view.tv_rank_commit.text = item.dataCount.toString()
-            view.setOnClickListener(listener)
-//            Glide.with(view.context).load(item.userProfile).into(view.img_rv_profile)
+    class TRCommitRankViewHolder(private var view: View) : RecyclerView.ViewHolder(view) {
+        fun bind(rank: String, item: TRCommitResponseDto) {
+            view.tv_rv_rank_num.text = rank
+            view.tv_rv_rank_username.text = item.uid
+            view.tv_rank_commit.text = item.data_count.toString()
+            Glide.with(view.context).load(item.profile_image).into(view.img_rv_user_profile)
         }
-
     }
 }
