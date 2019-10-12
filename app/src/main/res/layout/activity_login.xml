@@ -9,7 +9,6 @@
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounding_background"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +19,7 @@
                 android:id="@+id/login_img_login"
                 android:layout_width="300sp"
                 android:layout_height="100sp"
-                app:srcCompat="@drawable/github_logo_white" />
+                app:srcCompat="@drawable/btn_github_login" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

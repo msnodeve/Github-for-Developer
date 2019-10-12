@@ -98,7 +98,7 @@ class MainFragment : Fragment() {
                 param.margin = 4
                 layout.layoutParams = param
                 val txt = TextView(this.activity)
-                txt.text = commit.dataCount.toString()
+//                txt.text = commit.dataCount.toString()
                 layout.gravity = Gravity.CENTER
                 layout.addView(txt)
                 layout.backgroundColor = Color.parseColor(commit.fill)
