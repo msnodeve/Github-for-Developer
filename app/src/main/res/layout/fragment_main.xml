@@ -37,7 +37,6 @@
                     android:id="@+id/img_mv_user_profile"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:src="@mipmap/ic_launcher_foreground_gfd"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
