@@ -55,7 +55,7 @@ class TRCommitListAdapter(private val application: Application, private val item
             view.tv_rank_commit.text = item.data_count.toString()
             Glide.with(view.context).load(item.profile_image).apply(RequestOptions.circleCropTransform()).into(view.img_rv_user_profile)
             if(item.uid == userId){
-                view.layout_rv_back.setBackgroundResource(R.drawable.profile_gradation)
+                view.layout_rv_back.setBackgroundResource(R.color.userRankPos)
             }
         }
     }

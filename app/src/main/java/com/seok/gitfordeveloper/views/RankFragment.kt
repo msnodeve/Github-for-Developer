@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.seok.gitfordeveloper.R
 import com.seok.gitfordeveloper.adapter.TRCommitListAdapter
 import com.seok.gitfordeveloper.utils.SharedPreferencesForUser
@@ -43,6 +44,7 @@ class RankFragment : Fragment() {
         img_rank_sync.setOnClickListener {
             rankViewModel.getTodayRankCommitList()
         }
+        rankViewModel.getTodayRankCommitList()
     }
     private fun initViewModelFun(){
         rankViewModel.serverResult.observe(this, Observer {
@@ -52,7 +54,15 @@ class RankFragment : Fragment() {
         rankViewModel.rankList.observe(this, Observer {
             val adapter = TRCommitListAdapter(this.activity!!.application, it, this)
             rv_rank.adapter = adapter
-            Glide.with(this).load(sharedPreferencesForUser.getValue(getString(R.string.user_image))).into(img_rv_profile)
+            Glide.with(this).load(sharedPreferencesForUser.getValue(getString(R.string.user_image))).apply(
+                RequestOptions.circleCropTransform()).into(img_rv_profile)
+            this.activity!!.runOnUiThread {
+                for(commitNumber in 0 until it.size){
+                    if(it[commitNumber].uid == sharedPreferencesForUser.getValue(getString(R.string.user_id))){
+                        rv_rank.scrollToPosition(commitNumber)
+                    }
+                }
+            }
         })
     }
 }
