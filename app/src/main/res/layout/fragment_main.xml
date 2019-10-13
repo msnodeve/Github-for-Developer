@@ -17,9 +17,9 @@
                 android:layout_height="wrap_content"
                 app:adSize="BANNER"
                 app:adUnitId="@string/banner_ad_unit_id_for_test"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
@@ -31,7 +31,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/adView">
+                app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                     android:id="@+id/img_mv_user_profile"
@@ -40,7 +40,8 @@
                     android:src="@mipmap/ic_launcher_foreground_gfd"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/gfd_launcher" />
 
             <TextView
                     android:id="@+id/max_commit"
@@ -48,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="0"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorText"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/user_url"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="@string/main_view_user_id"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorText"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/max_commit"
                     app:layout_constraintStart_toEndOf="@+id/img_mv_user_profile"
@@ -72,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="0"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorText"
                     android:textSize="16sp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/user_id"
                     app:layout_constraintEnd_toEndOf="parent" />
@@ -83,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="@string/main_view_user_sample_url"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorText"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/img_mv_user_profile"
@@ -95,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="@string/today_contribution"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorText"
                     android:textSize="16sp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/today_commit"
                     app:layout_constraintEnd_toStartOf="@+id/today_commit" />
@@ -106,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="@string/max_contribution"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorText"
                     android:textSize="16sp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/max_commit"
                     app:layout_constraintEnd_toStartOf="@+id/max_commit" />
@@ -137,7 +138,7 @@
                         android:layout_weight="10"
                         android:gravity="center"
                         android:text="@string/sun"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@color/colorText" />
 
                 <TextView
                         android:id="@+id/textView"
@@ -146,7 +147,7 @@
                         android:layout_weight="10"
                         android:gravity="center"
                         android:text="@string/mon"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@color/colorText" />
 
                 <TextView
                         android:id="@+id/textView2"
@@ -155,7 +156,7 @@
                         android:layout_weight="10"
                         android:gravity="center"
                         android:text="@string/tue"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@color/colorText" />
 
                 <TextView
                         android:id="@+id/textView3"
@@ -164,7 +165,7 @@
                         android:layout_weight="10"
                         android:gravity="center"
                         android:text="@string/wen"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@color/colorText" />
 
                 <TextView
                         android:id="@+id/textView4"
@@ -173,7 +174,7 @@
                         android:layout_weight="10"
                         android:gravity="center"
                         android:text="@string/thu"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@color/colorText" />
 
                 <TextView
                         android:id="@+id/textView5"
@@ -182,7 +183,7 @@
                         android:layout_weight="10"
                         android:gravity="center"
                         android:text="@string/fri"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@color/colorText" />
 
                 <TextView
                         android:id="@+id/textView6"
@@ -191,7 +192,7 @@
                         android:layout_weight="10"
                         android:gravity="center"
                         android:text="@string/sat"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@color/colorText" />
             </LinearLayout>
 
             <LinearLayout

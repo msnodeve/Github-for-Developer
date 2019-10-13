@@ -3,7 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/layout_rv_back"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:orientation="horizontal">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,12 +31,12 @@
 
         <ImageView
                 android:id="@+id/img_rv_user_profile"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/ic_launcher_foreground_gfd" />
+                app:srcCompat="@drawable/gfd_launcher" />
 
         <TextView
                 android:id="@+id/tv_rv_rank_username"
