@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <gradient
-            android:angle="45"
-            android:endColor="@color/stCommit"
-            android:startColor="@color/fiCommit"
+            android:angle="135"
+            android:endColor="@color/fiCommit"
+            android:startColor="@color/stCommit"
             android:type="linear" />
 </shape>

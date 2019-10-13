@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@color/stCommit"
-            app:itemIconTint="@color/fiCommit"
-            app:itemTextColor="@color/fiCommit"
+            app:itemIconTint="@color/colorText"
+            app:itemTextColor="@color/colorText"
             app:labelVisibilityMode="selected"
             app:menu="@menu/bottom_navigation_menu" />
 

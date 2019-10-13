@@ -12,6 +12,7 @@
     <color name="fiCommit">#196127</color>
 
     <!-- APP UI Color -->
+    <color name="colorText">#282828</color>
     <color name="colorTopBar">#444444</color>
     <color name="iconText">#e4f9f5</color>
 </resources>

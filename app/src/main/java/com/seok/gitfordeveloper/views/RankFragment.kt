@@ -33,7 +33,6 @@ class RankFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
         initViewModelFun()
-        rankViewModel.getTodayRankList()
     }
     private fun init(){
         rankViewModel = ViewModelProviders.of(this).get(RankFragmentViewModel::class.java)
@@ -41,6 +40,9 @@ class RankFragment : Fragment() {
         rv_rank.layoutManager = LinearLayoutManager(activity)
         rv_rank.addItemDecoration(DividerItemDecoration(this.context, 1))
         rv_rank.setHasFixedSize(true)
+        img_rank_sync.setOnClickListener {
+            rankViewModel.getTodayRankCommitList()
+        }
     }
     private fun initViewModelFun(){
         rankViewModel.serverResult.observe(this, Observer {

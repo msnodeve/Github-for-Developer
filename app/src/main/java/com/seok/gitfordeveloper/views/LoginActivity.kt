@@ -22,7 +22,6 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var viewModel: LoginViewModel
     private lateinit var authToken: AuthUserToken
-    private lateinit var progressDialog : ProgressbarDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +35,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        progressDialog = ProgressbarDialog(this)
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         authToken = AuthUserToken(application)
-        progressDialog.start()
     }
 
     private fun checkForSignIn() {
@@ -49,12 +46,10 @@ class LoginActivity : AppCompatActivity() {
                 if (body.code == HttpURLConnection.HTTP_OK) {
                     goToMainActivity()
                 } else {
-                    progressDialog.finish()
                     longToast(getString(R.string.fail_token))
                 }
             })
         } else {
-            progressDialog.finish()
             longToast(getString(R.string.welcome_app))
         }
     }
@@ -73,7 +68,6 @@ class LoginActivity : AppCompatActivity() {
                     authToken.editToken(BuildConfig.PREFERENCES_TOKEN_KEY, body.access_token)
                     goToMainActivity()
                 }else{
-                    progressDialog.finish()
                     longToast(getString(R.string.invalid_token))
                 }
             })
