@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical"
+        android:id="@+id/progress_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
     <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/avi"
+            android:id="@+id/progress_bar"
             style="@style/AVLoadingIndicatorView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00FF0000"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:visibility="visible"
-            app:indicatorColor="#00bfff"
-            app:indicatorName="SemiCircleSpinIndicator" />
+            app:indicatorColor="@color/thCommit"
+            app:indicatorName="BallSpinFadeLoaderIndicator"/>
 
 </LinearLayout>

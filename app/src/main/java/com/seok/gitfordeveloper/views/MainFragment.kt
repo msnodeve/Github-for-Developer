@@ -18,6 +18,7 @@ import com.google.android.gms.ads.MobileAds
 import com.seok.gitfordeveloper.R
 import com.seok.gitfordeveloper.database.Commits
 import com.seok.gitfordeveloper.utils.AuthUserInfo
+import com.seok.gitfordeveloper.utils.ProgressbarDialog
 import com.seok.gitfordeveloper.utils.SharedPreferencesForUser
 import com.seok.gitfordeveloper.viewmodel.MainFragmentViewModel
 import com.seok.gitfordeveloper.viewmodel.RankFragmentViewModel
@@ -29,10 +30,10 @@ import org.jetbrains.anko.margin
 class MainFragment : Fragment() {
 
     private lateinit var sharedPreferencesForUser: SharedPreferencesForUser
-
     private lateinit var authUserInfo: AuthUserInfo
     private lateinit var mainViewModel: MainFragmentViewModel
     private lateinit var rankViewModel: RankFragmentViewModel
+    private lateinit var progressbarDialog: ProgressbarDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +51,7 @@ class MainFragment : Fragment() {
     }
 
     private fun init() {
+        progressbarDialog = ProgressbarDialog(context!!)
         mainViewModel = ViewModelProviders.of(this).get(MainFragmentViewModel::class.java)
         rankViewModel = ViewModelProviders.of(this).get(RankFragmentViewModel::class.java)
         sharedPreferencesForUser = SharedPreferencesForUser(this.activity?.application!!)
@@ -83,6 +85,7 @@ class MainFragment : Fragment() {
     }
 
     private fun checkForUserInfo() {
+        progressbarDialog.show()
         mainViewModel.setUserInfo()
     }
 
@@ -113,6 +116,7 @@ class MainFragment : Fragment() {
             mainViewModel.completeGetAllCommits()
             rankViewModel.updateTodayRankCommit(sharedPreferencesForUser.getValue(getString(R.string.user_id)) , todayCommit)
         }
+        progressbarDialog.hide()
     }
 
     private fun setUserInfoUI(userId: String, userUrl: String, userImage: String) {

@@ -15,6 +15,8 @@ import androidx.lifecycle.ViewModelProviders
 import com.seok.gitfordeveloper.utils.AuthUserToken
 import com.seok.gitfordeveloper.utils.ProgressbarDialog
 import com.seok.gitfordeveloper.viewmodel.LoginViewModel
+import com.wang.avi.AVLoadingIndicatorView
+import kotlinx.android.synthetic.main.progressbar_dialog.*
 import org.jetbrains.anko.longToast
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -22,6 +24,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var viewModel: LoginViewModel
     private lateinit var authToken: AuthUserToken
+    private lateinit var progressbarDialog: ProgressbarDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
         init()
         checkForSignIn()
         login_img_login.setOnClickListener {
+            progressbarDialog.show()
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(authToken.buildHttpUrl(BuildConfig.GITHUB_CLIENT_ID)))
             startActivityForResult(intent, HttpURLConnection.HTTP_OK)
         }
@@ -37,9 +41,11 @@ class LoginActivity : AppCompatActivity() {
     private fun init() {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         authToken = AuthUserToken(application)
+        progressbarDialog = ProgressbarDialog(this)
     }
 
     private fun checkForSignIn() {
+        progressbarDialog.show()
         val accessToken = authToken.getToken(BuildConfig.PREFERENCES_TOKEN_KEY)
         if (accessToken != getString(R.string.no_token)) {
             viewModel.githubUserApi(accessToken).observe(this, Observer { body ->
@@ -47,10 +53,12 @@ class LoginActivity : AppCompatActivity() {
                     goToMainActivity()
                 } else {
                     longToast(getString(R.string.fail_token))
+                    progressbarDialog.hide()
                 }
             })
         } else {
             longToast(getString(R.string.welcome_app))
+            progressbarDialog.hide()
         }
     }
 
@@ -69,6 +77,7 @@ class LoginActivity : AppCompatActivity() {
                     goToMainActivity()
                 }else{
                     longToast(getString(R.string.invalid_token))
+                    progressbarDialog.hide()
                 }
             })
     }
@@ -76,6 +85,7 @@ class LoginActivity : AppCompatActivity() {
     private fun goToMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        progressbarDialog.hide()
         finish()
     }
 }

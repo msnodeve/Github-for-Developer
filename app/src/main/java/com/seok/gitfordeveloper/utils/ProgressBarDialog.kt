@@ -10,14 +10,16 @@ class ProgressbarDialog(context: Context){
     private val dialog = Dialog(context)
 
     init{
+        dialog.setContentView(R.layout.progressbar_dialog)
         dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setCanceledOnTouchOutside(false)
     }
-    public fun start(){
-        dialog.setContentView(R.layout.progressbar_dialog)
+    fun show(){
         dialog.show()
     }
-    public fun finish(){
+    fun hide(){
+        dialog.hide()
         dialog.dismiss()
     }
+
 }
