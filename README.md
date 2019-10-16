@@ -6,17 +6,23 @@
 ***
 
 # Release
-v0.6.2 릴리즈 [Google Paly Store](https://play.google.com/store/apps/details?id=com.seok.gitfordeveloper)
+v1.10.3 릴리즈 [Google Paly Store](https://play.google.com/store/apps/details?id=com.seok.gitfordeveloper)
 
 # Preview
 
-<img src="./img/preview01.jpeg" width="40%" height="40%">
+<img src="./img/preview01.png" width="40%" height="40%">
+<img src="./img/preview02.png" width="40%" height="40%">
 
 
 # Notice
 
-v0.6.2 릴리즈 작업 완료
+v1.6.2 릴리즈 작업 완료
 - Backend 작업
 - UI 개선 작업
 - 사용자 UI 개선
 - 자동 로그인 구현
+
+
+v1.10.3 릴리즈 작업 완료
+- 금일 커밋 랭킹 서비스 구축
+- 프로필, 랭킹 프래그먼트로 분리
