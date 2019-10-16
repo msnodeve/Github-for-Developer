@@ -1,8 +1,6 @@
 package com.seok.gitfordeveloper.adapter
 
-import android.app.Activity
 import android.app.Application
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +12,7 @@ import com.seok.gitfordeveloper.R
 import com.seok.gitfordeveloper.retrofit.domain.resopnse.TRCommitResponseDto
 import com.seok.gitfordeveloper.utils.SharedPreferencesForUser
 import kotlinx.android.synthetic.main.fragment_rank.*
-import kotlinx.android.synthetic.main.fragment_rank.view.*
-import kotlinx.android.synthetic.main.fragment_rank.view.img_rv_profile
-import kotlinx.android.synthetic.main.rv_rank_item.*
 import kotlinx.android.synthetic.main.rv_rank_item.view.*
-import kotlinx.android.synthetic.main.rv_rank_item.view.layout_rv_back
-import org.jetbrains.anko.backgroundColor
 
 class TRCommitListAdapter(private val application: Application, private val items: List<TRCommitResponseDto>, private val fragment: Fragment) :
     RecyclerView.Adapter<TRCommitListAdapter.TRCommitRankViewHolder>() {

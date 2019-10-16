@@ -1,6 +1,5 @@
 package com.seok.gitfordeveloper.retrofit.domain.resopnse
 
-import com.seok.gitfordeveloper.retrofit.domain.GUser
 import lombok.AllArgsConstructor
 import lombok.Getter
 import lombok.NoArgsConstructor

@@ -57,7 +57,7 @@ class RankFragment : Fragment() {
             Glide.with(this).load(sharedPreferencesForUser.getValue(getString(R.string.user_image))).apply(
                 RequestOptions.circleCropTransform()).into(img_rv_profile)
             this.activity!!.runOnUiThread {
-                for(commitNumber in 0 until it.size){
+                for(commitNumber in it.indices){
                     if(it[commitNumber].uid == sharedPreferencesForUser.getValue(getString(R.string.user_id))){
                         rv_rank.scrollToPosition(commitNumber)
                     }

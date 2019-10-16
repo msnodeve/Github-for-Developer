@@ -1,6 +1,7 @@
 package com.seok.gitfordeveloper.retrofit
 
 import com.google.gson.GsonBuilder
+import com.seok.gitfordeveloper.BuildConfig
 import com.seok.gitfordeveloper.retrofit.service.GUserService
 import com.seok.gitfordeveloper.retrofit.service.TRCommitService
 import com.seok.gitfordeveloper.retrofit.service.UserService
@@ -28,7 +29,7 @@ class RetrofitClient {
         fun gUserService() : GUserService{
             val gson = GsonBuilder().setLenient().create()
             retrofit = Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8080/api/v1/")
+                .baseUrl(BuildConfig.GFD_API_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
             return retrofit.create(GUserService::class.java)
@@ -36,7 +37,7 @@ class RetrofitClient {
         fun trCommitService() : TRCommitService{
             val gson = GsonBuilder().setLenient().create()
             retrofit = Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8080/api/v1/")
+                .baseUrl(BuildConfig.GFD_API_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
             return retrofit.create(TRCommitService::class.java)

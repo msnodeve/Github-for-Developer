@@ -32,6 +32,7 @@ android {
             buildConfigField "String", "PREFERENCES_FILE", PREFERENCES_FILE
             buildConfigField "String", "PREFERENCES_TOKEN_KEY", PREFERENCES_TOKEN_KEY
             buildConfigField "String", "BASIC_AUTH_KEY", BASIC_AUTH_KEY
+            buildConfigField "String", "GFD_API_URL", GFD_API_URL
         }
         debug {
             testCoverageEnabled true
@@ -41,6 +42,7 @@ android {
             buildConfigField "String", "PREFERENCES_FILE", PREFERENCES_FILE
             buildConfigField "String", "PREFERENCES_TOKEN_KEY", PREFERENCES_TOKEN_KEY
             buildConfigField "String", "BASIC_AUTH_KEY", BASIC_AUTH_KEY
+            buildConfigField "String", "GFD_API_URL", GFD_API_URL
         }
     }
     compileOptions {

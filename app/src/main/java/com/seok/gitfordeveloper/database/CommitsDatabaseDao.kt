@@ -1,6 +1,5 @@
 package com.seok.gitfordeveloper.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao

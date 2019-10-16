@@ -8,13 +8,10 @@ import com.seok.gitfordeveloper.retrofit.RetrofitClient
 import com.seok.gitfordeveloper.retrofit.domain.GUser
 import com.seok.gitfordeveloper.retrofit.domain.Token
 import com.seok.gitfordeveloper.retrofit.domain.User
-import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 import java.net.HttpURLConnection
-import kotlin.math.sign
 
 class UserRepository(application: Application) {
     private lateinit var user: User
@@ -67,16 +64,16 @@ class UserRepository(application: Application) {
         val call = codeService.getGithubCode(clientId, clientSecret, code)
         call.enqueue(object : Callback<Token> {
             override fun onResponse(call: Call<Token>, response: Response<Token>) {
-                if (response.isSuccessful) {
+                token = if (response.isSuccessful) {
                     val body = response.body()!!
-                    token = Token(
+                    Token(
                         body.access_token,
                         body.scope,
                         body.token_type,
                         HttpURLConnection.HTTP_OK
                     )
                 } else {
-                    token = Token(HttpURLConnection.HTTP_NOT_FOUND)
+                    Token(HttpURLConnection.HTTP_NOT_FOUND)
                 }
                 codeMutableData.value = token
             }
