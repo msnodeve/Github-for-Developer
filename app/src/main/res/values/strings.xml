@@ -5,17 +5,38 @@
     <string name="fail_token">깃허브 토큰이 만료되었습니다.\n로그인을 다시 시도 해주세요</string>
     <string name="welcome_app">개발자를 위한 깃허브 앱에 오신것을 환영합니다.\n로그인 버튼을 눌러주세요</string>
     <string name="invalid_token">로그인 토큰 발급을 실패하였습니다\n다시 시도 해주세요</string>
-    <string name="today_contribution">Today contribution : </string>
-    <string name="max_contribution">Max contribution : </string>
+    <string name="today_contribution">Today contribution</string>
+    <string name="max_contribution">Max contribution</string>
+    <string name="navigation_menu_profile">Profile</string>
+    <string name="navigation_menu_rank">Rank</string>
+    <string name="sun">SUN</string>
+    <string name="mon">MON</string>
+    <string name="tue">TUE</string>
+    <string name="wen">WEN</string>
+    <string name="thu">THU</string>
+    <string name="fri">FRI</string>
+    <string name="sat">SAT</string>
+    <string name="main_view_user_id">User ID</string>
+    <string name="main_view_user_sample_url">https://github/gfd</string>
+    <string name="rank_view_today_rank">금일 컨트리뷰션 랭킹</string>
+    <string name="rank_view_sample_rank">0</string>
+    <string name="rank_view_rank_txt">등</string>
+    <string name="rank_view_sample_commit">0</string>
+    <string name="rank_view_commit_txt">Contribution</string>
+    <string name="rv_rank_num">0</string>
+    <string name="rv_rank_user_name">gfd</string>
+    <string name="rv_rank_commit">0</string>
 
     <!-- Project String env -->
     <string name="no_token">Empty token</string>
+    <string name="no_user_key">Empty key</string>
     <string name="no_user_id">Empty user id</string>
     <string name="no_user_email">Empty user url</string>
     <string name="no_user_image">Empty user image</string>
     <string name="user_id">user_id</string>
     <string name="user_url">user_url</string>
     <string name="user_image">user_image</string>
+    <string name="user_gid">user_gid</string>
 
     <!-- Github Request Url -->
     <string name="github_base_url">https://api.github.com/</string>
@@ -23,7 +44,12 @@
     <string name="github_get_access_token_url">"https://github.com/login/oauth/"</string>
 
     <!-- AdMob key -->
-    <string name="admob_app_id">ca-app-pub-2766237193476584~8461542866</string>
-    <string name="banner_ad_unit_id">ca-app-pub-2766237193476584/5575239666</string>
+    <string name="admob_app_id">ca-app-pub-2766237193476584~2069127933</string>
+    <string name="banner_ad_unit_id">ca-app-pub-2766237193476584/5214166022</string>
     <string name="banner_ad_unit_id_for_test">ca-app-pub-3940256099942544/6300978111</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>

@@ -4,3 +4,5 @@ set_env:
 	echo "REDIRECT_CALLBACK_URL=\"gfd://github.for.developer\"" >> app/gradle.properties
 	echo "PREFERENCES_FILE=\"file_name\"" >> app/gradle.properties
 	echo "PREFERENCES_TOKEN_KEY=\"token_key\"" >> app/gradle.properties
+	echo "BASIC_AUTH_KEY=\"basic_auth_key\"" >> app/gradle.properties
+	echo "GFD_API_URL=\"gfd_api_url\"" >> app/gradle.properties
