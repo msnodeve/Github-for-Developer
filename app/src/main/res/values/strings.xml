@@ -44,8 +44,8 @@
     <string name="github_get_access_token_url">"https://github.com/login/oauth/"</string>
 
     <!-- AdMob key -->
-    <string name="admob_app_id">ca-app-pub-2766237193476584~8461542866</string>
-    <string name="banner_ad_unit_id">ca-app-pub-2766237193476584/5575239666</string>
+    <string name="admob_app_id">ca-app-pub-2766237193476584~2069127933</string>
+    <string name="banner_ad_unit_id">ca-app-pub-2766237193476584/5214166022</string>
     <string name="banner_ad_unit_id_for_test">ca-app-pub-3940256099942544/6300978111</string>
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -59,7 +59,7 @@ class MainFragment : Fragment() {
 
         MobileAds.initialize(
             this.activity!!.application,
-            getString(R.string.banner_ad_unit_id_for_test)
+            getString(R.string.admob_app_id)
         )
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
