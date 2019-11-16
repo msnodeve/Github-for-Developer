@@ -45,6 +45,3 @@ before_script:
 
 script:
   - ./gradlew --no-daemon --parallel lintDebug testDebug
-
-after_success:
-  - ./gradlew jacocoTestReport coveralls
