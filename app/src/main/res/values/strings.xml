@@ -26,6 +26,9 @@
     <string name="rv_rank_num">0</string>
     <string name="rv_rank_user_name">gfd</string>
     <string name="rv_rank_commit">0</string>
+    <string name="text_github">Github </string>
+    <string name="text_login"> Login</string>
+    <string name="app_tv_count_users">Users to today</string>
 
     <!-- Project String env -->
     <string name="no_token">Empty token</string>
@@ -49,7 +52,7 @@
     <string name="banner_ad_unit_id_for_test">ca-app-pub-3940256099942544/6300978111</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 
 </resources>

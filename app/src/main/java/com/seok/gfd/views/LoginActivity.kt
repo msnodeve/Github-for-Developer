@@ -3,6 +3,7 @@ package com.seok.gfd.views
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.seok.gfd.BuildConfig
 import com.seok.gfd.R
@@ -12,10 +13,13 @@ import java.net.HttpURLConnection
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.seok.gfd.retrofit.RetrofitClient
 import com.seok.gfd.utils.AuthUserToken
 import com.seok.gfd.utils.ProgressbarDialog
 import com.seok.gfd.viewmodel.LoginViewModel
 import org.jetbrains.anko.longToast
+import retrofit2.Call
+import retrofit2.Response
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class LoginActivity : AppCompatActivity() {
@@ -34,6 +38,24 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(authToken.buildHttpUrl(BuildConfig.GITHUB_CLIENT_ID)))
             startActivityForResult(intent, HttpURLConnection.HTTP_OK)
         }
+
+        val userService = RetrofitClient.gUserService()
+        val call = userService.getUsersCount(BuildConfig.BASIC_AUTH_KEY)
+        call.enqueue(object : retrofit2.Callback<Int>{
+            override fun onFailure(call: Call<Int>, t: Throwable) {
+                Log.d("testtest", t.message)
+            }
+
+            override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                if(response.isSuccessful){
+                    val body = response.body()
+                    login_tv_users_count.text = body.toString()
+                }else{
+                    Log.d("testest", "t")
+                }
+            }
+
+        })
     }
 
     private fun init() {

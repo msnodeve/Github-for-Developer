@@ -69,3 +69,6 @@ fastlane/readme.md
 # mac
 .DS_Store
 .idea/runConfigurations.xml
+
+# font
+spoqa_han_sans_*.ttf

@@ -16,4 +16,8 @@
     <color name="colorTopBar">#444444</color>
     <color name="userRankPos">#e5e1e1</color>
     <color name="iconText">#e4f9f5</color>
+
+    <!-- Gradation Color -->
+    <color name="pastel_1">#00b1e5</color>
+    <color name="pastel_2">#08e68d</color>
 </resources>

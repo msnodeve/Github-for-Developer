@@ -29,7 +29,7 @@ class RetrofitClient {
         fun gUserService() : GUserService{
             val gson = GsonBuilder().setLenient().create()
             retrofit = Retrofit.Builder()
-                .baseUrl(BuildConfig.GFD_API_URL)
+                .baseUrl("http://10.0.2.2:8080/api/v1/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
             return retrofit.create(GUserService::class.java)

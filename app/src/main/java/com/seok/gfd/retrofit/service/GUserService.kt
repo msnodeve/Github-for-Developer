@@ -18,4 +18,9 @@ interface GUserService {
         @Header("Authorization") authKey: String,
         @Body gUser: GUser
     ): Call<GUser>
+
+    @GET("users/count")
+    fun getUsersCount(
+        @Header("Authorization") authKey: String
+    ): Call<Int>
 }
