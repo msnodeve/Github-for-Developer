@@ -28,7 +28,7 @@
     <string name="rv_rank_commit">0</string>
     <string name="text_github">Github </string>
     <string name="text_login"> Login</string>
-    <string name="app_tv_count_users">Users to today</string>
+    <string name="app_tv_count_users">누적 회원 </string>
 
     <!-- Project String env -->
     <string name="no_token">Empty token</string>

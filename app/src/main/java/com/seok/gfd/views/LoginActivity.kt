@@ -17,6 +17,7 @@ import com.seok.gfd.retrofit.RetrofitClient
 import com.seok.gfd.utils.AuthUserToken
 import com.seok.gfd.utils.ProgressbarDialog
 import com.seok.gfd.viewmodel.LoginViewModel
+import com.seok.gfd.viewmodel.UserViewModel
 import org.jetbrains.anko.longToast
 import retrofit2.Call
 import retrofit2.Response
@@ -25,45 +26,57 @@ import retrofit2.Response
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var viewModel: LoginViewModel
+    private lateinit var userViewModel : UserViewModel
     private lateinit var authToken: AuthUserToken
     private lateinit var progressbarDialog: ProgressbarDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
         init()
-        checkForSignIn()
-        login_img_login.setOnClickListener {
-            progressbarDialog.show()
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(authToken.buildHttpUrl(BuildConfig.GITHUB_CLIENT_ID)))
-            startActivityForResult(intent, HttpURLConnection.HTTP_OK)
-        }
+        initViewModelFun()
 
-        val userService = RetrofitClient.gUserService()
-        val call = userService.getUsersCount(BuildConfig.BASIC_AUTH_KEY)
-        call.enqueue(object : retrofit2.Callback<Int>{
-            override fun onFailure(call: Call<Int>, t: Throwable) {
-                Log.d("testtest", t.message)
-            }
-
-            override fun onResponse(call: Call<Int>, response: Response<Int>) {
-                if(response.isSuccessful){
-                    val body = response.body()
-                    login_tv_users_count.text = body.toString()
-                }else{
-                    Log.d("testest", "t")
-                }
-            }
-
-        })
+//        checkForSignIn()
+//        login_img_login.setOnClickListener {
+//            progressbarDialog.show()
+//            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(authToken.buildHttpUrl(BuildConfig.GITHUB_CLIENT_ID)))
+//            startActivityForResult(intent, HttpURLConnection.HTTP_OK)
+//        }
+//
+//        val userService = RetrofitClient.gUserService()
+//        val call = userService.getUsersCount(BuildConfig.BASIC_AUTH_KEY)
+//        call.enqueue(object : retrofit2.Callback<Int>{
+//            override fun onFailure(call: Call<Int>, t: Throwable) {
+//                Log.d("testtest", t.message)
+//            }
+//
+//            override fun onResponse(call: Call<Int>, response: Response<Int>) {
+//                if(response.isSuccessful){
+//                    val body = response.body()
+//                    login_tv_users_count.text = body.toString()
+//                }else{
+//                    Log.d("testest", "t")
+//                }
+//            }
+//
+//        })
     }
 
+    // ViewModel 세팅 및 초기화
     private fun init() {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
         authToken = AuthUserToken(application)
         progressbarDialog = ProgressbarDialog(this)
+        userViewModel.getUsersCount()
     }
 
+    private fun initViewModelFun(){
+        userViewModel.userCount.observe(this, Observer {
+            login_tv_users_count.text = it.toString()
+        })
+    }
     private fun checkForSignIn() {
         progressbarDialog.show()
         val accessToken = authToken.getToken(BuildConfig.PREFERENCES_TOKEN_KEY)
