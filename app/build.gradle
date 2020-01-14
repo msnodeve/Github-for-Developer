@@ -27,6 +27,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             testCoverageEnabled false
+            buildConfigField "String", "GITHUB_OAUTH_URL", GITHUB_OAUTH_URL
             buildConfigField "String", "GITHUB_CLIENT_ID", GITHUB_CLIENT_ID
             buildConfigField "String", "GITHUB_CLIENT_SECRET", GITHUB_CLIENT_SECRET
             buildConfigField "String", "REDIRECT_CALLBACK_URL", REDIRECT_CALLBACK_URL
@@ -37,6 +38,7 @@ android {
         }
         debug {
             testCoverageEnabled true
+            buildConfigField "String", "GITHUB_OAUTH_URL", GITHUB_OAUTH_URL
             buildConfigField "String", "GITHUB_CLIENT_ID", GITHUB_CLIENT_ID
             buildConfigField "String", "GITHUB_CLIENT_SECRET", GITHUB_CLIENT_SECRET
             buildConfigField "String", "REDIRECT_CALLBACK_URL", REDIRECT_CALLBACK_URL

@@ -1,7 +1,7 @@
 package com.seok.gfd
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.seok.gfd.retrofit.service.UserService
+import com.seok.gfd.retrofit.service.GithubApiService
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class GithubRetrofitTest {
     private val TAG = javaClass.simpleName
 
-    private lateinit var githubUserService : UserService
+    private lateinit var githubGithubApiService : GithubApiService
 
     @Before
     fun setUp(){
@@ -23,12 +23,12 @@ class GithubRetrofitTest {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        githubUserService = retrofit.create(UserService::class.java)
+        githubGithubApiService = retrofit.create(GithubApiService::class.java)
     }
 
     @Test
     fun 깃허브_엑세스_토큰_테스트(){
-        val getAccessTokenCall = githubUserService.githubUserApi("Bearer e339b92de18be7529bc27c28e3ee4d6ad7994fb7")
+        val getAccessTokenCall = githubGithubApiService.getUserInfoFromGithubApi("Bearer e339b92de18be7529bc27c28e3ee4d6ad7994fb7")
         val getAccessTokenRes = getAccessTokenCall.execute()
         assert(getAccessTokenRes.isSuccessful)
         val body = getAccessTokenRes.body()

@@ -28,10 +28,10 @@
     <string name="rv_rank_commit">0</string>
     <string name="text_github">Github </string>
     <string name="text_login"> Login</string>
-    <string name="app_tv_count_users">누적 회원 </string>
+    <string name="app_tv_count_users">누적 회원 수</string>
 
     <!-- Project String env -->
-    <string name="no_token">Empty token</string>
+    <string name="no_token">empty token</string>
     <string name="no_user_key">Empty key</string>
     <string name="no_user_id">Empty user id</string>
     <string name="no_user_email">Empty user url</string>

@@ -21,15 +21,15 @@ class UserRepository(application: Application) {
     private var application: Application = application
 
     fun getUserMutableData(token: String): MutableLiveData<User> {
-        val userService = RetrofitClient.githubUserApiService()
-        val call = userService.githubUserApi("token $token")
+        val userService = RetrofitClient.githubApiService()
+        val call = userService.getUserInfoFromGithubApi("token $token")
         call.enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if (response.isSuccessful) {
                     val body = response.body()!!
                     user =
                         User(body.login, body.html_url, body.avatar_url, HttpURLConnection.HTTP_OK)
-                    val signUpService = RetrofitClient.gUserService()
+                    val signUpService = RetrofitClient.userService()
                     val signUpCall = signUpService.signUpUser(
                         BuildConfig.BASIC_AUTH_KEY
                         , GUser(body.login, body.html_url, body.avatar_url)
@@ -55,33 +55,33 @@ class UserRepository(application: Application) {
         return userMutableData
     }
 
-    fun getCodeMutableData(
-        clientId: String,
-        clientSecret: String,
-        code: String
-    ): MutableLiveData<Token> {
-        val codeService = RetrofitClient.getGithubCode()
-        val call = codeService.getGithubCode(clientId, clientSecret, code)
-        call.enqueue(object : Callback<Token> {
-            override fun onResponse(call: Call<Token>, response: Response<Token>) {
-                token = if (response.isSuccessful) {
-                    val body = response.body()!!
-                    Token(
-                        body.access_token,
-                        body.scope,
-                        body.token_type,
-                        HttpURLConnection.HTTP_OK
-                    )
-                } else {
-                    Token(HttpURLConnection.HTTP_NOT_FOUND)
-                }
-                codeMutableData.value = token
-            }
-
-            override fun onFailure(call: Call<Token>, t: Throwable) {
-                Log.e(this.javaClass.simpleName, t.message.toString())
-            }
-        })
-        return codeMutableData
-    }
+//    fun getCodeMutableData(
+//        clientId: String,
+//        clientSecret: String,
+//        code: String
+//    ): MutableLiveData<Token> {
+//        val codeService = RetrofitClient.githubAuthService()
+//        val call = codeService.getAccessTokenFromGithubApi(clientId, clientSecret, code)
+//        call.enqueue(object : Callback<Token> {
+//            override fun onResponse(call: Call<Token>, response: Response<Token>) {
+//                token = if (response.isSuccessful) {
+//                    val body = response.body()!!
+//                    Token(
+//                        body.access_token,
+//                        body.scope,
+//                        body.token_type,
+//                        HttpURLConnection.HTTP_OK
+//                    )
+//                } else {
+//                    Token(HttpURLConnection.HTTP_NOT_FOUND)
+//                }
+//                codeMutableData.value = token
+//            }
+//
+//            override fun onFailure(call: Call<Token>, t: Throwable) {
+//                Log.e(this.javaClass.simpleName, t.message.toString())
+//            }
+//        })
+//        return codeMutableData
+//    }
 }

@@ -28,17 +28,6 @@ class AuthUserToken(private val application: Application) {
         editor.commit()
     }
 
-    fun buildHttpUrl(clientId : String): String{
-        return HttpUrl.Builder()
-            .scheme("https")
-            .host("github.com")
-            .addPathSegment("login")
-            .addPathSegment("oauth")
-            .addPathSegment("authorize")
-            .addQueryParameter("client_id", clientId)
-            .build().toString()
-    }
-
     fun getCode(uri : String) : String{
         return URI.create(uri).query.split("=")[1]
     }

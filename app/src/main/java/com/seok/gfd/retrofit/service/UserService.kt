@@ -1,6 +1,7 @@
 package com.seok.gfd.retrofit.service
 
 import com.seok.gfd.retrofit.domain.GUser
+import com.seok.gfd.retrofit.domain.SingleResponseDto
 import com.seok.gfd.retrofit.domain.resopnse.UserCount
 import retrofit2.Call
 import retrofit2.http.Body
@@ -23,6 +24,6 @@ interface UserService {
     @GET("users/count")
     fun getUsersCount(
         @Header("Authorization") authKey: String
-    ): Call<UserCount>
+    ): Call<SingleResponseDto<Long>>
 
 }

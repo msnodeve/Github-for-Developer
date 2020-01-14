@@ -84,8 +84,8 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             _user.postValue(user)
             getAllCommit()
         }else{
-            val userService = RetrofitClient.githubUserApiService()
-            val call = userService.githubUserApi("token " + authUserToken.getToken(BuildConfig.PREFERENCES_TOKEN_KEY))
+            val userService = RetrofitClient.githubApiService()
+            val call = userService.getUserInfoFromGithubApi("token " + authUserToken.getToken(BuildConfig.PREFERENCES_TOKEN_KEY))
             call.enqueue(object : retrofit2.Callback<User>{
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     val body = response.body()!!
