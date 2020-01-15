@@ -8,17 +8,25 @@ import com.seok.gfd.BuildConfig
 import com.seok.gfd.retrofit.RetrofitClient
 import com.seok.gfd.retrofit.domain.SingleResponseDto
 import com.seok.gfd.retrofit.domain.Token
+import com.seok.gfd.retrofit.domain.User
 import retrofit2.Call
 import retrofit2.Response
+import java.net.HttpURLConnection
 
 class UserViewModel : ViewModel() {
     private val _usersCount = MutableLiveData<Long>()
     private val _accessToken = MutableLiveData<String>()
+    private val _code = MutableLiveData<Int>()
+    private val _userInfo = MutableLiveData<User>()
 
     val userCount: LiveData<Long>
         get() = _usersCount
     val accessToken: LiveData<String>
         get() = _accessToken
+    val code: LiveData<Int>
+        get() = _code
+    val userInfo: LiveData<User>
+        get() = _userInfo
 
     // User 인원 수 가져오기
     fun getUsersCount(){
@@ -49,4 +57,21 @@ class UserViewModel : ViewModel() {
         })
     }
 
+    // Github 로그인 및 User 정보 가져오기
+    fun getUserInfoAndSignInGithub(accessToken: String){
+        val githubApiService = RetrofitClient.githubApiService()
+        val githubApiCall = githubApiService.getUserInfoFromGithubApi("token $accessToken")
+        githubApiCall.enqueue(object : retrofit2.Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                _code.value = response.code()
+                if(response.code() == HttpURLConnection.HTTP_OK){
+                    _userInfo.value = response.body()
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.e(this.javaClass.simpleName, t.message.toString())
+            }
+        })
+    }
 }

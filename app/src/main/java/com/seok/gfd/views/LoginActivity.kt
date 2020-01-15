@@ -1,5 +1,6 @@
 package com.seok.gfd.views
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,7 +13,8 @@ import java.net.HttpURLConnection
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.seok.gfd.utils.AuthUserToken
+import com.google.gson.GsonBuilder
+import com.seok.gfd.retrofit.domain.User
 import com.seok.gfd.utils.ProgressbarDialog
 import com.seok.gfd.utils.SharedPreference
 import com.seok.gfd.viewmodel.UserViewModel
@@ -32,19 +34,14 @@ class LoginActivity : AppCompatActivity() {
         init()
         initViewModelFun()
 
-
         // 로그인 버튼 눌렀을 경우 Github login 창으로 넘김
         login_img_login.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.GITHUB_OAUTH_URL + BuildConfig.GITHUB_CLIENT_ID))
-            // onNewIntent() 함수로 리다이렉트
+            // onNewIntent() 리다이렉트
             startActivityForResult(intent, HttpURLConnection.HTTP_OK)
         }
 
-
-
-
-//        checkForSignIn()
-
+        userViewModel.getUserInfoAndSignInGithub(sharedPreference.getValue(BuildConfig.PREFERENCES_TOKEN_KEY))
     }
 
     // ViewModel 세팅 및 초기화
@@ -55,12 +52,27 @@ class LoginActivity : AppCompatActivity() {
         userViewModel.getUsersCount()
     }
 
+    // ViewModel 구현
     private fun initViewModelFun(){
+        // 현재 사용자 수
         userViewModel.userCount.observe(this, Observer {
             login_tv_users_count.text = it.toString()
         })
+        // Github 접속을 위한 access_token 요청
         userViewModel.accessToken.observe(this, Observer {
-            it
+            sharedPreference.setValue(BuildConfig.PREFERENCES_TOKEN_KEY, it)
+            userViewModel.getUserInfoAndSignInGithub(it)
+        })
+        // Github 로그인 성공 코드 200 / 401
+        userViewModel.code.observe(this, Observer {
+            if(it == HttpURLConnection.HTTP_OK){
+                goToMainActivity()
+            }else{
+                longToast(getString(R.string.fail_access_token))
+            }
+        })
+        userViewModel.userInfo.observe(this, Observer {
+            sharedPreference.setValueObject(it)
         })
     }
 
@@ -69,45 +81,12 @@ class LoginActivity : AppCompatActivity() {
         val uri = intent!!.data
         // 1회용 접속 Code
         val code = uri.toString().split("=")[1]
-        getAccessToken(code)
-    }
-
-//    private fun checkForSignIn() {
-//        progressbarDialog.show()
-//        val accessToken = authToken.getToken(BuildConfig.PREFERENCES_TOKEN_KEY)
-//        if (accessToken != getString(R.string.no_token)) {
-//            viewModel.githubUserApi(accessToken).observe(this, Observer { body ->
-//                if (body.code == HttpURLConnection.HTTP_OK) {
-//                    goToMainActivity()
-//                } else {
-//                    longToast(getString(R.string.fail_token))
-//                    progressbarDialog.hide()
-//                }
-//            })
-//        } else {
-//            longToast(getString(R.string.welcome_app))
-//            progressbarDialog.hide()
-//        }
-//    }
-
-    private fun getAccessToken(code:String){
         userViewModel.getAccessTokenFromGithubApi(code)
-//        viewModel.getGithubCode(BuildConfig.GITHUB_CLIENT_ID, BuildConfig.GITHUB_CLIENT_SECRET,code)
-//            .observe(this, Observer { body ->
-//                if(body.code == HttpURLConnection.HTTP_OK) {
-//                    authToken.editToken(BuildConfig.PREFERENCES_TOKEN_KEY, body.access_token)
-//                    goToMainActivity()
-//                }else{
-//                    longToast(getString(R.string.invalid_token))
-//                    progressbarDialog.hide()
-//                }
-//            })
     }
 
     private fun goToMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        progressbarDialog.hide()
         finish()
     }
 }
