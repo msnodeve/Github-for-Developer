@@ -29,17 +29,18 @@ class SharedPreference(private val application: Application) {
         }
     }
 
-    fun setValueObject(user:User){
+    fun setValueObject(key: String, user:User){
         val gson = GsonBuilder().create()
+        // 객체 -> json 저장
         val userInfoJson = gson.toJson(user, User::class.java)
-        editor.putString(application.getString(R.string.user_info), userInfoJson)
+        editor.putString(key, userInfoJson)
         editor.commit()
+    }
 
-
-        val t = pref.getString(application.getString(R.string.user_info), null)
-        val convertUser = gson.fromJson(t, User::class.java)
-        // 객체 json화 저장 및 변환
-        // 저장 끝내기
-        convertUser
+    fun getValueObject(key:String):User{
+        val gson = GsonBuilder().create()
+        val user = pref.getString(key, null)
+        // json -> 객체 변환
+        return gson.fromJson(user, User::class.java)
     }
 }

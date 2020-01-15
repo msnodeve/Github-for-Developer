@@ -1,24 +1,20 @@
 package com.seok.gfd.views
 
-import android.content.Context
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.seok.gfd.BuildConfig
-import com.seok.gfd.R
-import kotlinx.android.synthetic.main.activity_login.*
-import java.net.HttpURLConnection
-
-
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.gson.GsonBuilder
-import com.seok.gfd.retrofit.domain.User
+import com.seok.gfd.BuildConfig
+import com.seok.gfd.R
 import com.seok.gfd.utils.ProgressbarDialog
 import com.seok.gfd.utils.SharedPreference
 import com.seok.gfd.viewmodel.UserViewModel
+import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.longToast
+import java.net.HttpURLConnection
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class LoginActivity : AppCompatActivity() {
@@ -72,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
             }
         })
         userViewModel.userInfo.observe(this, Observer {
-            sharedPreference.setValueObject(it)
+            sharedPreference.setValueObject(application.getString(R.string.user_info), it)
         })
     }
 
