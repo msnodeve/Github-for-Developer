@@ -10,7 +10,8 @@ class MainActivity : AppCompatActivity() {
     private val fragmentManager = supportFragmentManager
 
     private val mainFragment = MainFragment()
-    private val subFragment = RankFragment()
+    private val rankFragment = RankFragment()
+    private val optionFragment = OptionFragment()
 
     private var activeFragment : Fragment = mainFragment
 
@@ -18,18 +19,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        fragmentManager.beginTransaction().add(R.id.host_fragment, subFragment, "2").hide(subFragment).commit()
         fragmentManager.beginTransaction().add(R.id.host_fragment, mainFragment, "1").commit()
-
+        fragmentManager.beginTransaction().add(R.id.host_fragment, rankFragment, "2").hide(rankFragment).commit()
+        fragmentManager.beginTransaction().add(R.id.host_fragment, optionFragment, "3").hide(optionFragment).commit()
         bottom_navigation.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.nav_menu_f -> {
+                R.id.nav_menu_m -> {
                     fragmentManager.beginTransaction().hide(activeFragment).show(mainFragment).commit()
                     activeFragment = mainFragment
                 }
-                R.id.nav_menu_s -> {
-                    fragmentManager.beginTransaction().hide(activeFragment).show(subFragment).commit()
-                    activeFragment = subFragment
+                R.id.nav_menu_r -> {
+                    fragmentManager.beginTransaction().hide(activeFragment).show(rankFragment).commit()
+                    activeFragment = rankFragment
+                }
+                R.id.nav_menu_o -> {
+                    fragmentManager.beginTransaction().hide(activeFragment).show(optionFragment).commit()
+                    activeFragment = optionFragment
                 }
             }
             true

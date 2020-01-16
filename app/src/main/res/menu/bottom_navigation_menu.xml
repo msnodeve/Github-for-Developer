@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/nav_menu_f"
-            android:title="@string/navigation_menu_profile"
-            android:icon="@drawable/btn_bottom_profile"
+    <item android:id="@+id/nav_menu_m"
+            android:title="@string/navigation_menu_home"
+            android:icon="@drawable/btn_bottom_home"
             android:enabled="true"/>
-    <item android:id="@+id/nav_menu_s"
+    <item android:id="@+id/nav_menu_r"
             android:title="@string/navigation_menu_rank"
             android:icon="@drawable/btn_bottom_rank"
+            android:enabled="true"/>
+    <item android:id="@+id/nav_menu_o"
+            android:title="@string/navigation_menu_help"
+            android:icon="@drawable/btn_bottom_help"
             android:enabled="true"/>
 </menu>

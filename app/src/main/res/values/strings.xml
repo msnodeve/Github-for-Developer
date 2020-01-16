@@ -7,8 +7,9 @@
     <string name="invalid_token">로그인 토큰 발급을 실패하였습니다\n다시 시도 해주세요</string>
     <string name="today_contribution">Today contribution</string>
     <string name="max_contribution">Max contribution</string>
-    <string name="navigation_menu_profile">Profile</string>
+    <string name="navigation_menu_home">Home</string>
     <string name="navigation_menu_rank">Rank</string>
+    <string name="navigation_menu_help">Help</string>
     <string name="sun">SUN</string>
     <string name="mon">MON</string>
     <string name="tue">TUE</string>
@@ -53,7 +54,9 @@
     <string name="banner_ad_unit_id_for_test">ca-app-pub-3940256099942544/6300978111</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
 
 
 </resources>
