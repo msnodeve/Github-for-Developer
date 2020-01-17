@@ -56,13 +56,6 @@ class MainFragment : Fragment() {
         sharedPreferencesForUser = SharedPreferencesForUser(this.activity?.application!!)
 
         authUserInfo = AuthUserInfo(this.activity?.application!!)
-
-        MobileAds.initialize(
-            this.activity!!.application,
-            getString(R.string.admob_app_id)
-        )
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
     }
 
     private fun initViewModelFun() {
@@ -77,7 +70,7 @@ class MainFragment : Fragment() {
             max_commit.text = it.dataCount.toString()
         })
         mainViewModel.completeGetAllCommits.observe(this, Observer {
-            if(it) {
+            if (it) {
                 scroll_contribute.smoothScrollTo(contribute.width, contribute.height)
             }
         })
@@ -113,7 +106,10 @@ class MainFragment : Fragment() {
             val todayCommit = it[it.size - 1].dataCount
             today_commit.text = todayCommit.toString()
             mainViewModel.completeGetAllCommits()
-            rankViewModel.updateTodayRankCommit(sharedPreferencesForUser.getValue(getString(R.string.user_id)) , todayCommit)
+            rankViewModel.updateTodayRankCommit(
+                sharedPreferencesForUser.getValue(getString(R.string.user_id)),
+                todayCommit
+            )
         }
         progressbarDialog.hide()
     }

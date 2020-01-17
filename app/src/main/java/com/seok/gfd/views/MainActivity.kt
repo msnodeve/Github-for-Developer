@@ -3,6 +3,8 @@ package com.seok.gfd.views
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.seok.gfd.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -39,5 +41,12 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+        MobileAds.initialize(
+            this.application,
+            getString(R.string.admob_app_id)
+        )
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 }
