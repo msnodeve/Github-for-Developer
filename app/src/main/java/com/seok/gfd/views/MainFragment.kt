@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -47,6 +48,11 @@ class MainFragment : Fragment() {
         init()
         initViewModelFun()
         checkForUserInfo()
+
+        val settings = wv_mv_graph.settings
+        settings.builtInZoomControls = true
+
+        wv_mv_graph.loadUrl("https://ghchart.rshah.org/msnodeve")
     }
 
     private fun init() {
@@ -116,7 +122,6 @@ class MainFragment : Fragment() {
 
     private fun setUserInfoUI(userId: String, userUrl: String, userImage: String) {
         user_id.text = userId
-        user_url.text = userUrl
         Glide.with(this).load(userImage).into(img_mv_user_profile)
     }
 }
