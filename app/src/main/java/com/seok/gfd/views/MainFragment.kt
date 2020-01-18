@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.seok.gfd.R
@@ -122,6 +123,7 @@ class MainFragment : Fragment() {
 
     private fun setUserInfoUI(userId: String, userUrl: String, userImage: String) {
         user_id.text = userId
-        Glide.with(this).load(userImage).into(img_mv_user_profile)
+        Glide.with(this).load(userImage).apply(RequestOptions.circleCropTransform()).into(img_mv_user_profile)
+        img_mv_user_profile.backgroundColor = Color.rgb(201,223,241)
     }
 }
