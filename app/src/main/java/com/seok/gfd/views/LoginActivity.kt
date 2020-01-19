@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.seok.gfd.BuildConfig
 import com.seok.gfd.R
-import com.seok.gfd.utils.ProgressbarDialog
 import com.seok.gfd.utils.SharedPreference
 import com.seok.gfd.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_login.*
@@ -21,7 +20,6 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var userViewModel : UserViewModel
     private lateinit var sharedPreference: SharedPreference
-    private lateinit var progressbarDialog: ProgressbarDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +42,6 @@ class LoginActivity : AppCompatActivity() {
     private fun init() {
         sharedPreference = SharedPreference(application)
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
-        progressbarDialog = ProgressbarDialog(this)
         userViewModel.getUsersCount()
     }
 
