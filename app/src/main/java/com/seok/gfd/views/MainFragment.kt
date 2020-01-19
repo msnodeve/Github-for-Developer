@@ -7,40 +7,26 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
 import com.seok.gfd.R
 import com.seok.gfd.database.Commits
-import com.seok.gfd.utils.AuthUserInfo
-import com.seok.gfd.utils.ProgressbarDialog
-import com.seok.gfd.utils.SharedPreferencesForUser
-import com.seok.gfd.viewmodel.MainFragmentViewModel
-import com.seok.gfd.viewmodel.RankFragmentViewModel
+import com.seok.gfd.retrofit.domain.User
+import com.seok.gfd.utils.SharedPreference
+import com.seok.gfd.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.margin
 
 class MainFragment : Fragment() {
+    private lateinit var userViewModel : UserViewModel
+    private lateinit var sharedPreference: SharedPreference
 
-    private lateinit var sharedPreferencesForUser: SharedPreferencesForUser
-    private lateinit var authUserInfo: AuthUserInfo
-    private lateinit var mainViewModel: MainFragmentViewModel
-    private lateinit var rankViewModel: RankFragmentViewModel
-    private lateinit var progressbarDialog: ProgressbarDialog
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -48,44 +34,44 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
         initViewModelFun()
-        checkForUserInfo()
-
-        val settings = wv_mv_graph.settings
-        settings.builtInZoomControls = true
-
-        wv_mv_graph.loadUrl("https://ghchart.rshah.org/msnodeve")
     }
 
     private fun init() {
-        progressbarDialog = ProgressbarDialog(context!!)
-        mainViewModel = ViewModelProviders.of(this).get(MainFragmentViewModel::class.java)
-        rankViewModel = ViewModelProviders.of(this).get(RankFragmentViewModel::class.java)
-        sharedPreferencesForUser = SharedPreferencesForUser(this.activity?.application!!)
+        // Github 그래프 웹뷰, 줌 가능
+        val settings = wv_mv_graph.settings
+        settings.builtInZoomControls = true
 
-        authUserInfo = AuthUserInfo(this.activity?.application!!)
+        sharedPreference = SharedPreference(this.activity!!.application)
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
+
+        // Login Activity 에서 저장한 User 정보 가져오기
+        val user = sharedPreference.getValueObject(getString(R.string.user_info))
+        setUserInfoUI(user)
     }
 
     private fun initViewModelFun() {
-        mainViewModel.user.observe(this, Observer {
-            setUserInfoUI(it.login, it.html_url, it.avatar_url)
-            mainViewModel.getCommitsFromGithub()
-        })
-        mainViewModel.commits.observe(this, Observer {
-            setCommitUI(it)
-        })
-        mainViewModel.commit.observe(this, Observer {
-            max_commit.text = it.dataCount.toString()
-        })
-        mainViewModel.completeGetAllCommits.observe(this, Observer {
-            if (it) {
-                scroll_contribute.smoothScrollTo(contribute.width, contribute.height)
-            }
-        })
+//        mainViewModel.user.observe(this, Observer {
+//            setUserInfoUI(it.login, it.html_url, it.avatar_url)
+//            mainViewModel.getCommitsFromGithub()
+//        })
+//        mainViewModel.commits.observe(this, Observer {
+//            setCommitUI(it)
+//        })
+//        mainViewModel.commit.observe(this, Observer {
+//            max_commit.text = it.dataCount.toString()
+//        })
+//        mainViewModel.completeGetAllCommits.observe(this, Observer {
+//            if (it) {
+//                scroll_contribute.smoothScrollTo(contribute.width, contribute.height)
+//            }
+//        })
     }
 
-    private fun checkForUserInfo() {
-        progressbarDialog.show()
-        mainViewModel.setUserInfo()
+    private fun setUserInfoUI(user: User) {
+        wv_mv_graph.loadUrl("https://ghchart.rshah.org/" + user.login)
+        user_id.text = user.login
+        user_location.text = user.location
+        Glide.with(this).load(user.avatar_url).apply(RequestOptions.circleCropTransform()).into(img_mv_user_profile)
     }
 
     private fun setCommitUI(it: List<Commits>) {
@@ -112,18 +98,11 @@ class MainFragment : Fragment() {
             }
             val todayCommit = it[it.size - 1].dataCount
             today_commit.text = todayCommit.toString()
-            mainViewModel.completeGetAllCommits()
-            rankViewModel.updateTodayRankCommit(
-                sharedPreferencesForUser.getValue(getString(R.string.user_id)),
-                todayCommit
-            )
+//            mainViewModel.completeGetAllCommits()
+//            rankViewModel.updateTodayRankCommit(
+//                sharedPreferencesForUser.getValue(getString(R.string.user_id)),
+//                todayCommit
+//            )
         }
-        progressbarDialog.hide()
-    }
-
-    private fun setUserInfoUI(userId: String, userUrl: String, userImage: String) {
-        user_id.text = userId
-        Glide.with(this).load(userImage).apply(RequestOptions.circleCropTransform()).into(img_mv_user_profile)
-        img_mv_user_profile.backgroundColor = Color.rgb(201,223,241)
     }
 }

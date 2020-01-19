@@ -7,7 +7,7 @@
     <string name="invalid_token">로그인 토큰 발급을 실패하였습니다\n다시 시도 해주세요</string>
     <string name="today_contribution">Today</string>
     <string name="max_contribution">Max</string>
-    <string name="year_contribution">For year</string>
+    <string name="year_contribution">Year</string>
     <string name="navigation_menu_home">Home</string>
     <string name="navigation_menu_rank">Rank</string>
     <string name="navigation_menu_help">Help</string>
