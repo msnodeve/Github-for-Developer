@@ -1,5 +1,6 @@
 package com.seok.gfd
 
+import com.seok.gfd.database.Commits
 import org.jsoup.Connection
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -8,14 +9,14 @@ import org.junit.Test
 
 
 @Suppress("CAST_NEVER_SUCCEEDS")
-class CrawlerTest{
+class CrawlerTest {
 
     private lateinit var response: Connection.Response
     private lateinit var soup: Document
-
+    private lateinit var commits: ArrayList<Commits>
 
     @Before
-    fun getHtmlFromGithub(){
+    fun getHtmlFromGithub() {
         response = Jsoup.connect("https://github.com/msnodeve")
             .method(Connection.Method.GET)
             .execute()
@@ -24,11 +25,11 @@ class CrawlerTest{
     }
 
     @Test
-    fun contributionCrawlingFromGithubTest(){
+    fun contributionCrawlingFromGithubTest() {
         val partOfContributionData = soup.select("div[class=js-yearly-contributions]").first()
         val lines = partOfContributionData.select("rect[class=day]")
 
-        for(line in lines){
+        for (line in lines) {
             val attrDataDate = line.attr("data-date")
             val attrDataCount = line.attr("data-count")
             val attrFill = line.attr("fill")
@@ -37,10 +38,25 @@ class CrawlerTest{
     }
 
     @Test
-    fun contributionCrawlingYearFromGithubTest(){
+    fun contributionCrawlingYearFromGithubTest() {
         val contributionYearData = soup.select("h2[class=f4 text-normal mb-2]").first()
         val contribution = contributionYearData.text().split(" ")
-        println( contribution[0])
+        println("contribution for year = ${contribution[0]}")
     }
 
+    @Test
+    fun getMaxContributionFromGithubTest() {
+        commits = ArrayList()
+
+        val partOfContributionData = soup.select("div[class=js-yearly-contributions]").first()
+        val lines = partOfContributionData.select("rect[class=day]")
+
+        for (line in lines) {
+            val attrDataDate = line.attr("data-date")
+            val attrDataCount = line.attr("data-count")
+            val attrFill = line.attr("fill")
+            commits.add(Commits(attrDataDate, attrDataCount.toInt(), attrFill))
+        }
+        println(commits.maxBy { it.dataCount })
+    }
 }

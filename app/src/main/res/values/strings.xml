@@ -40,6 +40,8 @@
     <string name="no_user_image">Empty user image</string>
     <string name="user_id">user_id</string>
     <string name="user_url">user_url</string>
+    <string name="user_year">user_year</string>
+    <string name="user_max">user_max</string>
     <string name="user_image">user_image</string>
     <string name="user_gid">user_gid</string>
     <string name="user_info">user_info</string>
