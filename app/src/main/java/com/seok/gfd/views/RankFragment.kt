@@ -22,6 +22,8 @@ import kotlinx.android.synthetic.main.fragment_rank.*
  * A simple [Fragment] subclass.
  */
 class RankFragment : Fragment() {
+    private lateinit var linearLayoutManager: LinearLayoutManager
+
     private lateinit var sharedPreferencesForUser: SharedPreferencesForUser
     private lateinit var rankViewModel: RankFragmentViewModel
 
@@ -36,9 +38,12 @@ class RankFragment : Fragment() {
         initViewModelFun()
     }
     private fun init(){
+        linearLayoutManager = LinearLayoutManager(this.context)
+        rv_rank.layoutManager = linearLayoutManager
+
         rankViewModel = ViewModelProviders.of(this).get(RankFragmentViewModel::class.java)
         sharedPreferencesForUser = SharedPreferencesForUser(this.activity?.application!!)
-        rv_rank.layoutManager = LinearLayoutManager(activity)
+//        rv_rank.layoutManager = LinearLayoutManager(activity)
         rv_rank.addItemDecoration(DividerItemDecoration(this.context, 1))
         rv_rank.setHasFixedSize(true)
         img_rank_sync.setOnClickListener {

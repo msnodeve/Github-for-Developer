@@ -1,7 +1,7 @@
 package com.seok.gfd.retrofit.service
 
 import com.seok.gfd.retrofit.domain.resopnse.TRCommitResponseDto
-import com.seok.gfd.retrofit.domain.request.TRCommitRequestDto
+import com.seok.gfd.retrofit.domain.request.CommitRequestDto
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -14,7 +14,7 @@ interface TRCommitService {
     @POST("trc")
     fun updateTRCommit(
         @Header("Authorization") authKey: String,
-        @Body trCommitRequestDto: TRCommitRequestDto
+        @Body commitRequestDto: CommitRequestDto
     ): Call<String>
 
     @GET("trc/{date}")

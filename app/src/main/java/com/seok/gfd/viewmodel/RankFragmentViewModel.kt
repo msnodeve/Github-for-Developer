@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.seok.gfd.BuildConfig
 import com.seok.gfd.retrofit.RetrofitClient
-import com.seok.gfd.retrofit.domain.request.TRCommitRequestDto
+import com.seok.gfd.retrofit.domain.request.CommitRequestDto
 import com.seok.gfd.retrofit.domain.resopnse.TRCommitResponseDto
 import retrofit2.Call
 import retrofit2.Callback
@@ -59,7 +59,7 @@ class RankFragmentViewModel(application: Application) : AndroidViewModel(applica
         val updateTodayRankCommitService = RetrofitClient.trCommitService()
         val updateTodayRankCommitCall = updateTodayRankCommitService.updateTRCommit(
             BuildConfig.BASIC_AUTH_KEY,
-            TRCommitRequestDto(userId, dataCount)
+            CommitRequestDto(userId, dataCount)
         )
         updateTodayRankCommitCall.enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {

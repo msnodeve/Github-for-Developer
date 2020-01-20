@@ -9,7 +9,7 @@ import lombok.Setter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-class TRCommitRequestDto {
+class CommitRequestDto {
     var userId: String = ""
     var dataCount: Int = 0
 

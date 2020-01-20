@@ -1,31 +1,22 @@
 package com.seok.gfd.views
 
 
-import android.graphics.Color
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.seok.gfd.R
-import com.seok.gfd.database.Commits
 import com.seok.gfd.retrofit.domain.User
 import com.seok.gfd.utils.SharedPreference
 import com.seok.gfd.viewmodel.GithubCrawlerViewModel
-import com.seok.gfd.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
-import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.margin
 
 class MainFragment : Fragment() {
-    private lateinit var userViewModel : UserViewModel
     private lateinit var githubCrawlerViewModel: GithubCrawlerViewModel
     private lateinit var sharedPreference: SharedPreference
 
@@ -45,7 +36,6 @@ class MainFragment : Fragment() {
         settings.builtInZoomControls = true
 
         sharedPreference = SharedPreference(this.activity!!.application)
-        userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
         githubCrawlerViewModel = ViewModelProviders.of(this).get(GithubCrawlerViewModel::class.java)
         // Login Activity 에서 저장한 User 정보 가져오기
         val user = sharedPreference.getValueObject(getString(R.string.user_info))
@@ -70,21 +60,6 @@ class MainFragment : Fragment() {
             year_commit.text = it
             sharedPreference.setValue(getString(R.string.user_year), it)
         })
-//        mainViewModel.user.observe(this, Observer {
-//            setUserInfoUI(it.login, it.html_url, it.avatar_url)
-//            mainViewModel.getCommitsFromGithub()
-//        })
-//        mainViewModel.commits.observe(this, Observer {
-//            setCommitUI(it)
-//        })
-//        mainViewModel.commit.observe(this, Observer {
-//            max_commit.text = it.dataCount.toString()
-//        })
-//        mainViewModel.completeGetAllCommits.observe(this, Observer {
-//            if (it) {
-//                scroll_contribute.smoothScrollTo(contribute.width, contribute.height)
-//            }
-//        })
     }
 
     private fun setUserInfoUI(user: User) {
