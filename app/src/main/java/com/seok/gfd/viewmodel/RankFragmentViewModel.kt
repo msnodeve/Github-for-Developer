@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import com.seok.gfd.BuildConfig
 import com.seok.gfd.retrofit.RetrofitClient
 import com.seok.gfd.retrofit.domain.request.CommitRequestDto
-import com.seok.gfd.retrofit.domain.resopnse.TRCommitResponseDto
+import com.seok.gfd.retrofit.domain.resopnse.CommitResponseDto
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,8 +19,8 @@ import java.util.*
 class RankFragmentViewModel(application: Application) : AndroidViewModel(application) {
     private val app = application
 
-    private val _rankList = MutableLiveData<List<TRCommitResponseDto>>()
-    val rankList: LiveData<List<TRCommitResponseDto>>
+    private val _rankList = MutableLiveData<List<CommitResponseDto>>()
+    val rankList: LiveData<List<CommitResponseDto>>
         get() = _rankList
 
     private val _serverResult = MutableLiveData<Boolean>()
@@ -36,10 +36,10 @@ class RankFragmentViewModel(application: Application) : AndroidViewModel(applica
             BuildConfig.BASIC_AUTH_KEY,
             dateFormat.format(Date())
         )
-        getTodayRankListCall.enqueue(object : Callback<List<TRCommitResponseDto>> {
+        getTodayRankListCall.enqueue(object : Callback<List<CommitResponseDto>> {
             override fun onResponse(
-                call: Call<List<TRCommitResponseDto>>,
-                response: Response<List<TRCommitResponseDto>>
+                call: Call<List<CommitResponseDto>>,
+                response: Response<List<CommitResponseDto>>
             ) {
                 val body = if (response.isSuccessful) {
                     response.body()
@@ -49,7 +49,7 @@ class RankFragmentViewModel(application: Application) : AndroidViewModel(applica
                 _rankList.postValue(body)
             }
 
-            override fun onFailure(call: Call<List<TRCommitResponseDto>>, t: Throwable) {
+            override fun onFailure(call: Call<List<CommitResponseDto>>, t: Throwable) {
                 Log.e(this.javaClass.simpleName, t.message.toString())
             }
         })
@@ -79,10 +79,10 @@ class RankFragmentViewModel(application: Application) : AndroidViewModel(applica
         val getTodayRankListCall = getTodayRankListService.getTRCommitList(
             BuildConfig.BASIC_AUTH_KEY,
             dateFormat.format(Date()))
-        getTodayRankListCall.enqueue(object : Callback<List<TRCommitResponseDto>>{
+        getTodayRankListCall.enqueue(object : Callback<List<CommitResponseDto>>{
             override fun onResponse(
-                call: Call<List<TRCommitResponseDto>>,
-                response: Response<List<TRCommitResponseDto>>
+                call: Call<List<CommitResponseDto>>,
+                response: Response<List<CommitResponseDto>>
             ) {
                 val body = if (response.isSuccessful) {
                     response.body()
@@ -91,7 +91,7 @@ class RankFragmentViewModel(application: Application) : AndroidViewModel(applica
                 }
                 _rankList.postValue(body)
             }
-            override fun onFailure(call: Call<List<TRCommitResponseDto>>, t: Throwable) {
+            override fun onFailure(call: Call<List<CommitResponseDto>>, t: Throwable) {
                 Log.e(this.javaClass.simpleName, t.message.toString())
             }
         })

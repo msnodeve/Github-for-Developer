@@ -9,7 +9,7 @@ import lombok.Setter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-class TRCommitResponseDto {
+class CommitResponseDto {
     var users_id: Long = 0
 
     var url: String = ""
@@ -22,4 +22,9 @@ class TRCommitResponseDto {
 
     var uid: String = ""
 
+    constructor(profile_image: String, dataCount: Int, uid: String){
+        this.profile_image = profile_image
+        this.data_count = dataCount
+        this.uid = uid
+    }
 }
