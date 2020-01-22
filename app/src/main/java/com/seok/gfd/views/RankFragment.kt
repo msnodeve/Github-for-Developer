@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.seok.gfd.R
@@ -27,6 +28,9 @@ class RankFragment : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: CommitsAdapter
 
+    private var lastViesibleItemPosition: Int = 0
+        get() = linearLayoutManager.findLastVisibleItemPosition()
+
     private lateinit var sharedPreferencesForUser: SharedPreferencesForUser
     private lateinit var rankViewModel: RankFragmentViewModel
 
@@ -39,6 +43,18 @@ class RankFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
         initViewModelFun()
+    }
+
+    private fun setRecyclerViewScrollListener(){
+        rv_rank.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val totalItemCount = rv_rank.layoutManager!!.itemCount
+                if(totalItemCount == lastViesibleItemPosition + 1){
+                    // 데이터 받아오기
+                }
+            }
+        })
     }
     private fun init(){
         linearLayoutManager = LinearLayoutManager(this.context)
