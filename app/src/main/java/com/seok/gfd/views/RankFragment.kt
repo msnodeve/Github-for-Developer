@@ -2,6 +2,7 @@ package com.seok.gfd.views
 
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_rank.*
  */
 class RankFragment : Fragment() {
     private var check : Boolean = false
-
+    private var page : Int = 1
     private lateinit var userViewModel: UserViewModel
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: CommitsAdapter
@@ -66,7 +67,7 @@ class RankFragment : Fragment() {
                 val totalItemCount = rv_rank.layoutManager!!.itemCount
                 if (totalItemCount == lastViesibleItemPosition + 1) {
                     if(check) {
-                        userViewModel.getCommitsRank()
+                        userViewModel.getCommitsRank(page++)
                         check = false
                     }
                 }
@@ -79,7 +80,7 @@ class RankFragment : Fragment() {
         sharedPreference = SharedPreference(this.activity!!.application)
         linearLayoutManager = LinearLayoutManager(this.context)
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
-        userViewModel.getCommitsRank()
+        userViewModel.getCommitsRank(page++)
 
 
         rv_rank.layoutManager = linearLayoutManager
@@ -107,13 +108,16 @@ class RankFragment : Fragment() {
 //    }
     private fun initViewModelFun() {
         userViewModel.commitList.observe(this, Observer {
-            commits.add(it[0])
+            for(commit in it){
+                commits.add(commit)
+            }
             if (commits.isEmpty()) {
                 // 정보 가져오기
                 adapter.notifyItemInserted(commits.size)
             }
             adapter = CommitsAdapter(commits)
             rv_rank.adapter = adapter
+            rv_rank.scrollToPosition(commits.size-2)
             check= true
         })
 

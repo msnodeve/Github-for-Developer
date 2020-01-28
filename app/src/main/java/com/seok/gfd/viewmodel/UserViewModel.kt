@@ -89,9 +89,9 @@ class UserViewModel : ViewModel() {
     }
 
     // 금일 커밋 랭킹 가져오기
-    fun getCommitsRank() {
+    fun getCommitsRank(page : Int) {
         val getCommitsService = RetrofitClient.commitService()
-        val getCommitCall = getCommitsService.getCommitsRank(BuildConfig.BASIC_AUTH_KEY, 1, 4)
+        val getCommitCall = getCommitsService.getCommitsRank(BuildConfig.BASIC_AUTH_KEY, page, 5)
         getCommitCall.enqueue(object : retrofit2.Callback<CommitResponseDto> {
             override fun onResponse(call: Call<CommitResponseDto>, response: Response<CommitResponseDto>) {
                 _commitList.value = response.body()?.data?.content
