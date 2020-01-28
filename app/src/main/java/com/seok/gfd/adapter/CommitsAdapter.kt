@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.seok.gfd.R
-import com.seok.gfd.retrofit.domain.resopnse.CommitResponseDto
+import com.seok.gfd.retrofit.domain.resopnse.CommitResponse
 import kotlinx.android.synthetic.main.rv_rank_item.view.*
 
-class CommitsAdapter(private val commit: ArrayList<CommitResponseDto>) :
+class CommitsAdapter(private val commit: ArrayList<CommitResponse>) :
     RecyclerView.Adapter<CommitsAdapter.CommitsHolder>() {
 
     override fun getItemCount() = commit.size
@@ -36,7 +36,7 @@ class CommitsAdapter(private val commit: ArrayList<CommitResponseDto>) :
 
     class CommitsHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
         private var view: View = v
-        private var commit: CommitResponseDto? = null
+        private var commit: CommitResponse? = null
 
         init {
             v.setOnClickListener(this)
@@ -50,13 +50,13 @@ class CommitsAdapter(private val commit: ArrayList<CommitResponseDto>) :
             private val COMMIT_KEY = "COMMIT"
         }
 
-        fun bindCommit(commitResponseDto: CommitResponseDto) {
-            this.commit = commitResponseDto
-            view.tv_rank_commit.text = commitResponseDto.data_count.toString()
-            view.tv_rv_rank_username.text = commitResponseDto.uid
+        fun bindCommit(commitResponse: CommitResponse) {
+            this.commit = commitResponse
+            view.tv_rank_commit.text = commitResponse.data_count.toString()
+//            view.tv_rv_rank_username.text = commitResponse.uid
 //            view.tv_rv_rank_num.text = rank
-            Glide.with(view).load(commitResponseDto.profile_image)
-                .apply(RequestOptions.circleCropTransform()).into(view.img_rv_user_profile)
+//            Glide.with(view).load(commitResponse.profile_image)
+//                .apply(RequestOptions.circleCropTransform()).into(view.img_rv_user_profile)
         }
     }
 

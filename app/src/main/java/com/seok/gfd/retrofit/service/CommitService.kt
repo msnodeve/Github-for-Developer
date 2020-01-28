@@ -1,15 +1,18 @@
 package com.seok.gfd.retrofit.service
 
-import com.seok.gfd.retrofit.domain.resopnse.CommitResponseDto
+import com.seok.gfd.retrofit.domain.resopnse.CommitResponse
 import com.seok.gfd.retrofit.domain.request.CommitRequestDto
+import com.seok.gfd.retrofit.domain.resopnse.CommitResponseDto
 import retrofit2.Call
 import retrofit2.http.*
 
-interface TRCommitService {
-    @GET("trc")
-    fun getCommitList(
-        @Header("Authorization") authKey: String
-    ): Call<List<CommitResponseDto>>
+interface CommitService {
+    @GET("commits")
+    fun getCommitsRank(
+        @Header("Authorization") authKey: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): Call<CommitResponseDto>
 
     @POST("trc")
     fun updateTRCommit(
@@ -21,6 +24,6 @@ interface TRCommitService {
     fun getTRCommitList(
         @Header("Authorization") authKey: String,
         @Path("date") date: String
-    ): Call<List<CommitResponseDto>>
+    ): Call<List<CommitResponse>>
 
 }

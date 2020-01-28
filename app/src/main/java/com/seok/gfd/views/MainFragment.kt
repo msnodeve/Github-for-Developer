@@ -48,6 +48,7 @@ class MainFragment : Fragment() {
     private fun initViewModelFun() {
         githubCrawlerViewModel.commit.observe(this, Observer {
             today_commit.text = it.dataCount.toString()
+            sharedPreference.setValue(getString(R.string.user_today), it.dataCount.toString())
         })
         githubCrawlerViewModel.commits.observe(this, Observer {
             // Room db에 저장하는 코드 작성하기
