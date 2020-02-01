@@ -1,5 +1,7 @@
 package com.seok.gfd.retrofit.service
 
+import com.seok.gfd.retrofit.domain.MultiResponseDto
+import com.seok.gfd.retrofit.domain.SingleResponseDto
 import com.seok.gfd.retrofit.domain.resopnse.CommitResponse
 import com.seok.gfd.retrofit.domain.request.CommitRequestDto
 import com.seok.gfd.retrofit.domain.resopnse.CommitResponseDto
@@ -14,6 +16,11 @@ interface CommitService {
         @Query("size") size: Int
     ): Call<CommitResponseDto>
 
+    @GET("commits/{dataDate}")
+    fun getCommitList(
+        @Header("Authorization") authKey: String,
+        @Path("dataDate") dataDate: String
+    ): Call<MultiResponseDto<CommitResponse>>
     @POST("trc")
     fun updateTRCommit(
         @Header("Authorization") authKey: String,

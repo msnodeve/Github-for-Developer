@@ -14,7 +14,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/spoqa_han_sans_regular"
-            android:text="@string/rv_rank_num"
             android:textColor="@color/colorText"
             android:textSize="26sp"
             app:layout_constraintBottom_toBottomOf="parent"

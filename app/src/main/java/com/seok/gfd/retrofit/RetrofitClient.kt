@@ -28,7 +28,7 @@ class RetrofitClient {
         fun userService() : UserService{
             val gson = GsonBuilder().setLenient().create()
             retrofit = Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:28080/api/v1/")
+                .baseUrl("http://10.0.2.2:8080/api/v1/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
             return retrofit.create(UserService::class.java)
@@ -36,7 +36,7 @@ class RetrofitClient {
         fun commitService() : CommitService{
             val gson = GsonBuilder().setLenient().create()
             retrofit = Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:28080/api/v1/")
+                .baseUrl("http://10.0.2.2:8080/api/v1/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
             return retrofit.create(CommitService::class.java)

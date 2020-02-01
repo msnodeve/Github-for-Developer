@@ -14,9 +14,8 @@ import kotlinx.android.synthetic.main.rv_rank_item.view.*
 
 class CommitsAdapter(private val commit: ArrayList<CommitResponse>) :
     RecyclerView.Adapter<CommitsAdapter.CommitsHolder>() {
-
+    private var index = 1
     override fun getItemCount() = commit.size
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -37,7 +36,6 @@ class CommitsAdapter(private val commit: ArrayList<CommitResponse>) :
     class CommitsHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
         private var view: View = v
         private var commit: CommitResponse? = null
-
         init {
             v.setOnClickListener(this)
         }
@@ -53,6 +51,8 @@ class CommitsAdapter(private val commit: ArrayList<CommitResponse>) :
         fun bindCommit(commitResponse: CommitResponse) {
             this.commit = commitResponse
             view.tv_rank_commit.text = commitResponse.data_count.toString()
+            view.tv_rv_rank_username.text = commitResponse.user_id
+            Glide.with(view).load(commitResponse.user_image).apply(RequestOptions.circleCropTransform()).into(view.img_rv_user_profile)
 //            view.tv_rv_rank_username.text = commitResponse.uid
 //            view.tv_rv_rank_num.text = rank
 //            Glide.with(view).load(commitResponse.profile_image)

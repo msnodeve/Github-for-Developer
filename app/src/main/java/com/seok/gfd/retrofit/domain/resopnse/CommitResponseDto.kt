@@ -10,15 +10,5 @@ import lombok.Setter
 @NoArgsConstructor
 @AllArgsConstructor
 class CommitResponseDto {
-    var success: Boolean = false
-
-    var code: Int = 0
-
-    var msg: String? = null
-
-    var data: Data? = null
-
-    class Data {
-        var content: List<CommitResponse>? = null
-    }
+    var data: Object? = null
 }

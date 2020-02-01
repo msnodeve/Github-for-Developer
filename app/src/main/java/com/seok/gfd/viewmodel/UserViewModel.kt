@@ -1,19 +1,20 @@
 package com.seok.gfd.viewmodel
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.seok.gfd.BuildConfig
 import com.seok.gfd.retrofit.RetrofitClient
-import com.seok.gfd.retrofit.domain.SingleResponseDto
-import com.seok.gfd.retrofit.domain.Token
-import com.seok.gfd.retrofit.domain.User
+import com.seok.gfd.retrofit.domain.*
 import com.seok.gfd.retrofit.domain.resopnse.CommitResponseDto
 import com.seok.gfd.retrofit.domain.resopnse.CommitResponse
 import retrofit2.Call
 import retrofit2.Response
 import java.net.HttpURLConnection
+import java.time.LocalDate
 
 class UserViewModel : ViewModel() {
     private val _usersCount = MutableLiveData<Long>()
@@ -89,15 +90,17 @@ class UserViewModel : ViewModel() {
     }
 
     // 금일 커밋 랭킹 가져오기
-    fun getCommitsRank(page : Int) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getCommitsRank() {
+        val dataDate = LocalDate.now().toString()
         val getCommitsService = RetrofitClient.commitService()
-        val getCommitCall = getCommitsService.getCommitsRank(BuildConfig.BASIC_AUTH_KEY, page, 5)
-        getCommitCall.enqueue(object : retrofit2.Callback<CommitResponseDto> {
-            override fun onResponse(call: Call<CommitResponseDto>, response: Response<CommitResponseDto>) {
-                _commitList.value = response.body()?.data?.content
+        val getCommitCall = getCommitsService.getCommitList(BuildConfig.BASIC_AUTH_KEY, dataDate)
+        getCommitCall.enqueue(object : retrofit2.Callback<MultiResponseDto<CommitResponse>> {
+            override fun onResponse(call: Call<MultiResponseDto<CommitResponse>>, response: Response<MultiResponseDto<CommitResponse>>) {
+                _commitList.value = response.body()?.list
             }
 
-            override fun onFailure(call: Call<CommitResponseDto>, t: Throwable) {
+            override fun onFailure(call: Call<MultiResponseDto<CommitResponse>>, t: Throwable) {
                 Log.e(this.javaClass.simpleName, t.message.toString())
             }
 
