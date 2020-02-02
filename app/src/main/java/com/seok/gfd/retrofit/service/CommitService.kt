@@ -21,11 +21,11 @@ interface CommitService {
         @Header("Authorization") authKey: String,
         @Path("dataDate") dataDate: String
     ): Call<MultiResponseDto<CommitResponse>>
-    @POST("trc")
-    fun updateTRCommit(
+    @POST("commits")
+    fun enrollCommit(
         @Header("Authorization") authKey: String,
         @Body commitRequestDto: CommitRequestDto
-    ): Call<String>
+    ): Call<SingleResponseDto<Void>>
 
     @GET("trc/{date}")
     fun getTRCommitList(

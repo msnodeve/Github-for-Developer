@@ -12,12 +12,15 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.seok.gfd.R
 import com.seok.gfd.retrofit.domain.User
+import com.seok.gfd.retrofit.domain.request.CommitRequestDto
 import com.seok.gfd.utils.SharedPreference
 import com.seok.gfd.viewmodel.GithubCrawlerViewModel
+import com.seok.gfd.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment() {
     private lateinit var githubCrawlerViewModel: GithubCrawlerViewModel
+    private lateinit var userViewModel: UserViewModel
     private lateinit var sharedPreference: SharedPreference
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -37,6 +40,7 @@ class MainFragment : Fragment() {
 
         sharedPreference = SharedPreference(this.activity!!.application)
         githubCrawlerViewModel = ViewModelProviders.of(this).get(GithubCrawlerViewModel::class.java)
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
         // Login Activity 에서 저장한 User 정보 가져오기
         val user = sharedPreference.getValueObject(getString(R.string.user_info))
         setUserInfoUI(user)
@@ -49,6 +53,10 @@ class MainFragment : Fragment() {
         githubCrawlerViewModel.commit.observe(this, Observer {
             today_commit.text = it.dataCount.toString()
             sharedPreference.setValue(getString(R.string.user_today), it.dataCount.toString())
+
+            val user = sharedPreference.getValueObject(getString(R.string.user_info))
+            val commit = CommitRequestDto(user.login, it.dataCount)
+            userViewModel.enrollCommit(commit)
         })
         githubCrawlerViewModel.commits.observe(this, Observer {
             // Room db에 저장하는 코드 작성하기

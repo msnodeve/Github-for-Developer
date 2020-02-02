@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import com.seok.gfd.BuildConfig
 import com.seok.gfd.retrofit.RetrofitClient
 import com.seok.gfd.retrofit.domain.*
+import com.seok.gfd.retrofit.domain.request.CommitRequestDto
 import com.seok.gfd.retrofit.domain.resopnse.CommitResponse
 import retrofit2.Call
 import retrofit2.Response
@@ -121,6 +122,24 @@ class UserViewModel : ViewModel() {
                 Log.e(this.javaClass.simpleName, t.message.toString())
             }
 
+        })
+    }
+
+    // 금일 커밋 등록하기
+    fun enrollCommit(commit: CommitRequestDto){
+        val enrollCommitService = RetrofitClient.commitService()
+        val enrollCommitCall = enrollCommitService.enrollCommit(BuildConfig.BASIC_AUTH_KEY, commit)
+        enrollCommitCall.enqueue(object : retrofit2.Callback<SingleResponseDto<Void>>{
+            override fun onResponse(
+                call: Call<SingleResponseDto<Void>>,
+                response: Response<SingleResponseDto<Void>>
+            ) {
+
+            }
+
+            override fun onFailure(call: Call<SingleResponseDto<Void>>, t: Throwable) {
+
+            }
         })
     }
 }

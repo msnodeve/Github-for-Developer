@@ -24,6 +24,7 @@ import com.seok.gfd.utils.SharedPreferencesForUser
 import com.seok.gfd.viewmodel.RankFragmentViewModel
 import com.seok.gfd.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_rank.*
+import java.lang.Exception
 
 /**
  * A simple [Fragment] subclass.
@@ -74,7 +75,8 @@ class RankFragment : Fragment() {
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
 
         val user = sharedPreference.getValueObject(getString(R.string.user_info))
-        Glide.with(this).load(user.avatar_url).apply(RequestOptions.circleCropTransform()).into(img_rv_profile)
+        Glide.with(this).load(user.avatar_url).apply(RequestOptions.circleCropTransform())
+            .into(img_rv_profile)
         user.avatar_url
         rv_rank.layoutManager = linearLayoutManager
         tv_rv_commit.text = sharedPreference.getValue(getString(R.string.user_today))
@@ -85,13 +87,20 @@ class RankFragment : Fragment() {
         }
 
     }
+
     private fun initViewModelFun() {
+        val user = sharedPreference.getValueObject(getString(R.string.user_info))
         userViewModel.commitList.observe(this, Observer {
-            val user = it.find { it.user_id ==  ""}
-            Glide.with(this).load(user?.user_image).apply(RequestOptions.circleCropTransform()).into(img_rv_profile)
-            tv_rv_commit.text = user?.data_count.toString()
-            adapter = CommitsAdapter(it as ArrayList<CommitResponse>)
-            rv_rank.adapter = adapter
+            try {
+                val user = it.find { it.user_id == user.login }
+                Glide.with(this).load(user?.user_image).apply(RequestOptions.circleCropTransform())
+                    .into(img_rv_profile)
+                tv_rv_commit.text = user?.data_count.toString()
+                adapter = CommitsAdapter(it as ArrayList<CommitResponse>)
+                rv_rank.adapter = adapter
+            } catch (e: Exception) {
+                Log.e(this.javaClass.simpleName, e.toString())
+            }
         })
     }
 }
