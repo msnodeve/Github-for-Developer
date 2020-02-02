@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel
 import com.seok.gfd.BuildConfig
 import com.seok.gfd.retrofit.RetrofitClient
 import com.seok.gfd.retrofit.domain.*
-import com.seok.gfd.retrofit.domain.resopnse.CommitResponseDto
 import com.seok.gfd.retrofit.domain.resopnse.CommitResponse
 import retrofit2.Call
 import retrofit2.Response
@@ -86,6 +85,24 @@ class UserViewModel : ViewModel() {
             override fun onFailure(call: Call<User>, t: Throwable) {
                 Log.e(this.javaClass.simpleName, t.message.toString())
             }
+        })
+    }
+
+    fun signInUserInfo(user: User){
+        val gfdSignInService = RetrofitClient.userService()
+        val requestUserDto = GfdUser(user.login, user.html_url, user.avatar_url)
+        val gfdSignInCall = gfdSignInService.signUpUser(BuildConfig.BASIC_AUTH_KEY, requestUserDto)
+        gfdSignInCall.enqueue(object : retrofit2.Callback<SingleResponseDto<GfdUser>>{
+            override fun onResponse(
+                call: Call<SingleResponseDto<GfdUser>>,
+                response: Response<SingleResponseDto<GfdUser>>
+            ) {
+                response
+            }
+            override fun onFailure(call: Call<SingleResponseDto<GfdUser>>, t: Throwable) {
+                Log.e(this.javaClass.simpleName, t.message.toString())
+            }
+
         })
     }
 

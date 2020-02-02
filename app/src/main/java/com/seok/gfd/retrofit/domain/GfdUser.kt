@@ -9,16 +9,16 @@ import lombok.Setter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-class GUser {
+class GfdUser {
     var userId: String = ""
 
     var userUrl: String = ""
 
-    var profileImage: String = ""
+    var userImage: String = ""
 
-    constructor(userId : String, userUrl : String, profileImage: String){
+    constructor(userId : String, userUrl : String, userImage: String){
         this.userId = userId
         this.userUrl = userUrl
-        this.profileImage = profileImage
+        this.userImage = userImage
     }
 }

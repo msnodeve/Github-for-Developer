@@ -87,7 +87,7 @@ class RankFragment : Fragment() {
     }
     private fun initViewModelFun() {
         userViewModel.commitList.observe(this, Observer {
-            val user = it.find { it.user_id == "string" }
+            val user = it.find { it.user_id ==  ""}
             Glide.with(this).load(user?.user_image).apply(RequestOptions.circleCropTransform()).into(img_rv_profile)
             tv_rv_commit.text = user?.data_count.toString()
             adapter = CommitsAdapter(it as ArrayList<CommitResponse>)

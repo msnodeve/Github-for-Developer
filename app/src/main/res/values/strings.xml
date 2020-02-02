@@ -31,6 +31,8 @@
     <string name="text_github">Github </string>
     <string name="text_login"> Login</string>
     <string name="app_tv_count_users">누적 회원 수</string>
+    <string name="ot_tv_title">도움을 주신 분</string>
+
 
     <!-- Project String env -->
     <string name="no_token">empty token</string>
@@ -57,10 +59,8 @@
     <string name="banner_ad_unit_id">ca-app-pub-2766237193476584/5214166022</string>
     <string name="banner_ad_unit_id_for_test">ca-app-pub-3940256099942544/6300978111</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

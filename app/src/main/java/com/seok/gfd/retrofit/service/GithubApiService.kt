@@ -16,4 +16,9 @@ interface GithubApiService {
         @Query("client_id") clientId : String,
         @Query("client_secret") clientSecret : String,
         @Query("code") code : String) : Call<Token>
+
+    @GET("users/{userId}")
+    fun getUserInfo(
+        @Path("userId") userId: String
+    ):Call<User>
 }

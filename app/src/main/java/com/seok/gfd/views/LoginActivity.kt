@@ -66,6 +66,7 @@ class LoginActivity : AppCompatActivity() {
         })
         userViewModel.userInfo.observe(this, Observer {
             sharedPreference.setValueObject(application.getString(R.string.user_info), it)
+            userViewModel.signInUserInfo(it)
         })
     }
 

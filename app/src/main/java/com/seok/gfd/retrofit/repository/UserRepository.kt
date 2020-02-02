@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.seok.gfd.BuildConfig
 import com.seok.gfd.retrofit.RetrofitClient
-import com.seok.gfd.retrofit.domain.GUser
+import com.seok.gfd.retrofit.domain.GfdUser
 import com.seok.gfd.retrofit.domain.Token
 import com.seok.gfd.retrofit.domain.User
 import retrofit2.Call
@@ -23,35 +23,35 @@ class UserRepository(application: Application) {
     fun getUserMutableData(token: String): MutableLiveData<User> {
         val userService = RetrofitClient.githubApiService()
         val call = userService.getUserInfoFromGithubApi("token $token")
-        call.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                if (response.isSuccessful) {
-                    val body = response.body()!!
-                    user =
-                        User(body.login, body.html_url, body.avatar_url, HttpURLConnection.HTTP_OK)
-                    val signUpService = RetrofitClient.userService()
-                    val signUpCall = signUpService.signUpUser(
-                        BuildConfig.BASIC_AUTH_KEY
-                        , GUser(body.login, body.html_url, body.avatar_url)
-                    )
-                    signUpCall.enqueue(object :Callback<GUser>{
-                        override fun onResponse(call: Call<GUser>, response: Response<GUser>) {
-                            Log.d(this.javaClass.simpleName, "Success signUp")
-                        }
-                        override fun onFailure(call: Call<GUser>, t: Throwable) {
-                            Log.e(this.javaClass.simpleName, t.message.toString())
-                        }
-                    })
-                } else {
-                    user = User(HttpURLConnection.HTTP_UNAUTHORIZED)
-                }
-                userMutableData.value = user
-            }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Log.e(this.javaClass.simpleName, t.message.toString())
-            }
-        })
+//        call.enqueue(object : Callback<User> {
+//            override fun onResponse(call: Call<User>, response: Response<User>) {
+//                if (response.isSuccessful) {
+//                    val body = response.body()!!
+//                    user =
+//                        User(body.login, body.html_url, body.avatar_url, HttpURLConnection.HTTP_OK)
+//                    val signUpService = RetrofitClient.userService()
+//                    val signUpCall = signUpService.signUpUser(
+//                        BuildConfig.BASIC_AUTH_KEY
+//                        , GfdUser(body.login, body.html_url, body.avatar_url)
+//                    )
+//                    signUpCall.enqueue(object :Callback<GfdUser>{
+//                        override fun onResponse(call: Call<GfdUser>, response: Response<GfdUser>) {
+//                            Log.d(this.javaClass.simpleName, "Success signUp")
+//                        }
+//                        override fun onFailure(call: Call<GfdUser>, t: Throwable) {
+//                            Log.e(this.javaClass.simpleName, t.message.toString())
+//                        }
+//                    })
+//                } else {
+//                    user = User(HttpURLConnection.HTTP_UNAUTHORIZED)
+//                }
+//                userMutableData.value = user
+//            }
+//
+//            override fun onFailure(call: Call<User>, t: Throwable) {
+//                Log.e(this.javaClass.simpleName, t.message.toString())
+//            }
+//        })
         return userMutableData
     }
 
