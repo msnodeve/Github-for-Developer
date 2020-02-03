@@ -1,6 +1,7 @@
 package com.seok.gfd.views
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,15 +14,18 @@ import com.bumptech.glide.request.RequestOptions
 import com.seok.gfd.R
 import com.seok.gfd.retrofit.domain.User
 import com.seok.gfd.retrofit.domain.request.CommitRequestDto
+import com.seok.gfd.retrofit.domain.resopnse.CommitsResponseDto
 import com.seok.gfd.utils.SharedPreference
-import com.seok.gfd.viewmodel.GithubCrawlerViewModel
+import com.seok.gfd.viewmodel.GithubCommitDataViewModel
 import com.seok.gfd.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
+import java.time.LocalDate
 
 class MainFragment : Fragment() {
-    private lateinit var githubCrawlerViewModel: GithubCrawlerViewModel
+    private lateinit var githubCommitDataViewModel: GithubCommitDataViewModel
     private lateinit var userViewModel: UserViewModel
     private lateinit var sharedPreference: SharedPreference
+    private lateinit var user: User
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
@@ -38,38 +42,65 @@ class MainFragment : Fragment() {
         val settings = wv_mv_graph.settings
         settings.builtInZoomControls = true
 
+        // SharedPreference 에 저장된 User 정보 가져오기
         sharedPreference = SharedPreference(this.activity!!.application)
-        githubCrawlerViewModel = ViewModelProviders.of(this).get(GithubCrawlerViewModel::class.java)
+        user = sharedPreference.getValueObject(getString(R.string.user_info))
+
+        githubCommitDataViewModel = ViewModelProviders.of(this).get(GithubCommitDataViewModel::class.java)
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
         // Login Activity 에서 저장한 User 정보 가져오기
-        val user = sharedPreference.getValueObject(getString(R.string.user_info))
+
         setUserInfoUI(user)
 
-        githubCrawlerViewModel.getCommitFromGithub(user.html_url)
-        githubCrawlerViewModel.getYearCommitFromGithub(user.html_url)
+
+        githubCommitDataViewModel.getCommitsInfo(user.login)
+
+//        githubCrawlerViewModel.getCommitFromGithub(user.html_url)
+//        githubCrawlerViewModel.getYearCommitFromGithub(user.html_url)
+
     }
 
     private fun initViewModelFun() {
-        githubCrawlerViewModel.commit.observe(this, Observer {
-            today_commit.text = it.dataCount.toString()
-            sharedPreference.setValue(getString(R.string.user_today), it.dataCount.toString())
-
-            val user = sharedPreference.getValueObject(getString(R.string.user_info))
-            val commit = CommitRequestDto(user.login, it.dataCount)
+        // 금일 커밋 가져오기
+        githubCommitDataViewModel.todayCommit.observe(this, Observer {
+            today_commit.text = it
+            sharedPreference.setValue(getString(R.string.user_today), it)
+            // 금일 커밋 서버에 저장
+            val commit = CommitRequestDto(user.login, it.toInt())
             userViewModel.enrollCommit(commit)
         })
-        githubCrawlerViewModel.commits.observe(this, Observer {
-            // Room db에 저장하는 코드 작성하기
-        })
-        githubCrawlerViewModel.maxCommits.observe(this, Observer {
-            max_commit.text = it
-            sharedPreference.setValue(getString(R.string.user_max), it)
-        })
-        githubCrawlerViewModel.yearCommit.observe(this, Observer {
+        // 금년 총 커밋 가져오기
+        githubCommitDataViewModel.yearCommit.observe(this, Observer {
             year_commit.text = it
             sharedPreference.setValue(getString(R.string.user_year), it)
         })
+        // 커밋 최대값 가져오기
+        githubCommitDataViewModel.maxCommit.observe(this, Observer {
+            max_commit.text = it
+            sharedPreference.setValue(getString(R.string.user_max), it)
+        })
+        // 총 커밋 가져오기
+        githubCommitDataViewModel.commits.observe(this, Observer {
+            setCommitUI(it)
+        })
     }
+
+    @SuppressLint("NewApi")
+    private fun setCommitUI(it: List<CommitsResponseDto.Contribution>){
+        val lastDateTime = LocalDate.now().minusDays(365).toString()
+        val nowDateTime = LocalDate.now().toString()
+        val lastCommitIndex = it.indexOf(it.find { it.date == lastDateTime })
+        val nowCommitIndex = it.indexOf(it.find { it.date == nowDateTime })
+
+        val t = mutableListOf<CommitsResponseDto.Contribution>()
+        for (i in lastCommitIndex downTo nowCommitIndex) {
+            t.add(it[i])
+        }
+
+        t
+    }
+
+
 
     private fun setUserInfoUI(user: User) {
         wv_mv_graph.loadUrl("https://ghchart.rshah.org/${user.login}")
@@ -79,6 +110,7 @@ class MainFragment : Fragment() {
         max_commit.text = sharedPreference.getValue(getString(R.string.user_max))
         Glide.with(this).load(user.avatar_url).apply(RequestOptions.circleCropTransform()).into(img_mv_user_profile)
     }
+
 
     /** 오리지날 잔디 그래프 출력
     private fun setCommitUI(it: List<Commits>) {

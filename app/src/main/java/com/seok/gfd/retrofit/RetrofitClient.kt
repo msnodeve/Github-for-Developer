@@ -5,6 +5,7 @@ import com.seok.gfd.BuildConfig
 import com.seok.gfd.retrofit.service.UserService
 import com.seok.gfd.retrofit.service.CommitService
 import com.seok.gfd.retrofit.service.GithubApiService
+import com.seok.gfd.retrofit.service.GithubCommitService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -41,6 +42,14 @@ class RetrofitClient {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
             return retrofit.create(CommitService::class.java)
+        }
+        fun githubCommitService(): GithubCommitService{
+            val gson = GsonBuilder().setLenient().create()
+            retrofit = Retrofit.Builder()
+                .baseUrl("https://github-contributions-api.now.sh/v1/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build()
+            return retrofit.create(GithubCommitService::class.java)
         }
     }
 }

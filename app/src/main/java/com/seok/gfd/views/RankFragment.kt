@@ -36,12 +36,7 @@ class RankFragment : Fragment() {
     private var lastViesibleItemPosition: Int = 0
         get() = linearLayoutManager.findLastVisibleItemPosition()
 
-
     private lateinit var sharedPreference: SharedPreference
-
-
-    private lateinit var sharedPreferencesForUser: SharedPreferencesForUser
-    private lateinit var rankViewModel: RankFragmentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,

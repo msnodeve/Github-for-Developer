@@ -1,6 +1,7 @@
 package com.seok.gfd.views
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -9,16 +10,24 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.seok.gfd.BuildConfig
 import com.seok.gfd.R
+import com.seok.gfd.retrofit.RetrofitClient
+import com.seok.gfd.retrofit.domain.resopnse.CommitsResponseDto
 import com.seok.gfd.utils.SharedPreference
 import com.seok.gfd.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.longToast
+import retrofit2.Call
+import retrofit2.Response
 import java.net.HttpURLConnection
+import java.time.LocalDate
 
-@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+@Suppress(
+    "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS",
+    "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS"
+)
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var userViewModel : UserViewModel
+    private lateinit var userViewModel: UserViewModel
     private lateinit var sharedPreference: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,12 +39,16 @@ class LoginActivity : AppCompatActivity() {
 
         // 로그인 버튼 눌렀을 경우 Github login 창으로 넘김
         login_img_login.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.GITHUB_OAUTH_URL + BuildConfig.GITHUB_CLIENT_ID))
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(BuildConfig.GITHUB_OAUTH_URL + BuildConfig.GITHUB_CLIENT_ID)
+            )
             // onNewIntent() 리다이렉트
             startActivityForResult(intent, HttpURLConnection.HTTP_OK)
         }
 
         userViewModel.getUserInfoAndSignInGithub(sharedPreference.getValue(BuildConfig.PREFERENCES_TOKEN_KEY))
+
     }
 
     // ViewModel 세팅 및 초기화
@@ -46,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     // ViewModel 구현
-    private fun initViewModelFun(){
+    private fun initViewModelFun() {
         // 현재 사용자 수
         userViewModel.userCount.observe(this, Observer {
             login_tv_users_count.text = it.toString()
@@ -58,9 +71,9 @@ class LoginActivity : AppCompatActivity() {
         })
         // Github 로그인 성공 코드 200 / 401
         userViewModel.code.observe(this, Observer {
-            if(it == HttpURLConnection.HTTP_OK){
+            if (it == HttpURLConnection.HTTP_OK) {
                 goToMainActivity()
-            }else{
+            } else {
                 longToast(getString(R.string.fail_access_token))
             }
         })
