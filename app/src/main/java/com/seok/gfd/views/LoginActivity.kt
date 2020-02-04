@@ -1,7 +1,6 @@
 package com.seok.gfd.views
 
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,16 +9,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.seok.gfd.BuildConfig
 import com.seok.gfd.R
-import com.seok.gfd.retrofit.RetrofitClient
-import com.seok.gfd.retrofit.domain.resopnse.CommitsResponseDto
+import com.seok.gfd.utils.ProgressbarDialog
 import com.seok.gfd.utils.SharedPreference
 import com.seok.gfd.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.longToast
-import retrofit2.Call
-import retrofit2.Response
 import java.net.HttpURLConnection
-import java.time.LocalDate
 
 @Suppress(
     "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS",
@@ -29,6 +24,8 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var userViewModel: UserViewModel
     private lateinit var sharedPreference: SharedPreference
+    private lateinit var progressbar : ProgressbarDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
 
         // 로그인 버튼 눌렀을 경우 Github login 창으로 넘김
         login_img_login.setOnClickListener {
+            progressbar.show()
             val intent = Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse(BuildConfig.GITHUB_OAUTH_URL + BuildConfig.GITHUB_CLIENT_ID)
@@ -53,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
 
     // ViewModel 세팅 및 초기화
     private fun init() {
+        progressbar = ProgressbarDialog(this)
         sharedPreference = SharedPreference(application)
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
         userViewModel.getUsersCount()
@@ -94,6 +93,7 @@ class LoginActivity : AppCompatActivity() {
     private fun goToMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        progressbar.hide()
         finish()
     }
 }
