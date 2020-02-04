@@ -29,9 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/stCommit"
-            app:itemIconTint="@color/colorText"
-            app:itemTextColor="@color/colorText"
+            android:background="@color/thCommit"
+            app:itemIconTint="@color/userRankPos"
+            app:itemTextColor="@color/userRankPos"
             app:labelVisibilityMode="selected"
             app:menu="@menu/bottom_navigation_menu" >
 

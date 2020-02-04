@@ -24,8 +24,8 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var userViewModel: UserViewModel
     private lateinit var sharedPreference: SharedPreference
-    private lateinit var progressbar : ProgressbarDialog
-
+    private lateinit var progressbar: ProgressbarDialog
+    private var loginButtonClicked: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,6 @@ class LoginActivity : AppCompatActivity() {
             // onNewIntent() 리다이렉트
             startActivityForResult(intent, HttpURLConnection.HTTP_OK)
         }
-
         userViewModel.getUserInfoAndSignInGithub(sharedPreference.getValue(BuildConfig.PREFERENCES_TOKEN_KEY))
 
     }
@@ -52,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
     // ViewModel 세팅 및 초기화
     private fun init() {
         progressbar = ProgressbarDialog(this)
+        progressbar.show()
         sharedPreference = SharedPreference(application)
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
         userViewModel.getUsersCount()
@@ -73,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
             if (it == HttpURLConnection.HTTP_OK) {
                 goToMainActivity()
             } else {
+                progressbar.hide()
                 longToast(getString(R.string.fail_access_token))
             }
         })

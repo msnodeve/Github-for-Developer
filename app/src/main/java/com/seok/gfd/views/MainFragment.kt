@@ -2,8 +2,11 @@ package com.seok.gfd.views
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +22,7 @@ import com.seok.gfd.R
 import com.seok.gfd.retrofit.domain.User
 import com.seok.gfd.retrofit.domain.request.CommitRequestDto
 import com.seok.gfd.retrofit.domain.resopnse.CommitsResponseDto
+import com.seok.gfd.utils.ProgressbarDialog
 import com.seok.gfd.utils.SharedPreference
 import com.seok.gfd.viewmodel.GithubCommitDataViewModel
 import com.seok.gfd.viewmodel.UserViewModel
@@ -26,11 +30,13 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.margin
 import java.time.LocalDate
+import java.util.concurrent.Semaphore
 
 class MainFragment : Fragment() {
     private lateinit var githubCommitDataViewModel: GithubCommitDataViewModel
     private lateinit var userViewModel: UserViewModel
     private lateinit var sharedPreference: SharedPreference
+    private lateinit var progressbar : ProgressbarDialog
     private lateinit var user: User
 
     override fun onCreateView(
@@ -52,6 +58,10 @@ class MainFragment : Fragment() {
 //        val settings = wv_mv_graph.settings
 //        settings.builtInZoomControls = true
 
+        // Progress Bar
+        progressbar = ProgressbarDialog(this.activity!!)
+        progressbar.show()
+
         // SharedPreference 에 저장된 User 정보 가져오기
         sharedPreference = SharedPreference(this.activity!!.application)
         user = sharedPreference.getValueObject(getString(R.string.user_info))
@@ -63,11 +73,11 @@ class MainFragment : Fragment() {
 
         setUserInfoUI(user)
 
+        Handler().postDelayed({
+            scroll_contribute.smoothScrollTo(contribute.width, contribute.height)
+        }, 2000)
 
         githubCommitDataViewModel.getCommitsInfo(user.login)
-
-//        githubCrawlerViewModel.getCommitFromGithub(user.html_url)
-//        githubCrawlerViewModel.getYearCommitFromGithub(user.html_url)
 
     }
 
@@ -103,28 +113,29 @@ class MainFragment : Fragment() {
         val lastCommitIndex = it.indexOf(it.find { it.date == lastDateTime })
         val nowCommitIndex = it.indexOf(it.find { it.date == nowDateTime })
         val maxCommit = sharedPreference.getValue(getString(R.string.user_max))
+
         this.activity?.runOnUiThread {
             contribute.removeAllViews()
             contribute.columnCount = 53
             contribute.rowCount = 7
             for (index in lastCommitIndex downTo nowCommitIndex) {
-                val layout = LinearLayout(this.activity)
+                val layout = LinearLayout(activity)
                 val param = LinearLayout.LayoutParams(65, 65)
                 val commit = it[index]
                 param.margin = 4
                 layout.layoutParams = param
 //                val txt = TextView(this.activity)
-//                txt.text = commit.dataCount.toString()
+//                txt.text = commit.count.toString()
 //                layout.gravity = Gravity.CENTER
 //                layout.addView(txt)
                 layout.backgroundColor = Color.parseColor(commit.color)
                 if (commit.count == maxCommit.toInt()) {
-                    layout.background = this.activity?.getDrawable(R.drawable.rect_background)
+                    layout.background = activity?.getDrawable(R.drawable.rect_background)
                 }
                 contribute.addView(layout)
             }
         }
-
+        progressbar.hide()
     }
 
 
