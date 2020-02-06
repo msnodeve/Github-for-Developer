@@ -1,7 +1,7 @@
 # Github For Developer
 ![Build Status](https://travis-ci.org/msnodeve/Github-for-Developer.svg?branch=master)
 
-<a href='https://play.google.com/store/apps/details?id=com.seok.gitfordeveloper&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='다운로드하기 Google Play' src='https://play.google.com/intl/ko/badges/images/generic/ko_badge_web_generic.png' width="15%"/></a>
+<a href='https://play.google.com/store/apps/details?id=com.seok.gfd&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='다운로드하기 Google Play' src='https://play.google.com/intl/ko/badges/images/generic/ko_badge_web_generic.png' width="15%"/></a>
 
 ***
 
@@ -25,3 +25,8 @@ v1.6.2 릴리즈 작업 완료
 v1.10.3 릴리즈 작업 완료
 - 금일 커밋 랭킹 서비스 구축
 - 프로필, 랭킹 프래그먼트로 분리
+
+v2.16.6 릴리즈 작업 완료
+- 대대적인 UI/UX 개선
+- 도움을 주신 분 탭 추가
+- 앱 성능 최적화
