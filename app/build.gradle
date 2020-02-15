@@ -18,8 +18,8 @@ android {
         applicationId "com.seok.gfd"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 5
-        versionName "1.10.3"
+        versionCode 6
+        versionName "2.16.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -143,4 +143,8 @@ dependencies {
     // NavigationBar
     implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
+
+    // UI Scale
+    implementation 'com.ssomai:android.scalablelayout:2.1.6'
+
 }

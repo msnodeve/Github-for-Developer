@@ -3,7 +3,6 @@ package com.seok.gfd.views
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,8 +18,6 @@ import com.seok.gfd.R
 import com.seok.gfd.adapter.CommitsAdapter
 import com.seok.gfd.retrofit.domain.resopnse.CommitResponse
 import com.seok.gfd.utils.SharedPreference
-import com.seok.gfd.utils.SharedPreferencesForUser
-import com.seok.gfd.viewmodel.RankFragmentViewModel
 import com.seok.gfd.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_rank.*
 import java.lang.Exception
