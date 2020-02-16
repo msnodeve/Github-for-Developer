@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     private val fragmentManager = supportFragmentManager
 
-    private val mainFragment = MainFragment()
+    private val mainFragment = Main2Fragment()
     private val rankFragment = RankFragment()
     private val optionFragment = OptionFragment()
 

@@ -27,7 +27,8 @@
                     android:id="@+id/img_mv_user_profile"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
-                    app:srcCompat="@drawable/gfd_launcher" />
+                    app:srcCompat="@drawable/gfd_launcher"
+                    tools:visibility="visible" />
         </LinearLayout>
 
         <TextView
