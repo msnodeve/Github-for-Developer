@@ -147,4 +147,8 @@ dependencies {
     // UI Scale
     implementation 'com.ssomai:android.scalablelayout:2.1.6'
 
+    // Tab Layout
+    implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
+    implementation 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
+
 }

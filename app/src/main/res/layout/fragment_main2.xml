@@ -11,7 +11,7 @@
             android:id="@+id/main_top_scalable_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:scale_base_height="650"
+            app:scale_base_height="480"
             app:scale_base_width="1080"
             tools:ignore="MissingPrefix">
 
@@ -20,10 +20,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/gfd_logo"
-                app:scale_height="300"
+                app:scale_height="200"
                 app:scale_left="30"
                 app:scale_top="30"
-                app:scale_width="300" />
+                app:scale_width="200" />
 
 
         <TextView
@@ -32,21 +32,34 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/spoqa_han_sans_bold"
                 android:text="helloGfd"
-                app:scale_height="150"
-                app:scale_left="350"
-                app:scale_textsize="90"
-                app:scale_top="30"
-                app:scale_width="700" />
+                app:scale_height="100"
+                app:scale_left="270"
+                app:scale_textsize="55"
+                app:scale_top="40"
+                app:scale_width="500" />
+
+        <TextView
+                android:id="@+id/main_tv_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/spoqa_han_sans_thin"
+                android:gravity="right"
+                android:text="2020-01-01"
+                app:scale_height="100"
+                app:scale_left="750"
+                app:scale_textsize="35"
+                app:scale_top="20"
+                app:scale_width="300" />
 
         <ImageView
                 android:id="@+id/main_image_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_location"
-                app:scale_height="70"
-                app:scale_left="360"
-                app:scale_top="205"
-                app:scale_width="70" />
+                app:scale_height="40"
+                app:scale_left="270"
+                app:scale_top="150"
+                app:scale_width="40" />
 
         <TextView
                 android:id="@+id/main_tv_user_location"
@@ -54,10 +67,10 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/spoqa_han_sans_light"
                 android:text="location"
-                app:scale_height="150"
-                app:scale_left="440"
-                app:scale_textsize="60"
-                app:scale_top="180"
+                app:scale_height="70"
+                app:scale_left="320"
+                app:scale_textsize="45"
+                app:scale_top="125"
                 app:scale_width="610" />
 
 
@@ -65,9 +78,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounding_background"
-                app:scale_height="270"
+                app:scale_height="210"
                 app:scale_left="30"
-                app:scale_top="360"
+                app:scale_top="250"
                 app:scale_width="1020" />
 
 
@@ -79,10 +92,10 @@
                 android:gravity="center"
                 android:text="0"
                 android:textColor="#FFFFFF"
-                app:scale_height="140"
+                app:scale_height="110"
                 app:scale_left="30"
-                app:scale_textsize="80"
-                app:scale_top="380"
+                app:scale_textsize="70"
+                app:scale_top="250"
                 app:scale_width="340"/>
 
         <TextView
@@ -94,126 +107,114 @@
                 android:text="@string/today_contribution"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                app:scale_height="150"
+                app:scale_height="100"
                 app:scale_left="30"
-                app:scale_textsize="55"
-                app:scale_top="470"
+                app:scale_textsize="45"
+                app:scale_top="350"
                 app:scale_width="340"/>
 
+        <TextView
+                android:id="@+id/max_commit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:fontFamily="@font/spoqa_han_sans_bold"
+                android:text="0"
+                android:textColor="#FFFFFF"
+                app:scale_height="110"
+                app:scale_left="370"
+                app:scale_textsize="70"
+                app:scale_top="250"
+                app:scale_width="340" />
+
+        <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/spoqa_han_sans_regular"
+                android:text="@string/max_contribution"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:gravity="center"
+                app:scale_height="100"
+                app:scale_left="370"
+                app:scale_textsize="45"
+                app:scale_top="350"
+                app:scale_width="340" />
+
+        <TextView
+                android:id="@+id/year_commit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:fontFamily="@font/spoqa_han_sans_bold"
+                android:text="0"
+                android:textColor="#FFFFFF"
+                app:scale_height="110"
+                app:scale_left="710"
+                app:scale_textsize="70"
+                app:scale_top="250"
+                app:scale_width="340" />
+
+        <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/spoqa_han_sans_regular"
+                android:text="@string/year_contribution"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:gravity="center"
+                app:scale_height="100"
+                app:scale_left="710"
+                app:scale_textsize="45"
+                app:scale_top="350"
+                app:scale_width="340" />
+
+        <com.ogaclejapan.smarttablayout.SmartTabLayout
+                android:id="@+id/main_tab_smart_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:stl_indicatorAlwaysInCenter="false"
+                app:stl_indicatorWithoutPadding="false"
+                app:stl_indicatorInFront="false"
+                app:stl_indicatorInterpolation="smart"
+                app:stl_indicatorGravity="bottom"
+                app:stl_indicatorColor="@color/stCommit"
+                app:stl_indicatorThickness="3dp"
+                app:stl_indicatorWidth="auto"
+                app:stl_indicatorCornerRadius="2dp"
+                app:stl_overlineColor="@color/fiCommit"
+                app:stl_overlineThickness="0dp"
+                app:stl_underlineColor="@color/colorTopBar"
+                app:stl_underlineThickness="1dp"
+                app:stl_dividerColor="@color/colorTopBar"
+                app:stl_dividerThickness="1dp"
+                app:stl_defaultTabBackground="?attr/selectableItemBackground"
+                app:stl_defaultTabTextAllCaps="true"
+                app:stl_defaultTabTextColor="@color/colorText"
+                app:stl_defaultTabTextSize="15sp"
+                app:stl_defaultTabTextHorizontalPadding="10dp"
+                app:stl_defaultTabTextMinWidth="100dp"
+                app:stl_distributeEvenly="false"
+                app:stl_clickable="true"
+                app:stl_titleOffset="24dp"
+                app:stl_drawDecorationAfterTab="false"
+                app:scale_height="150"
+                app:scale_top="470"
+                app:scale_width="1080"/>
+
+        <androidx.viewpager.widget.ViewPager
+                android:id="@+id/main_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/main_tab_smart_layout"
+                app:scale_height="1300"
+                app:scale_top="620"
+                app:scale_width="1080"/>
 
     </com.ssomai.android.scalablelayout.ScalableLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="300dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/rounding_background"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_location">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constLayout_commit"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/constLayout_max"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constLayout_max"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/constLayout_year"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/constLayout_commit"
-                app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                    android:id="@+id/max_commit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/spoqa_han_sans_bold"
-                    android:text="0"
-                    android:textColor="#FFFFFF"
-                    android:textSize="30sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView13"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/spoqa_han_sans_regular"
-                    android:text="@string/max_contribution"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/max_commit" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constLayout_year"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/constLayout_max">
-
-            <TextView
-                    android:id="@+id/year_commit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/spoqa_han_sans_bold"
-                    android:text="0"
-                    android:textColor="#FFFFFF"
-                    android:textSize="30sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView14"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/spoqa_han_sans_regular"
-                    android:text="@string/year_contribution"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/year_commit" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
