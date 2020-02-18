@@ -7,5 +7,5 @@ import retrofit2.http.Path
 
 interface GithubCommitService {
     @GET("{userId}")
-    fun getCommits(@Path("userId") userId: String):Call<CommitsResponseDto>
+    fun getContribution(@Path("userId") userId: String):Call<CommitsResponseDto>
 }

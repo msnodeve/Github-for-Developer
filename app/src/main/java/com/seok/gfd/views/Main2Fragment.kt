@@ -6,19 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ogaclejapan.smarttablayout.utils.v4.Bundler
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
 import com.seok.gfd.R
 import com.seok.gfd.retrofit.domain.User
 import com.seok.gfd.utils.CommonUtils
 import com.seok.gfd.utils.SharedPreference
+import com.seok.gfd.viewmodel.GithubCommitDataViewModel
+import com.seok.gfd.viewmodel.GithubContributionViewModel
 import kotlinx.android.synthetic.main.fragment_main2.*
 import java.time.LocalDate
 
 class Main2Fragment : Fragment() {
     private lateinit var commonUtils: CommonUtils
     private lateinit var sharedPreference: SharedPreference
+
+    private lateinit var githubContributionViewModel: GithubContributionViewModel
+
     private lateinit var user: User
 
     override fun onCreateView(
@@ -33,6 +39,7 @@ class Main2Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
         initSetUI()
+        initViewModelFun()
     }
 
     private fun init() {
@@ -40,17 +47,24 @@ class Main2Fragment : Fragment() {
         user = sharedPreference.getValueObject(getString(R.string.user_info))
         commonUtils = CommonUtils.instance
 
-        val user = User("test1","test1","test1")
-        val adapter = FragmentPagerItemAdapter(
-            activity?.supportFragmentManager, FragmentPagerItems.with(activity)
-                .add("2020", MainSub1::class.java, MainSub1.arguments(user))
-                .add("2019", MainSub2::class.java)
-                .add("2018", MainSub3::class.java).create()
-        )
+        githubContributionViewModel = ViewModelProviders.of(this).get(GithubContributionViewModel::class.java)
 
-        main_view_pager.adapter = adapter
+        githubContributionViewModel.getContributionData("msnodeve")
+    }
 
-        main_tab_smart_layout.setViewPager(main_view_pager)
+    private fun initViewModelFun(){
+        githubContributionViewModel.commits.observe(this, Observer {
+            val adapter = FragmentPagerItemAdapter(
+                activity?.supportFragmentManager, FragmentPagerItems.with(activity)
+                    .add("2020", MainSub1::class.java, MainSub1.arguments(it))
+                    .add("2019", MainSub2::class.java)
+                    .add("2018", MainSub3::class.java).create()
+            )
+
+            main_view_pager.adapter = adapter
+
+            main_tab_smart_layout.setViewPager(main_view_pager)
+        })
     }
 
     private fun initSetUI() {

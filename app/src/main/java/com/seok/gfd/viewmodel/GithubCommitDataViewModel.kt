@@ -68,7 +68,7 @@ class GithubCommitDataViewModel: ViewModel() {
     // 깃허브 사용자 커밋 데이터 가져오기
     fun getCommitsInfo(userId : String){
         val getCommitsService = RetrofitClient.githubCommitService()
-        val getCommitsCall = getCommitsService.getCommits(userId)
+        val getCommitsCall = getCommitsService.getContribution(userId)
         getCommitsCall.enqueue(object : retrofit2.Callback<CommitsResponseDto> {
             @SuppressLint("NewApi")
             override fun onResponse(call: Call<CommitsResponseDto>, response: Response<CommitsResponseDto>) {
