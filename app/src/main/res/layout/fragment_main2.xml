@@ -211,7 +211,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/main_tab_smart_layout"
-                app:scale_height="1300"
+                app:scale_height="1080"
                 app:scale_top="620"
                 app:scale_width="1080"/>
 

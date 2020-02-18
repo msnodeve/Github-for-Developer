@@ -1,8 +1,12 @@
 package com.seok.gfd.utils
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+
 class CommonUtils private constructor(){
     private object INSTANCE{
         val instance = CommonUtils()
+        val gson = GsonBuilder().create()
     }
 
     private var screenWidth = 0f
@@ -10,6 +14,7 @@ class CommonUtils private constructor(){
 
     companion object{
         val instance : CommonUtils by lazy { INSTANCE.instance }
+        val gson : Gson by lazy { INSTANCE.gson }
     }
 
     fun getScreenWidth(): Float {

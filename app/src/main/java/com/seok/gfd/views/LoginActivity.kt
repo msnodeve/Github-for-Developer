@@ -25,7 +25,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var userViewModel: UserViewModel
     private lateinit var sharedPreference: SharedPreference
     private lateinit var progressbar: ProgressbarDialog
-    private var loginButtonClicked: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +78,6 @@ class LoginActivity : AppCompatActivity() {
         })
         userViewModel.userInfo.observe(this, Observer {
             sharedPreference.setValueObject(application.getString(R.string.user_info), it)
-            userViewModel.signInUserInfo(it)
         })
     }
 
