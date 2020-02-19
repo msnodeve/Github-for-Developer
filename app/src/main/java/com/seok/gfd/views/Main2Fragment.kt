@@ -8,13 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
 import com.seok.gfd.R
 import com.seok.gfd.retrofit.domain.User
+import com.seok.gfd.retrofit.domain.YearContributionDto
+import com.seok.gfd.retrofit.domain.resopnse.CommitResponseDto
+import com.seok.gfd.retrofit.domain.resopnse.CommitsResponseDto
 import com.seok.gfd.utils.CommonUtils
 import com.seok.gfd.utils.SharedPreference
-import com.seok.gfd.viewmodel.GithubCommitDataViewModel
 import com.seok.gfd.viewmodel.GithubContributionViewModel
 import kotlinx.android.synthetic.main.fragment_main2.*
 import java.time.LocalDate
@@ -46,23 +50,21 @@ class Main2Fragment : Fragment() {
         sharedPreference = SharedPreference(this.activity!!.application)
         user = sharedPreference.getValueObject(getString(R.string.user_info))
         commonUtils = CommonUtils.instance
+        githubContributionViewModel =
+            ViewModelProviders.of(this).get(GithubContributionViewModel::class.java)
+        githubContributionViewModel.getContributionData(user.login)
 
-        githubContributionViewModel = ViewModelProviders.of(this).get(GithubContributionViewModel::class.java)
 
-        githubContributionViewModel.getContributionData("msnodeve")
     }
 
-    private fun initViewModelFun(){
+    private fun initViewModelFun() {
         githubContributionViewModel.commits.observe(this, Observer {
-            val adapter = FragmentPagerItemAdapter(
-                activity?.supportFragmentManager, FragmentPagerItems.with(activity)
-                    .add("2020", MainSub1::class.java, MainSub1.arguments(it))
-                    .add("2019", MainSub2::class.java)
-                    .add("2018", MainSub3::class.java).create()
-            )
-
+            val fragmentPagerItems = FragmentPagerItems.with(activity)
+            for(element in it.years!!){
+                fragmentPagerItems.add(element.year +"(" + element.total + ")", MainSub::class.java, MainSub.arguments(it))
+            }
+            val adapter = FragmentPagerItemAdapter(activity?.supportFragmentManager, fragmentPagerItems.create())
             main_view_pager.adapter = adapter
-
             main_tab_smart_layout.setViewPager(main_view_pager)
         })
     }
@@ -71,5 +73,22 @@ class Main2Fragment : Fragment() {
         main_tv_today.text = LocalDate.now().toString()
         main_top_scalable_layout.scaleWidth = commonUtils.getScreenWidth()
         main_top_scalable_layout.scaleHeight = commonUtils.getScreenHeight()
+
+        main_tv_user_name.text = user.login
+        Glide.with(this).load(user.avatar_url).apply(RequestOptions.circleCropTransform()).into(main_image_profile)
+        main_tv_user_bio.text = user.bio
+    }
+
+    private fun getYearContributionData(commitsResponseDto: CommitsResponseDto): ArrayList<YearContributionDto>{
+        var result = YearContributionDto()
+        var yearContributionDtoItem = null
+        for (year in commitsResponseDto.years!!){
+            for (element in commitsResponseDto.contributions!!){
+                if(element.date.contains(year.toString())){
+                    // 데이터 찾아서 넣기
+                }
+            }
+        }
+
     }
 }

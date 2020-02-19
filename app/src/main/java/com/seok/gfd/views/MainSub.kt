@@ -10,7 +10,7 @@ import com.seok.gfd.R
 import com.seok.gfd.retrofit.domain.resopnse.CommitsResponseDto
 import com.seok.gfd.utils.CommonUtils
 
-class MainSub1 : Fragment() {
+class MainSub : Fragment() {
 
     companion object{
         fun arguments(param : CommitsResponseDto) : Bundle{
