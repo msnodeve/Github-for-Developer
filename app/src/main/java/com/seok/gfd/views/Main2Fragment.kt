@@ -14,8 +14,6 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
 import com.seok.gfd.R
 import com.seok.gfd.retrofit.domain.User
-import com.seok.gfd.retrofit.domain.YearContributionDto
-import com.seok.gfd.retrofit.domain.resopnse.CommitResponseDto
 import com.seok.gfd.retrofit.domain.resopnse.CommitsResponseDto
 import com.seok.gfd.utils.CommonUtils
 import com.seok.gfd.utils.SharedPreference
@@ -53,17 +51,19 @@ class Main2Fragment : Fragment() {
         githubContributionViewModel =
             ViewModelProviders.of(this).get(GithubContributionViewModel::class.java)
         githubContributionViewModel.getContributionData(user.login)
-
-
     }
 
     private fun initViewModelFun() {
         githubContributionViewModel.commits.observe(this, Observer {
             val fragmentPagerItems = FragmentPagerItems.with(activity)
-            for(element in it.years!!){
-                fragmentPagerItems.add(element.year +"(" + element.total + ")", MainSub::class.java, MainSub.arguments(it))
+            for (element in it.years!!) {
+                val commitResponseDto = getYearContributionData(element.year, it)
+                fragmentPagerItems.add(element.year + "(" + element.total + ")", MainSub::class.java, MainSub.arguments(commitResponseDto))
             }
-            val adapter = FragmentPagerItemAdapter(activity?.supportFragmentManager, fragmentPagerItems.create())
+            val adapter = FragmentPagerItemAdapter(
+                activity?.supportFragmentManager,
+                fragmentPagerItems.create()
+            )
             main_view_pager.adapter = adapter
             main_tab_smart_layout.setViewPager(main_view_pager)
         })
@@ -75,20 +75,20 @@ class Main2Fragment : Fragment() {
         main_top_scalable_layout.scaleHeight = commonUtils.getScreenHeight()
 
         main_tv_user_name.text = user.login
-        Glide.with(this).load(user.avatar_url).apply(RequestOptions.circleCropTransform()).into(main_image_profile)
+        Glide.with(this).load(user.avatar_url).apply(RequestOptions.circleCropTransform())
+            .into(main_image_profile)
         main_tv_user_bio.text = user.bio
     }
 
-    private fun getYearContributionData(commitsResponseDto: CommitsResponseDto): ArrayList<YearContributionDto>{
-        var result = YearContributionDto()
-        var yearContributionDtoItem = null
-        for (year in commitsResponseDto.years!!){
-            for (element in commitsResponseDto.contributions!!){
-                if(element.date.contains(year.toString())){
-                    // 데이터 찾아서 넣기
-                }
+    private fun getYearContributionData(year: String, commitsResponseDto: CommitsResponseDto): CommitsResponseDto {
+        var yearContributionDtoItem = CommitsResponseDto(year)
+        var resultList = yearContributionDtoItem.contributions as ArrayList
+        for (element in commitsResponseDto.contributions!!) {
+            if (element.date.contains(year)) {
+                resultList.add(element)
             }
         }
-
+        yearContributionDtoItem.contributions = resultList
+        return yearContributionDtoItem
     }
 }

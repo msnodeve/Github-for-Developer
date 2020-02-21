@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".views.MainSub">
+
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <com.ssomai.android.scalablelayout.ScalableLayout
+                    android:id="@+id/main_sub_scalable_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:scale_base_height="1520"
+                    app:scale_base_width="1080"
+                    tools:ignore="MissingPrefix">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/rounding_trans_background"
+                        android:orientation="vertical"
+                        app:scale_height="1520"
+                        app:scale_width="1080">
+
+                </LinearLayout>
+            </com.ssomai.android.scalablelayout.ScalableLayout>
+
+           <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:src="@drawable/gfd_launcher"/>
+        </LinearLayout>
+
+
+    </ScrollView>
+</FrameLayout>

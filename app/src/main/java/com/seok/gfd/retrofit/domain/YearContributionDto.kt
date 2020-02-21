@@ -1,5 +1,6 @@
 package com.seok.gfd.retrofit.domain
 
+import com.seok.gfd.retrofit.domain.resopnse.CommitsResponseDto
 import lombok.AllArgsConstructor
 import lombok.Getter
 import lombok.NoArgsConstructor
@@ -12,7 +13,11 @@ import lombok.Setter
 class YearContributionDto {
     var year: String? = null
 
-    var contributions: List<Contribution>? = null
+    var contributions: ArrayList<Contribution>? = null
+
+    constructor() {
+        this.contributions = ArrayList()
+    }
 
     class Contribution{
         var date : String = ""
@@ -20,4 +25,6 @@ class YearContributionDto {
         var color : String = ""
         var intensity : Int = 0
     }
+
+
 }

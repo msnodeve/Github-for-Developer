@@ -76,7 +76,13 @@
                 app:scale_top="135"
                 app:scale_width="610" />
 
-
+    </com.ssomai.android.scalablelayout.ScalableLayout>
+    <com.ssomai.android.scalablelayout.ScalableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:scale_base_height="1920"
+            app:scale_base_width="1080"
+            tools:ignore="MissingPrefix">
         <com.ogaclejapan.smarttablayout.SmartTabLayout
                 android:id="@+id/main_tab_smart_layout"
                 android:layout_width="match_parent"
@@ -115,10 +121,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/main_tab_smart_layout"
-                app:scale_height="1300"
+                app:scale_height="1520"
                 app:scale_top="400"
                 app:scale_width="1080"/>
-
     </com.ssomai.android.scalablelayout.ScalableLayout>
-
 </FrameLayout>

@@ -11,9 +11,17 @@ import lombok.Setter
 @AllArgsConstructor
 class CommitsResponseDto {
 
+    var year : String? = null
+
     var years: List<Year>? = null
 
     var contributions: List<Contribution>? = null
+
+    constructor(year: String?) {
+        this.year = year
+        this.contributions = ArrayList()
+    }
+
 
     class Year{
         var year: String = ""
@@ -32,4 +40,6 @@ class CommitsResponseDto {
         var color : String = ""
         var intensity : Int = 0
     }
+
+
 }
