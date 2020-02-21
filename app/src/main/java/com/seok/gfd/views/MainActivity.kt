@@ -11,8 +11,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     private val fragmentManager = supportFragmentManager
 
-    private val mainFragment = Main2Fragment()
-    private val rankFragment = RankFragment()
+    private val mainFragment = MainFragment()
+//    private val rankFragment = RankFragment()
     private val optionFragment = OptionFragment()
 
     private var activeFragment : Fragment = mainFragment
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         fragmentManager.beginTransaction().add(R.id.host_fragment, mainFragment, "1").commit()
-        fragmentManager.beginTransaction().add(R.id.host_fragment, rankFragment, "2").hide(rankFragment).commit()
+//        fragmentManager.beginTransaction().add(R.id.host_fragment, rankFragment, "2").hide(rankFragment).commit()
         fragmentManager.beginTransaction().add(R.id.host_fragment, optionFragment, "3").hide(optionFragment).commit()
         bottom_navigation.setOnNavigationItemSelectedListener {
             when(it.itemId){
@@ -30,10 +30,10 @@ class MainActivity : AppCompatActivity() {
                     fragmentManager.beginTransaction().hide(activeFragment).show(mainFragment).commit()
                     activeFragment = mainFragment
                 }
-                R.id.nav_menu_r -> {
-                    fragmentManager.beginTransaction().hide(activeFragment).show(rankFragment).commit()
-                    activeFragment = rankFragment
-                }
+//                R.id.nav_menu_r -> {
+//                    fragmentManager.beginTransaction().hide(activeFragment).show(rankFragment).commit()
+//                    activeFragment = rankFragment
+//                }
                 R.id.nav_menu_o -> {
                     fragmentManager.beginTransaction().hide(activeFragment).show(optionFragment).commit()
                     activeFragment = optionFragment

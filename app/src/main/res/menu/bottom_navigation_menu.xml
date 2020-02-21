@@ -5,12 +5,12 @@
             android:title="@string/navigation_menu_home"
             android:icon="@drawable/btn_bottom_home"
             android:enabled="true"/>
-    <item android:id="@+id/nav_menu_r"
-            android:title="@string/navigation_menu_rank"
-            android:icon="@drawable/btn_bottom_rank"
-            android:enabled="true"/>
     <item android:id="@+id/nav_menu_o"
             android:title="@string/navigation_menu_help"
             android:icon="@drawable/btn_bottom_help"
             android:enabled="true"/>
+<!--    <item android:id="@+id/nav_menu_r"-->
+<!--            android:title="@string/navigation_menu_rank"-->
+<!--            android:icon="@drawable/btn_bottom_rank"-->
+<!--            android:enabled="true"/>-->
 </menu>

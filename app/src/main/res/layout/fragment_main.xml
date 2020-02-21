@@ -4,333 +4,125 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.MainFragment">
+        tools:context=".views.Main3Fragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <com.ssomai.android.scalablelayout.ScalableLayout
+            android:id="@+id/main_top_scalable_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FFFFFF">
-
-        <LinearLayout
-                android:id="@+id/linearLayout4"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
-                android:layout_marginTop="32dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                    android:id="@+id/img_mv_user_profile"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    app:srcCompat="@drawable/gfd_launcher"
-                    tools:visibility="visible" />
-        </LinearLayout>
-
-        <TextView
-                android:id="@+id/user_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/main_view_user_id"
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
-
-        <TextView
-                android:id="@+id/user_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/user_id" />
+            android:layout_height="wrap_content"
+            app:scale_base_height="250"
+            app:scale_base_width="1080"
+            tools:ignore="MissingPrefix">
 
         <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/main_image_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_location"
-                app:layout_constraintBottom_toBottomOf="@+id/user_location"
-                app:layout_constraintEnd_toStartOf="@+id/user_location"
-                app:layout_constraintTop_toTopOf="@+id/user_location" />
+                android:src="@drawable/gfd_logo"
+                app:scale_height="200"
+                app:scale_left="30"
+                app:scale_top="30"
+                app:scale_width="200" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/rounding_background"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/user_location">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constLayout_commit"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/constLayout_max"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                        android:id="@+id/today_commit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/spoqa_han_sans_bold"
-                        android:text="0"
-                        android:textColor="#FFFFFF"
-                        android:textSize="30sp"
-                        app:layout_constraintBottom_toTopOf="@+id/textView12"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                        android:id="@+id/textView12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:fontFamily="@font/spoqa_han_sans_regular"
-                        android:text="@string/today_contribution"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/today_commit" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constLayout_max"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/constLayout_year"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/constLayout_commit"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                        android:id="@+id/max_commit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/spoqa_han_sans_bold"
-                        android:text="0"
-                        android:textColor="#FFFFFF"
-                        android:textSize="30sp"
-                        app:layout_constraintBottom_toTopOf="@+id/textView13"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                        android:id="@+id/textView13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:fontFamily="@font/spoqa_han_sans_regular"
-                        android:text="@string/max_contribution"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/max_commit" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constLayout_year"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/constLayout_max">
-
-                <TextView
-                        android:id="@+id/year_commit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/spoqa_han_sans_bold"
-                        android:text="0"
-                        android:textColor="#FFFFFF"
-                        android:textSize="30sp"
-                        app:layout_constraintBottom_toTopOf="@+id/textView14"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                        android:id="@+id/textView14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:fontFamily="@font/spoqa_han_sans_regular"
-                        android:text="@string/year_contribution"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/year_commit" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <WebView
-                android:id="@+id/wv_mv_graph"
-                android:layout_width="match_parent"
+        <TextView
+                android:id="@+id/main_tv_user_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+                android:fontFamily="@font/spoqa_han_sans_bold"
+                android:textColor="@color/colorText"
+                android:text="HelloGfd"
+                app:scale_height="100"
+                app:scale_left="270"
+                app:scale_textsize="55"
+                app:scale_top="40"
+                app:scale_width="500" />
 
-        </WebView>
-
-        <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="0dp"
+        <TextView
+                android:id="@+id/main_tv_today"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:orientation="horizontal"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+                android:fontFamily="@font/spoqa_han_sans_thin"
+                android:gravity="right"
+                android:textColor="@color/colorText"
+                android:text="2020-01-01"
+                app:scale_height="100"
+                app:scale_left="750"
+                app:scale_textsize="35"
+                app:scale_top="20"
+                app:scale_width="300" />
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="7"
-                    android:orientation="vertical">
+        <ImageView
+                android:id="@+id/main_image_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_bio"
+                app:scale_height="50"
+                app:scale_left="270"
+                app:scale_top="145"
+                app:scale_width="50" />
 
-                <TextView
-                        android:id="@+id/textView7"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="10"
-                        android:gravity="center"
-                        android:text="@string/sun"
-                        android:textColor="@color/colorText" />
+        <TextView
+                android:id="@+id/main_tv_user_bio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/spoqa_han_sans_light"
+                android:text="Selfie"
+                android:textColor="@color/colorText"
+                app:scale_height="70"
+                app:scale_left="330"
+                app:scale_textsize="35"
+                app:scale_top="135"
+                app:scale_width="610" />
 
-                <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="10"
-                        android:gravity="center"
-                        android:text="@string/mon"
-                        android:textColor="@color/colorText" />
+    </com.ssomai.android.scalablelayout.ScalableLayout>
+    <com.ssomai.android.scalablelayout.ScalableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:scale_base_height="1920"
+            app:scale_base_width="1080"
+            tools:ignore="MissingPrefix">
+        <com.ogaclejapan.smarttablayout.SmartTabLayout
+                android:id="@+id/main_tab_smart_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:stl_indicatorAlwaysInCenter="false"
+                app:stl_indicatorWithoutPadding="false"
+                app:stl_indicatorInFront="false"
+                app:stl_indicatorInterpolation="smart"
+                app:stl_indicatorGravity="bottom"
+                app:stl_indicatorColor="@color/stCommit"
+                app:stl_indicatorThickness="3dp"
+                app:stl_indicatorWidth="auto"
+                app:stl_indicatorCornerRadius="2dp"
+                app:stl_overlineColor="@color/fiCommit"
+                app:stl_overlineThickness="0dp"
+                app:stl_underlineColor="@color/colorTopBar"
+                app:stl_underlineThickness="1dp"
+                app:stl_dividerColor="@color/colorTopBar"
+                app:stl_dividerThickness="1dp"
+                app:stl_defaultTabBackground="?attr/selectableItemBackground"
+                app:stl_defaultTabTextAllCaps="true"
+                app:stl_defaultTabTextColor="@color/colorText"
+                app:stl_defaultTabTextSize="15sp"
+                app:stl_defaultTabTextHorizontalPadding="10dp"
+                app:stl_defaultTabTextMinWidth="120sp"
+                app:stl_distributeEvenly="false"
+                app:stl_clickable="true"
+                app:stl_titleOffset="24dp"
+                app:stl_drawDecorationAfterTab="false"
+                app:scale_height="150"
+                app:scale_top="250"
+                app:scale_width="1080"/>
 
-                <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="10"
-                        android:gravity="center"
-                        android:text="@string/tue"
-                        android:textColor="@color/colorText" />
-
-                <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="10"
-                        android:gravity="center"
-                        android:text="@string/wen"
-                        android:textColor="@color/colorText" />
-
-                <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="10"
-                        android:gravity="center"
-                        android:text="@string/thu"
-                        android:textColor="@color/colorText" />
-
-                <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="10"
-                        android:gravity="center"
-                        android:text="@string/fri"
-                        android:textColor="@color/colorText" />
-
-                <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="10"
-                        android:gravity="center"
-                        android:text="@string/sat"
-                        android:textColor="@color/colorText" />
-            </LinearLayout>
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scrollbars="none">
-
-                    <HorizontalScrollView
-                            android:id="@+id/scroll_contribute"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scrollbars="none">
-
-                        <androidx.gridlayout.widget.GridLayout
-                                android:id="@+id/contribute"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                app:orientation="vertical">
-
-                        </androidx.gridlayout.widget.GridLayout>
-                    </HorizontalScrollView>
-                </ScrollView>
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <androidx.viewpager.widget.ViewPager
+                android:id="@+id/main_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/main_tab_smart_layout"
+                app:scale_height="1520"
+                app:scale_top="400"
+                app:scale_width="1080"/>
+    </com.ssomai.android.scalablelayout.ScalableLayout>
 </FrameLayout>

@@ -8,22 +8,19 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.ogaclejapan.smarttablayout.utils.v4.Bundler
 import com.seok.gfd.R
 import com.seok.gfd.retrofit.domain.resopnse.CommitsResponseDto
 import com.seok.gfd.utils.CommonUtils
-import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main_sub.*
 import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.backgroundColorResource
 import org.jetbrains.anko.textColor
 import java.time.DayOfWeek
 import java.time.LocalDate
-import java.time.Month
 import java.time.format.DateTimeFormatter
 import kotlin.math.ceil
-import kotlin.math.roundToInt
 
 class MainSub : Fragment() {
 
@@ -62,68 +59,62 @@ class MainSub : Fragment() {
         commitResponse = CommonUtils.gson.fromJson(yearContribution, CommitsResponseDto::class.java)
     }
 
-    private fun initUI() {
-
-        val date = commitResponse.contributions!![commitResponse.contributions!!.size - 1].date
-        val localDate = LocalDate.parse(date, DateTimeFormatter.ISO_DATE)
-        val startDay = getDayStartCount(localDate.dayOfWeek)
-
-
-        var weekText = TextView(activity)
-        var weekTop = 23f
-        for (index in 1 .. ceil(commitResponse.contributions!!.size.toDouble() / 7).toInt() step 2){
-            weekText = TextView(activity)
+    private fun createContributionUI(commitSize: Int, startDay: Int, commits : List<CommitsResponseDto.Contribution>) {
+        // Week 단위 표시
+        var weekPosTop = 20f
+        for (index in 1..ceil(commitSize.toDouble() / 7).toInt() step 2) {
+            val weekText = TextView(activity)
             weekText.textColor = activity!!.getColor(R.color.userRankPos)
             weekText.text = index.toString() + "W"
-            main_sub_scalable_layout.addView(weekText, 20f, weekTop, 100f, 50f)
-            main_sub_scalable_layout.setScale_TextSize(weekText, 40f)
-            weekTop += 55f
+            weekText.typeface = ResourcesCompat.getFont(context!!, R.font.spoqa_han_sans_light)
+            main_sub_scalable_layout.addView(weekText, 20f, weekPosTop, 100f, 50f)
+            main_sub_scalable_layout.setScale_TextSize(weekText, 35f)
+            weekPosTop += 55f
         }
-        weekTop = 23f
-        for (index in 2 .. commitResponse.contributions!!.size / 7 step 2){
-            weekText = TextView(activity)
+        weekPosTop = 20f
+        for (index in 2..commitSize / 7 step 2) {
+            val weekText = TextView(activity)
             weekText.textColor = activity!!.getColor(R.color.userRankPos)
+            weekText.typeface = ResourcesCompat.getFont(context!!, R.font.spoqa_han_sans_light)
             weekText.text = index.toString() + "W"
-            main_sub_scalable_layout.addView(weekText, 570f, weekTop, 100f, 50f)
-            main_sub_scalable_layout.setScale_TextSize(weekText, 40f)
-            weekTop += 55f
+            main_sub_scalable_layout.addView(weekText, 570f, weekPosTop, 100f, 50f)
+            main_sub_scalable_layout.setScale_TextSize(weekText, 35f)
+            weekPosTop += 55f
         }
 
+        // Contribution 표시
         var layoutSize = 45f
         var layoutPScaleTop = 30f
         var layoutPScaleLeft = 110f
-        var layoutPScaleWidth = layoutSize
-        var layoutPScaleHeight = layoutSize
         var lineChange = 0
 
-        for (index in 0 until startDay) {
-            lineChange++
-            layoutPScaleLeft += 55f
-        }
-        for (index in commitResponse.contributions?.size!! - 1 downTo 0) {
+        layoutPScaleLeft += 55f * startDay
+        lineChange += startDay
+
+        for (index in commitSize - 1 downTo 0) {
+            val commit = commits[index]
             val linearLayout = LinearLayout(activity)
-            main_sub_scalable_layout.addView(
-                linearLayout,
-                layoutPScaleLeft,
-                layoutPScaleTop,
-                layoutPScaleWidth,
-                layoutPScaleHeight
-            )
-            linearLayout.backgroundColor =
-                Color.parseColor(commitResponse.contributions!![index].color)
+            main_sub_scalable_layout.addView(linearLayout, layoutPScaleLeft, layoutPScaleTop, layoutSize, layoutSize)
+            linearLayout.backgroundColor = Color.parseColor(commit.color)
             layoutPScaleLeft += 55f
             lineChange++
-            if (lineChange % 7 == 0) {
-                layoutPScaleLeft += 170f
-            }
             if (lineChange % 14 == 0) {
                 layoutPScaleTop += 55f
-               layoutPScaleLeft = 110f
+                layoutPScaleLeft = 110f
+            } else if (lineChange % 7 == 0) {
+                layoutPScaleLeft += 170f
             }
-            linearLayout.setOnClickListener {
-                //존Toast
-            }
+            linearLayout.setOnClickListener { Toast.makeText(activity, String.format("%s (%d)", commit.date, commit.count) , Toast.LENGTH_SHORT).show() }
         }
+    }
+
+    private fun initUI() {
+        val commits = commitResponse.contributions!!
+        val commitSize = commits.size
+        val date = commits[commitSize - 1].date
+        val localDate = LocalDate.parse(date, DateTimeFormatter.ISO_DATE)
+        val startDay = getDayStartCount(localDate.dayOfWeek)
+        createContributionUI(commitSize, startDay, commits)
     }
 
     private fun getDayStartCount(dayOfWeek: DayOfWeek): Int = when (dayOfWeek) {

@@ -1,42 +1,33 @@
 package com.seok.gfd.views
 
 
-import android.annotation.SuppressLint
-import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
 import com.seok.gfd.R
 import com.seok.gfd.retrofit.domain.User
-import com.seok.gfd.retrofit.domain.request.CommitRequestDto
 import com.seok.gfd.retrofit.domain.resopnse.CommitsResponseDto
+import com.seok.gfd.utils.CommonUtils
 import com.seok.gfd.utils.ProgressbarDialog
 import com.seok.gfd.utils.SharedPreference
-import com.seok.gfd.viewmodel.GithubCommitDataViewModel
-import com.seok.gfd.viewmodel.UserViewModel
+import com.seok.gfd.viewmodel.GithubContributionViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
-import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.margin
 import java.time.LocalDate
-import java.util.concurrent.Semaphore
 
 class MainFragment : Fragment() {
-    private lateinit var githubCommitDataViewModel: GithubCommitDataViewModel
-    private lateinit var userViewModel: UserViewModel
+    private lateinit var commonUtils: CommonUtils
     private lateinit var sharedPreference: SharedPreference
-    private lateinit var progressbar : ProgressbarDialog
+    private lateinit var progressbar: ProgressbarDialog
+    private lateinit var githubContributionViewModel: GithubContributionViewModel
+
     private lateinit var user: User
 
     override fun onCreateView(
@@ -50,132 +41,58 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+        initSetUI()
         initViewModelFun()
     }
 
     private fun init() {
-//        // Github 그래프 웹뷰, 줌 가능
-//        val settings = wv_mv_graph.settings
-//        settings.builtInZoomControls = true
-
-        // Progress Bar
-        progressbar = ProgressbarDialog(this.activity!!)
+        progressbar =  ProgressbarDialog(context!!)
         progressbar.show()
-
-        // SharedPreference 에 저장된 User 정보 가져오기
         sharedPreference = SharedPreference(this.activity!!.application)
         user = sharedPreference.getValueObject(getString(R.string.user_info))
-
-        githubCommitDataViewModel =
-            ViewModelProviders.of(this).get(GithubCommitDataViewModel::class.java)
-        userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
-        // Login Activity 에서 저장한 User 정보 가져오기
-
-        setUserInfoUI(user)
-
-        Handler().postDelayed({
-            scroll_contribute.smoothScrollTo(contribute.width, contribute.height)
-        }, 2000)
-
-        githubCommitDataViewModel.getCommitsInfo(user.login)
-
+        commonUtils = CommonUtils.instance
+        githubContributionViewModel =
+            ViewModelProviders.of(this).get(GithubContributionViewModel::class.java)
+        githubContributionViewModel.getContributionData(user.login)
     }
 
     private fun initViewModelFun() {
-        // 금일 커밋 가져오기
-        githubCommitDataViewModel.todayCommit.observe(this, Observer {
-            today_commit.text = it
-            sharedPreference.setValue(getString(R.string.user_today), it)
-            // 금일 커밋 서버에 저장
-            val commit = CommitRequestDto(user.login, it.toInt())
-            userViewModel.enrollCommit(commit)
-        })
-        // 금년 총 커밋 가져오기
-        githubCommitDataViewModel.yearCommit.observe(this, Observer {
-            year_commit.text = it
-            sharedPreference.setValue(getString(R.string.user_year), it)
-        })
-        // 커밋 최대값 가져오기
-        githubCommitDataViewModel.maxCommit.observe(this, Observer {
-            max_commit.text = it
-            sharedPreference.setValue(getString(R.string.user_max), it)
-        })
-        // 총 커밋 가져오기
-        githubCommitDataViewModel.commits.observe(this, Observer {
-            setCommitUI(it)
+        githubContributionViewModel.commits.observe(this, Observer {
+            val fragmentPagerItems = FragmentPagerItems.with(activity)
+            for (element in it.years!!) {
+                val commitResponseDto = getYearContributionData(element.year, it)
+                fragmentPagerItems.add(element.year + "(" + element.total + ")", MainSub::class.java, MainSub.arguments(commitResponseDto))
+            }
+            val adapter = FragmentPagerItemAdapter(
+                activity?.supportFragmentManager,
+                fragmentPagerItems.create()
+            )
+            main_view_pager.adapter = adapter
+            main_tab_smart_layout.setViewPager(main_view_pager)
+            progressbar.hide()
         })
     }
 
-    @SuppressLint("NewApi")
-    private fun setCommitUI(it: List<CommitsResponseDto.Contribution>) {
-        val lastDateTime = LocalDate.now().minusDays(366).toString()
-        val nowDateTime = LocalDate.now().toString()
-        val lastCommitIndex = it.indexOf(it.find { it.date == lastDateTime })
-        val nowCommitIndex = it.indexOf(it.find { it.date == nowDateTime })
-        val maxCommit = sharedPreference.getValue(getString(R.string.user_max))
+    private fun initSetUI() {
+        main_tv_today.text = LocalDate.now().toString()
+        main_top_scalable_layout.scaleWidth = commonUtils.getScreenWidth()
+        main_top_scalable_layout.scaleHeight = commonUtils.getScreenHeight()
 
-        this.activity?.runOnUiThread {
-            contribute.removeAllViews()
-            contribute.columnCount = 53
-            contribute.rowCount = 7
-            for (index in lastCommitIndex downTo nowCommitIndex) {
-                val layout = LinearLayout(activity)
-                val param = LinearLayout.LayoutParams(65, 65)
-                val commit = it[index]
-                param.margin = 4
-                layout.layoutParams = param
-//                val txt = TextView(this.activity)
-//                txt.text = commit.count.toString()
-//                layout.gravity = Gravity.CENTER
-//                layout.addView(txt)
-                layout.backgroundColor = Color.parseColor(commit.color)
-                if (commit.count == maxCommit.toInt()) {
-                    layout.background = activity?.getDrawable(R.drawable.rect_background)
-                }
-                contribute.addView(layout)
+        main_tv_user_name.text = user.login
+        Glide.with(this).load(user.avatar_url).apply(RequestOptions.circleCropTransform())
+            .into(main_image_profile)
+        main_tv_user_bio.text = user.bio
+    }
+
+    private fun getYearContributionData(year: String, commitsResponseDto: CommitsResponseDto): CommitsResponseDto {
+        var yearContributionDtoItem = CommitsResponseDto(year)
+        var resultList = yearContributionDtoItem.contributions as ArrayList
+        for (element in commitsResponseDto.contributions!!) {
+            if (element.date.contains(year)) {
+                resultList.add(element)
             }
         }
-        progressbar.hide()
+        yearContributionDtoItem.contributions = resultList
+        return yearContributionDtoItem
     }
-
-
-    private fun setUserInfoUI(user: User) {
-//        wv_mv_graph.loadUrl("https://ghchart.rshah.org/${user.login}")
-        user_id.text = user.login
-        user_location.text = user.location
-        year_commit.text = sharedPreference.getValue(getString(R.string.user_year))
-        max_commit.text = sharedPreference.getValue(getString(R.string.user_max))
-        Glide.with(this).load(user.avatar_url).apply(RequestOptions.circleCropTransform())
-            .into(img_mv_user_profile)
-    }
-
-
-    /** 오리지날 잔디 그래프 출력
-    private fun setCommitUI(it: List<Commits>) {
-    val maxCommit = it.maxBy { it.dataCount }
-    this.activity?.runOnUiThread {
-    contribute.removeAllViews()
-    contribute.columnCount = 53
-    contribute.rowCount = 7
-    for (commit in it) {
-    val layout = LinearLayout(this.activity)
-    val param = LinearLayout.LayoutParams(65, 65)
-    param.margin = 4
-    layout.layoutParams = param
-    val txt = TextView(this.activity)
-    txt.text = commit.dataCount.toString()
-    layout.gravity = Gravity.CENTER
-    layout.addView(txt)
-    layout.backgroundColor = Color.parseColor(commit.fill)
-    if (commit.dataCount == maxCommit!!.dataCount) {
-    layout.background = this.activity?.getDrawable(R.drawable.rect_background)
-    max_commit.text = commit.dataCount.toString()
-    }
-    contribute.addView(layout)
-    }
-    val todayCommit = it[it.size - 1].dataCount
-    today_commit.text = todayCommit.toString()
-    }
-    }
-     */
 }
