@@ -70,5 +70,9 @@ fastlane/readme.md
 .DS_Store
 .idea/runConfigurations.xml
 
-# font
-spoqa_han_sans_*.ttf
+.settings
+release
+.project
+.classpath
+
+network_security_config.xml
