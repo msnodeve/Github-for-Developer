@@ -6,3 +6,4 @@ set_env:
 	echo "PREFERENCES_TOKEN_KEY=\"token_key\"" >> app/gradle.properties
 	echo "BASIC_AUTH_KEY=\"basic_auth_key\"" >> app/gradle.properties
 	echo "GFD_API_URL=\"gfd_api_url\"" >> app/gradle.properties
+	echo "GITHUB_OAUTH_URL=\"gfd_oauth_url\"" >> app/gradle.properties

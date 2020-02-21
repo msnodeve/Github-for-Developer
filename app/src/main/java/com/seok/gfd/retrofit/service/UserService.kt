@@ -1,18 +1,28 @@
 package com.seok.gfd.retrofit.service
 
-import com.seok.gfd.retrofit.domain.Token
-import com.seok.gfd.retrofit.domain.User
+import com.seok.gfd.retrofit.domain.GfdUser
+import com.seok.gfd.retrofit.domain.SingleResponseDto
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.POST
 
 interface UserService {
-    @GET("user")
-    fun githubUserApi(@Header("Authorization") token: String): Call<User>
+    @GET("users")
+    fun getUserList(
+        @Header("Authorization") authKey: String
+    ): Call<List<GfdUser>>
 
-    @Headers("Accept: application/json")
-    @POST("access_token")
-    fun getGithubCode(
-        @Query("client_id") clientId : String,
-        @Query("client_secret") clientSecret : String,
-        @Query("code") code : String) : Call<Token>
+    @POST("users")
+    fun signUpUser(
+        @Header("Authorization") authKey: String,
+        @Body gfdUser: GfdUser
+    ): Call<SingleResponseDto<GfdUser>>
+
+    @GET("users/count")
+    fun getUsersCount(
+        @Header("Authorization") authKey: String
+    ): Call<SingleResponseDto<Long>>
+
 }

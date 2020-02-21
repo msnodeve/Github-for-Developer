@@ -1,111 +1,98 @@
 package com.seok.gfd.views
 
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.seok.gfd.BuildConfig
-import com.seok.gfd.R
-import kotlinx.android.synthetic.main.activity_login.*
-import java.net.HttpURLConnection
-
-
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.seok.gfd.retrofit.RetrofitClient
-import com.seok.gfd.utils.AuthUserToken
+import com.seok.gfd.BuildConfig
+import com.seok.gfd.R
 import com.seok.gfd.utils.ProgressbarDialog
-import com.seok.gfd.viewmodel.LoginViewModel
+import com.seok.gfd.utils.SharedPreference
+import com.seok.gfd.viewmodel.UserViewModel
+import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.longToast
-import retrofit2.Call
-import retrofit2.Response
+import java.net.HttpURLConnection
 
-@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+@Suppress(
+    "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS",
+    "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS"
+)
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: LoginViewModel
-    private lateinit var authToken: AuthUserToken
-    private lateinit var progressbarDialog: ProgressbarDialog
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var sharedPreference: SharedPreference
+    private lateinit var progressbar: ProgressbarDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
         init()
-        checkForSignIn()
+        initViewModelFun()
+
+        // 로그인 버튼 눌렀을 경우 Github login 창으로 넘김
         login_img_login.setOnClickListener {
-            progressbarDialog.show()
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(authToken.buildHttpUrl(BuildConfig.GITHUB_CLIENT_ID)))
+            progressbar.show()
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(BuildConfig.GITHUB_OAUTH_URL + BuildConfig.GITHUB_CLIENT_ID)
+            )
+            // onNewIntent() 리다이렉트
             startActivityForResult(intent, HttpURLConnection.HTTP_OK)
         }
+        userViewModel.getUserInfoAndSignInGithub(sharedPreference.getValue(BuildConfig.PREFERENCES_TOKEN_KEY))
 
-        val userService = RetrofitClient.gUserService()
-        val call = userService.getUsersCount(BuildConfig.BASIC_AUTH_KEY)
-        call.enqueue(object : retrofit2.Callback<Int>{
-            override fun onFailure(call: Call<Int>, t: Throwable) {
-                Log.d("testtest", t.message)
-            }
-
-            override fun onResponse(call: Call<Int>, response: Response<Int>) {
-                if(response.isSuccessful){
-                    val body = response.body()
-                    login_tv_users_count.text = body.toString()
-                }else{
-                    Log.d("testest", "t")
-                }
-            }
-
-        })
     }
 
+    // ViewModel 세팅 및 초기화
     private fun init() {
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
-        authToken = AuthUserToken(application)
-        progressbarDialog = ProgressbarDialog(this)
+        progressbar = ProgressbarDialog(this)
+        progressbar.show()
+        sharedPreference = SharedPreference(application)
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
+        userViewModel.getUsersCount()
     }
 
-    private fun checkForSignIn() {
-        progressbarDialog.show()
-        val accessToken = authToken.getToken(BuildConfig.PREFERENCES_TOKEN_KEY)
-        if (accessToken != getString(R.string.no_token)) {
-            viewModel.githubUserApi(accessToken).observe(this, Observer { body ->
-                if (body.code == HttpURLConnection.HTTP_OK) {
-                    goToMainActivity()
-                } else {
-                    longToast(getString(R.string.fail_token))
-                    progressbarDialog.hide()
-                }
-            })
-        } else {
-            longToast(getString(R.string.welcome_app))
-            progressbarDialog.hide()
-        }
+    // ViewModel 구현
+    private fun initViewModelFun() {
+        // 현재 사용자 수
+        userViewModel.userCount.observe(this, Observer {
+            login_tv_users_count.text = it.toString()
+        })
+        // Github 접속을 위한 access_token 요청
+        userViewModel.accessToken.observe(this, Observer {
+            sharedPreference.setValue(BuildConfig.PREFERENCES_TOKEN_KEY, it)
+            userViewModel.getUserInfoAndSignInGithub(it)
+        })
+        // Github 로그인 성공 코드 200 / 401
+        userViewModel.code.observe(this, Observer {
+            if (it == HttpURLConnection.HTTP_OK) {
+                goToMainActivity()
+            } else {
+                progressbar.hide()
+                longToast(getString(R.string.fail_access_token))
+            }
+        })
+        userViewModel.userInfo.observe(this, Observer {
+            sharedPreference.setValueObject(application.getString(R.string.user_info), it)
+        })
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         val uri = intent!!.data
-        val code = authToken.getCode(uri.toString())
-        getAccessToken(code)
-    }
-
-    private fun getAccessToken(code:String){
-        viewModel.getGithubCode(BuildConfig.GITHUB_CLIENT_ID, BuildConfig.GITHUB_CLIENT_SECRET,code)
-            .observe(this, Observer { body ->
-                if(body.code == HttpURLConnection.HTTP_OK) {
-                    authToken.editToken(BuildConfig.PREFERENCES_TOKEN_KEY, body.access_token)
-                    goToMainActivity()
-                }else{
-                    longToast(getString(R.string.invalid_token))
-                    progressbarDialog.hide()
-                }
-            })
+        // 1회용 접속 Code
+        val code = uri.toString().split("=")[1]
+        userViewModel.getAccessTokenFromGithubApi(code)
     }
 
     private fun goToMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        progressbarDialog.hide()
+        progressbar.hide()
         finish()
     }
 }

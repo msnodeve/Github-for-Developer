@@ -16,10 +16,10 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.seok.gfd"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 28
-        versionCode 5
-        versionName "1.10.3"
+        versionCode 7
+        versionName "2.17.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -27,6 +27,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             testCoverageEnabled false
+            buildConfigField "String", "GITHUB_OAUTH_URL", GITHUB_OAUTH_URL
             buildConfigField "String", "GITHUB_CLIENT_ID", GITHUB_CLIENT_ID
             buildConfigField "String", "GITHUB_CLIENT_SECRET", GITHUB_CLIENT_SECRET
             buildConfigField "String", "REDIRECT_CALLBACK_URL", REDIRECT_CALLBACK_URL
@@ -37,6 +38,7 @@ android {
         }
         debug {
             testCoverageEnabled true
+            buildConfigField "String", "GITHUB_OAUTH_URL", GITHUB_OAUTH_URL
             buildConfigField "String", "GITHUB_CLIENT_ID", GITHUB_CLIENT_ID
             buildConfigField "String", "GITHUB_CLIENT_SECRET", GITHUB_CLIENT_SECRET
             buildConfigField "String", "REDIRECT_CALLBACK_URL", REDIRECT_CALLBACK_URL
@@ -141,4 +143,12 @@ dependencies {
     // NavigationBar
     implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
+
+    // UI Scale
+    implementation 'com.ssomai:android.scalablelayout:2.1.6'
+
+    // Tab Layout
+    implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
+    implementation 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
+
 }
