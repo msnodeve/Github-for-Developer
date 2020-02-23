@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
@@ -79,8 +81,9 @@ class MainFragment : Fragment() {
         main_top_scalable_layout.scaleHeight = commonUtils.getScreenHeight()
 
         main_tv_user_name.text = user.login
-        Glide.with(this).load(user.avatar_url).apply(RequestOptions.circleCropTransform())
-            .into(main_image_profile)
+
+        val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(50))
+        Glide.with(this).load(user.avatar_url).apply(requestOptions).into(main_image_profile)
         main_tv_user_bio.text = user.bio
     }
 
