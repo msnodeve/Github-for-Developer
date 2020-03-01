@@ -12,22 +12,11 @@
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_weight="1"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/gfd_launcher" />
 
-    <com.ssomai.android.scalablelayout.ScalableLayout
-            android:id="@+id/scale_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-    </com.ssomai.android.scalablelayout.ScalableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

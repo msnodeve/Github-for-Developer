@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:fontFamily="@font/spoqa_han_sans_light"
+            android:fontFamily="@font/spoqa_han_sans_regular"
             android:text="@string/rv_rank_commit"
             android:textColor="@color/colorText"
             android:textSize="36sp"
