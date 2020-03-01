@@ -81,6 +81,8 @@ class LoginActivity : AppCompatActivity() {
         // Guest 로그인 버튼을 눌렀을 경우
         login_img_guest.setOnClickListener {
             syncUI()
+            startActivity(Intent(this, GuestMain::class.java))
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
 
         // 로그인 버튼 눌렀을 경우 Github login 창으로 넘김
