@@ -14,10 +14,10 @@ v3.20.12 릴리즈 [Google Paly Store](https://play.google.com/store/apps/detail
 
 # Preview
 
-<img src="./img/preview07.png" width="40%" height="40%">
-<img src="./img/preview06.png" width="40%" height="40%">
-<img src="./img/preview04.png" width="40%" height="40%">
-<img src="./img/preview03.png" width="40%" height="40%">
+<img src="./img/preview07.jpeg" width="40%" height="40%">
+<img src="./img/preview06.jpeg" width="40%" height="40%">
+<img src="./img/preview04.jpeg" width="40%" height="40%">
+<img src="./img/preview03.jpeg" width="40%" height="40%">
 
 </br></br>
 
