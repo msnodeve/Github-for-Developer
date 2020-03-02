@@ -40,6 +40,4 @@ class CommitsResponseDto {
         var color : String = ""
         var intensity : Int = 0
     }
-
-
 }

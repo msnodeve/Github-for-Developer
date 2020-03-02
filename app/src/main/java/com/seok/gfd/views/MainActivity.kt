@@ -47,6 +47,6 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.admob_app_id)
         )
         val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
+        github_login_ads_view.loadAd(adRequest)
     }
 }

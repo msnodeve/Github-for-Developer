@@ -4,27 +4,23 @@ package com.seok.gfd.views
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.seok.gfd.BuildConfig
 import com.seok.gfd.R
-import com.seok.gfd.utils.ProgressbarDialog
 import com.seok.gfd.utils.SharedPreference
 import com.seok.gfd.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.longToast
 import java.net.HttpURLConnection
 
-@Suppress(
-    "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS",
-    "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS"
-)
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var userViewModel: UserViewModel
     private lateinit var sharedPreference: SharedPreference
-    private lateinit var progressbar: ProgressbarDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,25 +28,12 @@ class LoginActivity : AppCompatActivity() {
 
         init()
         initViewModelFun()
-
-        // 로그인 버튼 눌렀을 경우 Github login 창으로 넘김
-        login_img_login.setOnClickListener {
-            progressbar.show()
-            val intent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(BuildConfig.GITHUB_OAUTH_URL + BuildConfig.GITHUB_CLIENT_ID)
-            )
-            // onNewIntent() 리다이렉트
-            startActivityForResult(intent, HttpURLConnection.HTTP_OK)
-        }
-        userViewModel.getUserInfoAndSignInGithub(sharedPreference.getValue(BuildConfig.PREFERENCES_TOKEN_KEY))
+        setOnClickFun()
 
     }
 
     // ViewModel 세팅 및 초기화
     private fun init() {
-        progressbar = ProgressbarDialog(this)
-        progressbar.show()
         sharedPreference = SharedPreference(application)
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
         userViewModel.getUsersCount()
@@ -72,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
             if (it == HttpURLConnection.HTTP_OK) {
                 goToMainActivity()
             } else {
-                progressbar.hide()
+                login_progress_bar.visibility = View.INVISIBLE
                 longToast(getString(R.string.fail_access_token))
             }
         })
@@ -92,7 +75,36 @@ class LoginActivity : AppCompatActivity() {
     private fun goToMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        progressbar.hide()
-        finish()
+    }
+
+    private fun setOnClickFun(){
+        // Guest 로그인 버튼을 눌렀을 경우
+        login_img_guest.setOnClickListener {
+            syncUI()
+            startActivity(Intent(this, GuestMain::class.java))
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+
+        // 로그인 버튼 눌렀을 경우 Github login 창으로 넘김
+        login_img_login.setOnClickListener {
+            syncUI()
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(BuildConfig.GITHUB_OAUTH_URL + BuildConfig.GITHUB_CLIENT_ID)
+            )
+            // onNewIntent() 리다이렉트
+            startActivityForResult(intent, HttpURLConnection.HTTP_OK)
+        }
+    }
+
+    private fun syncUI(){
+        login_progress_bar.visibility = View.VISIBLE
+        login_img_login.isClickable = false
+        login_img_guest.isClickable = false
+        Handler().postDelayed({
+            login_progress_bar.visibility = View.INVISIBLE
+            login_img_login.isClickable = true
+            login_img_guest.isClickable = true
+        }, 3000)
     }
 }

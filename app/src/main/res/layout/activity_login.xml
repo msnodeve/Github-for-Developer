@@ -6,13 +6,27 @@
         android:layout_height="match_parent"
         tools:context=".views.LoginActivity" android:orientation="vertical">
 
+    <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/login_progress_bar"
+            style="@style/AVLoadingIndicatorView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:visibility="invisible"
+            app:indicatorColor="@color/thCommit"
+            app:indicatorName="BallSpinFadeLoaderIndicator"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:layout_marginBottom="32dp"
             android:background="@drawable/github_login_users_background"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@+id/login_img_login"
+            app:layout_constraintBottom_toTopOf="@+id/login_img_guest"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -46,9 +60,49 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+            android:id="@+id/login_img_guest"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/guest_login_background"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/login_img_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+                android:id="@+id/login_tv_guest1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/spoqa_han_sans_thin"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Guest"
+                android:textColor="@color/userRankPos"
+                android:textSize="30sp" />
+
+        <TextView
+                android:id="@+id/login_tv_guest2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/spoqa_han_sans_regular"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="@string/text_login"
+                android:textColor="@color/userRankPos"
+                android:textSize="35sp" />
+    </LinearLayout>
+
+    <LinearLayout
             android:id="@+id/login_img_login"
             android:layout_width="300dp"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:background="@drawable/github_login_background"
             android:gravity="center"
             android:orientation="horizontal"

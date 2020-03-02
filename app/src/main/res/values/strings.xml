@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Github for developer</string>
+    <string name="app_name">Daily Commit - 잔디</string>
 
     <!-- Project text -->
-    <string name="fail_access_token">Github for developers\n환영합니다</string>
-    <string name="welcome_app">개발자를 위한 깃허브 앱에 오신것을 환영합니다.\n로그인 버튼을 눌러주세요</string>
+    <string name="fail_access_token">Daily Commit - 잔디\n환영합니다</string>
+    <string name="welcome_app">Daily Commit - 잔디앱에 오신것을 환영합니다.\n로그인 버튼을 눌러주세요</string>
     <string name="invalid_token">로그인 토큰 발급을 실패하였습니다\n다시 시도 해주세요</string>
     <string name="today_contribution">Today</string>
     <string name="max_contribution">Max</string>
