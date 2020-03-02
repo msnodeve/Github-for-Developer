@@ -55,11 +55,11 @@ class MainFragment : Fragment() {
         commonUtils = CommonUtils.instance
         githubContributionViewModel =
             ViewModelProviders.of(this).get(GithubContributionViewModel::class.java)
-        githubContributionViewModel.getContributionData(user.login)
+        githubContributionViewModel.getContributions(user.login)
     }
 
     private fun initViewModelFun() {
-        githubContributionViewModel.commits.observe(this, Observer {
+        githubContributionViewModel.contributions.observe(this, Observer {
             val fragmentPagerItems = FragmentPagerItems.with(activity)
             for (element in it.years!!) {
                 val commitResponseDto = getYearContributionData(element.year, it)

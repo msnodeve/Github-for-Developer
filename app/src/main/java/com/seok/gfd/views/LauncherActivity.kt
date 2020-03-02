@@ -30,7 +30,7 @@ class LauncherActivity : AppCompatActivity() {
             startActivity(intent)
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             finish()
-        }, 100)
+        }, 1300)
     }
 
     private fun initSetUI(){

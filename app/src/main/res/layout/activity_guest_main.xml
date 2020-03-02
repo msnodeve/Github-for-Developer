@@ -1,14 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.GuestMain">
+        android:background="#FFFFFF"
+        tools:context=".views.GuestMain"
+        tools:ignore="MissingConstraints">
+
+    <com.ssomai.android.scalablelayout.ScalableLayout
+            android:id="@+id/main_top_scalable_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:scale_base_height="280"
+            app:scale_base_width="1080">
+
+        <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/guest_main_search_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/spoqa_han_sans_regular"
+                android:hint="Github ID를 입력하세요"
+                android:inputType="text"
+                app:scale_height="130"
+                app:scale_left="30"
+                app:scale_textsize="45"
+                app:scale_top="30"
+                app:scale_width="780" />
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/guest_main_search_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounding_background"
+                android:fontFamily="@font/spoqa_han_sans_regular"
+                android:text="검색"
+                android:textColor="@color/userRankPos"
+                android:textStyle="bold"
+                app:scale_height="130"
+                app:scale_left="830"
+                app:scale_textsize="45"
+                app:scale_top="30"
+                app:scale_width="220" />
+
+        <TextView
+                android:id="@+id/guest_main_tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/spoqa_han_sans_regular"
+                android:text="\@HelloGfd on Github"
+                android:textColor="@color/colorText"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:scale_height="120"
+                app:scale_left="30"
+                app:scale_textsize="50"
+                app:scale_top="150"
+                app:scale_width="1020" />
+
+        <LinearLayout
+                android:id="@+id/guest_main_color_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/nonCommit"
+                android:orientation="vertical"
+                app:scale_height="50"
+                app:scale_left="760"
+                app:scale_top="180"
+                app:scale_width="50" />
+
+        <LinearLayout
+                android:id="@+id/guest_main_color_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/stCommit"
+                android:orientation="horizontal"
+                app:scale_height="50"
+                app:scale_left="820"
+                app:scale_top="180"
+                app:scale_width="50" />
+
+        <LinearLayout
+                android:id="@+id/guest_main_color_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/ndCommit"
+                app:scale_height="50"
+                app:scale_left="880"
+                app:scale_top="180"
+                app:scale_width="50" />
+
+        <LinearLayout
+                android:id="@+id/guest_main_color_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/thCommit"
+                app:scale_height="50"
+                app:scale_left="940"
+                app:scale_top="180"
+                app:scale_width="50" />
+
+        <LinearLayout
+                android:id="@+id/guest_main_color_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/fiCommit"
+                app:scale_height="50"
+                app:scale_left="1000"
+                app:scale_top="180"
+                app:scale_width="50" />
+
+    </com.ssomai.android.scalablelayout.ScalableLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/simpleSwipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_margin="10sp"
+            app:layout_constraintBottom_toTopOf="@+id/guest_login_ads_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_top_scalable_layout">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -16,4 +134,39 @@
                 android:layout_height="match_parent" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.gms.ads.AdView
+            android:id="@+id/guest_login_ads_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:adSize="BANNER"
+            app:adUnitId="@string/banner_ad_unit_id"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+            android:id="@+id/guest_main_recycler_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/rounding_trans_background"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/simpleSwipeRefreshLayout"
+            app:layout_constraintEnd_toEndOf="@+id/simpleSwipeRefreshLayout"
+            app:layout_constraintStart_toStartOf="@+id/simpleSwipeRefreshLayout"
+            app:layout_constraintTop_toTopOf="@+id/simpleSwipeRefreshLayout">
+
+        <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/guest_main_progress_bar"
+                style="@style/AVLoadingIndicatorView"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:visibility="visible"
+                app:indicatorColor="@color/thCommit"
+                app:indicatorName="BallSpinFadeLoaderIndicator"
+                tools:ignore="MissingConstraints" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

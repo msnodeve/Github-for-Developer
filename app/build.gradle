@@ -18,8 +18,8 @@ android {
         applicationId "com.seok.gfd"
         minSdkVersion 26
         targetSdkVersion 28
-        versionCode 9
-        versionName "2.17.8"
+        versionCode 10
+        versionName "3.20.12"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -150,5 +150,4 @@ dependencies {
     // Tab Layout
     implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
     implementation 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
-
 }
