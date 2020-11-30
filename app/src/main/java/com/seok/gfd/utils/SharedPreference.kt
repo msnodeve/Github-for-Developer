@@ -9,7 +9,7 @@ import com.seok.gfd.retrofit.domain.User
 
 class SharedPreference(private val application: Application) {
     private val pref = application.getSharedPreferences(
-        BuildConfig.PREFERENCES_FILE,
+        "",
         AppCompatActivity.MODE_PRIVATE
     )
 

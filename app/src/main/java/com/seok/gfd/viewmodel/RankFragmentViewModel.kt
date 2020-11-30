@@ -33,7 +33,7 @@ class RankFragmentViewModel(application: Application) : AndroidViewModel(applica
 
         val getTodayRankListService = RetrofitClient.commitService()
         val getTodayRankListCall = getTodayRankListService.getTRCommitList(
-            BuildConfig.BASIC_AUTH_KEY,
+            "",
             dateFormat.format(Date())
         )
         getTodayRankListCall.enqueue(object : Callback<List<CommitResponse>> {
@@ -58,7 +58,7 @@ class RankFragmentViewModel(application: Application) : AndroidViewModel(applica
     fun updateTodayRankCommit(userId: String, dataCount: Int) {
         val updateTodayRankCommitService = RetrofitClient.commitService()
         val updateTodayRankCommitCall = updateTodayRankCommitService.enrollCommit(
-            BuildConfig.BASIC_AUTH_KEY,
+            "",
             CommitRequestDto(userId, dataCount)
         )
 //        updateTodayRankCommitCall.enqueue(object : Callback<String> {
@@ -77,7 +77,7 @@ class RankFragmentViewModel(application: Application) : AndroidViewModel(applica
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val getTodayRankListService = RetrofitClient.commitService()
         val getTodayRankListCall = getTodayRankListService.getTRCommitList(
-            BuildConfig.BASIC_AUTH_KEY,
+            "",
             dateFormat.format(Date()))
         getTodayRankListCall.enqueue(object : Callback<List<CommitResponse>>{
             override fun onResponse(

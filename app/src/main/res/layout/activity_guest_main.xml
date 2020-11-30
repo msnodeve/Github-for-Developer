@@ -22,7 +22,6 @@
                 android:id="@+id/guest_main_search_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/spoqa_han_sans_regular"
                 android:hint="Github ID를 입력하세요"
                 android:inputType="text"
                 app:scale_height="130"
@@ -36,7 +35,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/rounding_background"
-                android:fontFamily="@font/spoqa_han_sans_regular"
                 android:text="검색"
                 android:textColor="@color/userRankPos"
                 android:textStyle="bold"
@@ -50,71 +48,45 @@
                 android:id="@+id/guest_main_tv_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/spoqa_han_sans_regular"
                 android:text="\@HelloGfd on Github"
                 android:textColor="@color/colorText"
                 android:textStyle="bold"
-                android:visibility="invisible"
-                app:scale_height="120"
-                app:scale_left="30"
-                app:scale_textsize="50"
-                app:scale_top="150"
-                app:scale_width="1020" />
+                android:visibility="invisible"/>
 
         <LinearLayout
                 android:id="@+id/guest_main_color_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/nonCommit"
-                android:orientation="vertical"
-                app:scale_height="50"
-                app:scale_left="760"
-                app:scale_top="180"
-                app:scale_width="50" />
+                android:orientation="vertical"/>
 
         <LinearLayout
                 android:id="@+id/guest_main_color_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/stCommit"
-                android:orientation="horizontal"
-                app:scale_height="50"
-                app:scale_left="820"
-                app:scale_top="180"
-                app:scale_width="50" />
+                android:orientation="horizontal" />
 
         <LinearLayout
                 android:id="@+id/guest_main_color_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/ndCommit"
-                app:scale_height="50"
-                app:scale_left="880"
-                app:scale_top="180"
-                app:scale_width="50" />
+                android:background="@color/ndCommit" />
 
         <LinearLayout
                 android:id="@+id/guest_main_color_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/thCommit"
-                app:scale_height="50"
-                app:scale_left="940"
-                app:scale_top="180"
-                app:scale_width="50" />
+                android:background="@color/thCommit"/>
 
         <LinearLayout
                 android:id="@+id/guest_main_color_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/fiCommit"
-                app:scale_height="50"
-                app:scale_left="1000"
-                app:scale_top="180"
-                app:scale_width="50" />
+                android:background="@color/fiCommit"/>
 
     </com.ssomai.android.scalablelayout.ScalableLayout>
 

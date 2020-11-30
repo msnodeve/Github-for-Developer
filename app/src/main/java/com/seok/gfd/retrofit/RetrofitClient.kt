@@ -30,7 +30,7 @@ class RetrofitClient {
         fun userService() : UserService{
             val gson = GsonBuilder().setLenient().create()
             retrofit = Retrofit.Builder()
-                .baseUrl(BuildConfig.GFD_API_URL)
+                .baseUrl("")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
             return retrofit.create(UserService::class.java)
@@ -38,7 +38,7 @@ class RetrofitClient {
         fun commitService() : CommitService{
             val gson = GsonBuilder().setLenient().create()
             retrofit = Retrofit.Builder()
-                .baseUrl(BuildConfig.GFD_API_URL)
+                .baseUrl("")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
             return retrofit.create(CommitService::class.java)

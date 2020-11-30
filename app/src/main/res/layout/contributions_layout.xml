@@ -12,7 +12,6 @@
             android:id="@+id/guest_year_contribution"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/spoqa_han_sans_thin"
             android:text="2019: 702 Contributions"
             android:textColor="@color/colorText"
             android:textStyle="italic" />

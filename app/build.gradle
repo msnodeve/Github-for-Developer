@@ -3,12 +3,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
-
-// https://www.androidhuman.com/lecture/quality/2016/02/13/jacoco_unit_test_android/
-// https://jojoldu.tistory.com/275
-// https://medium.com/@android2ee/playing-with-gradle-3-and-some-few-code-coverage-on-android-with-jacoco-47df7c9328ae
-apply plugin: 'com.github.kt3k.coveralls'
-apply plugin: 'jacoco-android'
 // https://blog.yena.io/studynote/2018/09/08/Android-Kotlin-Room.html
 // https://kotlinlang.org/docs/reference/using-gradle.html
 
@@ -27,25 +21,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             testCoverageEnabled false
-            buildConfigField "String", "GITHUB_OAUTH_URL", GITHUB_OAUTH_URL
-            buildConfigField "String", "GITHUB_CLIENT_ID", GITHUB_CLIENT_ID
-            buildConfigField "String", "GITHUB_CLIENT_SECRET", GITHUB_CLIENT_SECRET
-            buildConfigField "String", "REDIRECT_CALLBACK_URL", REDIRECT_CALLBACK_URL
-            buildConfigField "String", "PREFERENCES_FILE", PREFERENCES_FILE
-            buildConfigField "String", "PREFERENCES_TOKEN_KEY", PREFERENCES_TOKEN_KEY
-            buildConfigField "String", "BASIC_AUTH_KEY", BASIC_AUTH_KEY
-            buildConfigField "String", "GFD_API_URL", GFD_API_URL
         }
         debug {
             testCoverageEnabled true
-            buildConfigField "String", "GITHUB_OAUTH_URL", GITHUB_OAUTH_URL
-            buildConfigField "String", "GITHUB_CLIENT_ID", GITHUB_CLIENT_ID
-            buildConfigField "String", "GITHUB_CLIENT_SECRET", GITHUB_CLIENT_SECRET
-            buildConfigField "String", "REDIRECT_CALLBACK_URL", REDIRECT_CALLBACK_URL
-            buildConfigField "String", "PREFERENCES_FILE", PREFERENCES_FILE
-            buildConfigField "String", "PREFERENCES_TOKEN_KEY", PREFERENCES_TOKEN_KEY
-            buildConfigField "String", "BASIC_AUTH_KEY", BASIC_AUTH_KEY
-            buildConfigField "String", "GFD_API_URL", GFD_API_URL
         }
     }
     compileOptions {
@@ -61,22 +39,17 @@ android {
     lintOptions {
         abortOnError false
     }
-}
-
-coveralls {
-    jacocoReportPath 'build/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml'
-}
-jacocoAndroidUnitTestReport {
-    excludes += ['**/views/**']
+    buildToolsVersion '28.0.3'
+    ndkVersion '20.1.5948944'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.android.support:design:28.0.0'
-    implementation "androidx.recyclerview:recyclerview:1.0.0"
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
 
     // test implementation
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

@@ -66,7 +66,6 @@ class MainSub : Fragment() {
             val weekText = TextView(activity)
             weekText.textColor = activity!!.getColor(R.color.userRankPos)
             weekText.text = index.toString() + "W"
-            weekText.typeface = ResourcesCompat.getFont(context!!, R.font.spoqa_han_sans_regular)
             main_sub_scalable_layout.addView(weekText, 20f, weekPosTop, 100f, 50f)
             main_sub_scalable_layout.setScale_TextSize(weekText, 35f)
             weekPosTop += 55f
@@ -75,7 +74,6 @@ class MainSub : Fragment() {
         for (index in 2..commitSize / 7 step 2) {
             val weekText = TextView(activity)
             weekText.textColor = activity!!.getColor(R.color.userRankPos)
-            weekText.typeface = ResourcesCompat.getFont(context!!, R.font.spoqa_han_sans_regular)
             weekText.text = index.toString() + "W"
             main_sub_scalable_layout.addView(weekText, 570f, weekPosTop, 100f, 50f)
             main_sub_scalable_layout.setScale_TextSize(weekText, 35f)

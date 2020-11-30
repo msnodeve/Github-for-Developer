@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
         })
         // Github 접속을 위한 access_token 요청
         userViewModel.accessToken.observe(this, Observer {
-            sharedPreference.setValue(BuildConfig.PREFERENCES_TOKEN_KEY, it)
+            sharedPreference.setValue("", it)
             userViewModel.getUserInfoAndSignInGithub(it)
         })
         // Github 로그인 성공 코드 200 / 401
@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
             syncUI()
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse(BuildConfig.GITHUB_OAUTH_URL + BuildConfig.GITHUB_CLIENT_ID)
+                Uri.parse("")
             )
             // onNewIntent() 리다이렉트
             startActivityForResult(intent, HttpURLConnection.HTTP_OK)

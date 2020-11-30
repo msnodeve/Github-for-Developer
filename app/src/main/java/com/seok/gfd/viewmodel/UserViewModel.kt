@@ -37,7 +37,7 @@ class UserViewModel : ViewModel() {
     // User 인원 수 가져오기
     fun getUsersCount() {
         val userService = RetrofitClient.userService()
-        val userCall = userService.getUsersCount(BuildConfig.BASIC_AUTH_KEY)
+        val userCall = userService.getUsersCount("")
         userCall.enqueue(object : retrofit2.Callback<SingleResponseDto<Long>> {
             override fun onResponse(
                 call: Call<SingleResponseDto<Long>>,
@@ -56,8 +56,8 @@ class UserViewModel : ViewModel() {
     fun getAccessTokenFromGithubApi(code: String) {
         val githubAuthService = RetrofitClient.githubAuthService()
         val githubAuthCall = githubAuthService.getAccessTokenFromGithubApi(
-            BuildConfig.GITHUB_CLIENT_ID,
-            BuildConfig.GITHUB_CLIENT_SECRET,
+            "",
+            "",
             code
         )
         githubAuthCall.enqueue(object : retrofit2.Callback<Token> {
@@ -92,7 +92,7 @@ class UserViewModel : ViewModel() {
     fun signInUserInfo(user: User){
         val gfdSignInService = RetrofitClient.userService()
         val requestUserDto = GfdUser(user.login, user.html_url, user.avatar_url)
-        val gfdSignInCall = gfdSignInService.signUpUser(BuildConfig.BASIC_AUTH_KEY, requestUserDto)
+        val gfdSignInCall = gfdSignInService.signUpUser("", requestUserDto)
         gfdSignInCall.enqueue(object : retrofit2.Callback<SingleResponseDto<GfdUser>>{
             override fun onResponse(
                 call: Call<SingleResponseDto<GfdUser>>,
@@ -112,7 +112,7 @@ class UserViewModel : ViewModel() {
     fun getCommitsRank() {
         val dataDate = LocalDate.now().toString()
         val getCommitsService = RetrofitClient.commitService()
-        val getCommitCall = getCommitsService.getCommitList(BuildConfig.BASIC_AUTH_KEY, dataDate)
+        val getCommitCall = getCommitsService.getCommitList("", dataDate)
         getCommitCall.enqueue(object : retrofit2.Callback<MultiResponseDto<CommitResponse>> {
             override fun onResponse(call: Call<MultiResponseDto<CommitResponse>>, response: Response<MultiResponseDto<CommitResponse>>) {
                 _commitList.value = response.body()?.list
@@ -128,7 +128,7 @@ class UserViewModel : ViewModel() {
     // 금일 커밋 등록하기
     fun enrollCommit(commit: CommitRequestDto){
         val enrollCommitService = RetrofitClient.commitService()
-        val enrollCommitCall = enrollCommitService.enrollCommit(BuildConfig.BASIC_AUTH_KEY, commit)
+        val enrollCommitCall = enrollCommitService.enrollCommit("", commit)
         enrollCommitCall.enqueue(object : retrofit2.Callback<SingleResponseDto<Void>>{
             override fun onResponse(
                 call: Call<SingleResponseDto<Void>>,
