@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.LoginActivity" android:orientation="vertical">
+        tools:context=".v1.views.LoginActivity" android:orientation="vertical">
 
     <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/login_progress_bar"

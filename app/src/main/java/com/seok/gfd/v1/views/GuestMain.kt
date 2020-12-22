@@ -1,4 +1,4 @@
-package com.seok.gfd.views
+package com.seok.gfd.v1.views
 
 import android.os.Bundle
 import android.view.View

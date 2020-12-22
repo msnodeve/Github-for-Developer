@@ -1,4 +1,4 @@
-package com.seok.gfd.views
+package com.seok.gfd.v1.views
 
 
 import android.content.Intent
@@ -9,7 +9,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.seok.gfd.BuildConfig
 import com.seok.gfd.R
 import com.seok.gfd.utils.SharedPreference
 import com.seok.gfd.viewmodel.UserViewModel
@@ -73,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goToMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, Main2Activity::class.java))
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 

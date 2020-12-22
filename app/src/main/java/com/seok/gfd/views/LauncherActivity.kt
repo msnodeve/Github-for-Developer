@@ -12,14 +12,14 @@ class LauncherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launcher)
 
-//        startLoading()
+        startLoading()
     }
 
     private fun startLoading(){
         Handler().postDelayed({
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 5500)
+        }, 1000)
     }
 }

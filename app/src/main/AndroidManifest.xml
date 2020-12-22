@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         package="com.seok.gfd">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
             android:allowBackup="true"
-            android:fullBackupContent="@xml/backup_descriptor"
             android:icon="@drawable/gfd_app_logo"
             android:label="@string/app_name"
-            android:networkSecurityConfig="@xml/network_security_config"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".views.GuestMain"></activity>
+            android:theme="@style/AppLightTheme">
+        <activity android:name=".views.SearchActivity"></activity>
+        <activity android:name=".views.LauncherActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".views.MainActivity" />
+        <activity android:name=".v1.views.GuestMain" />
 
         <meta-data
                 android:name="com.google.android.gms.ads.APPLICATION_ID"
                 android:value="@string/admob_app_id" />
 
         <activity
-                android:name=".views.LoginActivity"
+                android:name=".v1.views.LoginActivity"
                 android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -32,14 +36,7 @@
                 <data android:scheme="gfd" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.LauncherActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".views.MainActivity" />
+        <activity android:name=".v1.views.Main2Activity" />
     </application>
 
 </manifest>

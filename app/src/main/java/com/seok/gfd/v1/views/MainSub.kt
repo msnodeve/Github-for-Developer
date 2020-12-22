@@ -1,4 +1,4 @@
-package com.seok.gfd.views
+package com.seok.gfd.v1.views
 
 import android.graphics.Color
 import android.os.Bundle
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.ogaclejapan.smarttablayout.utils.v4.Bundler
 import com.seok.gfd.R

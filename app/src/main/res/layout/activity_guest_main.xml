@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
-        tools:context=".views.GuestMain"
+        tools:context=".v1.views.GuestMain"
         tools:ignore="MissingConstraints">
 
     <com.ssomai.android.scalablelayout.ScalableLayout

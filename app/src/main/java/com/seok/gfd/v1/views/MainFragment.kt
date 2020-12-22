@@ -1,4 +1,4 @@
-package com.seok.gfd.views
+package com.seok.gfd.v1.views
 
 
 import android.os.Bundle
@@ -63,7 +63,9 @@ class MainFragment : Fragment() {
             val fragmentPagerItems = FragmentPagerItems.with(activity)
             for (element in it.years!!) {
                 val commitResponseDto = getYearContributionData(element.year, it)
-                fragmentPagerItems.add(element.year + "(" + element.total + ")", MainSub::class.java, MainSub.arguments(commitResponseDto))
+                fragmentPagerItems.add(element.year + "(" + element.total + ")", MainSub::class.java,
+                    MainSub.arguments(commitResponseDto)
+                )
             }
             val adapter = FragmentPagerItemAdapter(
                 activity?.supportFragmentManager,
