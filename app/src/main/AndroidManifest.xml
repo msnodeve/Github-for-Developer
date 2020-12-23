@@ -9,7 +9,7 @@
             android:icon="@drawable/gfd_app_logo"
             android:label="@string/app_name"
             android:theme="@style/AppLightTheme">
-        <activity android:name=".views.SearchActivity"></activity>
+        <activity android:name=".views.SearchActivity"/>
         <activity android:name=".views.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

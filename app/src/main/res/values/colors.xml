@@ -20,4 +20,12 @@
     <!-- Gradation Color -->
     <color name="pastel_1">#00b1e5</color>
     <color name="pastel_2">#08e68d</color>
+
+    <!-- App System Color -->
+    <color name="primaryBlack">#0F0F0F</color>
+    <color name="primaryGray1">#898989</color>
+    <color name="primaryGray2">#646464</color>
+    <color name="primaryGray3">#C8C8C8</color>
+    <color name="blue">#3842FF</color>
+    <color name="sky_blue">#38EEFF</color>
 </resources>

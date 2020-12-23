@@ -1,15 +1,21 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppLightTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppLightTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppDarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppDarkTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppLightTheme.Button" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/primaryGray3</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="strokeWidth">2dp</item>
     </style>
 </resources>

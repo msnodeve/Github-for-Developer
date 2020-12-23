@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".views.SearchActivity">
+
+    <LinearLayout
+            android:id="@+id/search_layout_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_txt_info2">
+
+        <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="잔디 현황을 보고싶은 아이디를 입력해주세요 :)"
+                android:textColor="@color/primaryGray2" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/search_edt_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+                android:hint="아이디를 입력해 주세요."
+                app:met_primaryColor="@color/blue"
+                app:met_helperText=""
+                app:met_singleLineEllipsis="true" />
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/search_txt_info1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:text="Daily Commit 잔디 !"
+            android:textColor="@color/primaryBlack"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/search_txt_info2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="서비스를 이용해주셔서 감사합니다."
+            android:textColor="@color/primaryBlack"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_txt_info1" />
+
+    <com.google.android.material.button.MaterialButton
+            style="@style/AppLightTheme.Button"
+            android:id="@+id/search_btn_ok"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/txt_confirm"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintCircleRadius="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

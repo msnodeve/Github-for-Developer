@@ -17,7 +17,7 @@ class LauncherActivity : AppCompatActivity() {
 
     private fun startLoading(){
         Handler().postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
             finish()
         }, 1000)

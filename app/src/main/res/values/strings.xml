@@ -59,8 +59,7 @@
     <string name="banner_ad_unit_id">ca-app-pub-2766237193476584/5214166022</string>
     <string name="banner_ad_unit_id_for_test">ca-app-pub-3940256099942544/6300978111</string>
 
-
-    <string name="hello_blank_fragment">Hello blank fragmentㅏ어ㅏㅣ엄님어나ㅣ;ㅇㄴㅁㅇ너ㅣㅁㅇ넝ㄴ머ㅣㅇ나멍넝ㅁ나ㅣㅓㅁㅇ니ㅏㅇ너ㅣㅏㅇ나ㅣㅁ어</string>
+    <string name="txt_confirm">확인</string>
 
 
 </resources>
