@@ -16,6 +16,6 @@
     <style name="AppLightTheme.Button" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="strokeColor">@color/primaryGray3</item>
         <item name="android:textColor">@color/blue</item>
-        <item name="strokeWidth">2dp</item>
+        <item name="strokeWidth">1dp</item>
     </style>
 </resources>
