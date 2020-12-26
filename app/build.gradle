@@ -45,7 +45,7 @@ android {
 }
 
 dependencies {
-    def room_version = "2.2.5"
+    def room_version = "2.2.3"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -60,21 +60,24 @@ dependencies {
     // room
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+    androidTestImplementation "androidx.room:room-testing:2.2.3"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation "org.koin:koin-test:2.0.1"
+    androidTestImplementation "org.mockito:mockito-core:2.25.0"
 
     // test implementation
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.robolectric:robolectric:4.3'
-    testImplementation 'org.powermock:powermock-api-mockito:1.4.12'
-    testImplementation 'org.powermock:powermock-module-junit4:1.6.2'
-    testImplementation 'org.mockito:mockito-core:2.28.2'
-    testImplementation 'androidx.arch.core:core-testing:2.1.0'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    androidTestImplementation 'androidx.test:rules:1.2.0'
-    androidTestImplementation 'androidx.test:core:1.2.0'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
+//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+//    testImplementation 'junit:junit:4.12'
+//    testImplementation 'org.robolectric:robolectric:4.3'
+//    testImplementation 'org.powermock:powermock-api-mockito:1.4.12'
+//    testImplementation 'org.powermock:powermock-module-junit4:1.6.2'
+//    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+//    androidTestImplementation 'androidx.test:runner:1.2.0'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+//    androidTestImplementation 'androidx.test:rules:1.2.0'
+//    androidTestImplementation 'androidx.test:core:1.2.0'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+//    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
 
     // Google Ads
     implementation 'com.google.android.gms:play-services-ads:18.2.0'
