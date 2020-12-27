@@ -6,6 +6,6 @@ import com.seok.gfd.room.dao.SearchGithubIdDao
 import com.seok.gfd.room.entity.SearchGithubId
 
 @Database(entities = [SearchGithubId::class], version = 1)
-abstract class AppDatabase : RoomDatabase() {
-    abstract fun searchGithubDao() : SearchGithubIdDao
+abstract class AppDatabase : RoomDatabase(){
+    abstract fun searchGithubIdDao(): SearchGithubIdDao
 }
