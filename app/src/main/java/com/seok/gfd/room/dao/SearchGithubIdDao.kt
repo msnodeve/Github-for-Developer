@@ -2,16 +2,15 @@ package com.seok.gfd.room.dao
 
 import androidx.room.*
 import com.seok.gfd.room.entity.SearchGithubId
-import java.util.*
 
 @Dao
-abstract class SearchGithubIdDao {
+interface SearchGithubIdDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertSearchGithubId(searchGithubId: SearchGithubId)
+    suspend fun insert(searchGithubId: SearchGithubId) : Int
 
     @Delete
-    abstract fun deleteSearchGithubId(searchGithubId: SearchGithubId)
+    suspend fun delete(searchGithubId: SearchGithubId)
 
-    @Query("SELECT * FROM search_github_ids WHERE gid_name = :gidName")
-    abstract fun selectGithubIds(gidName : String) : List<SearchGithubId>
+//    @Query("SELECT * FROM $TABLE_NAME WHERE gid_name = :gidName")
+    abstract fun selectAll(gidName : String) : List<SearchGithubId>
 }

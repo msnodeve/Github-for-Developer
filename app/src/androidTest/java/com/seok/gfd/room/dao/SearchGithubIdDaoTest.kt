@@ -16,14 +16,11 @@ import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 class SearchGithubIdDaoTest {
-    private lateinit var githubIdDao: SearchGithubIdDao
     private lateinit var db : AppDatabase
 
     @Before
     fun createDb() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
-        githubIdDao = db.searchGithubDao()
     }
 
     @After
@@ -35,10 +32,6 @@ class SearchGithubIdDaoTest {
     @Test
     @Throws(Exception::class)
     fun write(){
-        val searchGithubId : SearchGithubId = SearchGithubId(1, "2", Date())
-        githubIdDao.insertSearchGithubId(searchGithubId)
-        val byName = githubIdDao.selectGithubIds("2")
-        println(byName)
     }
 
 }
