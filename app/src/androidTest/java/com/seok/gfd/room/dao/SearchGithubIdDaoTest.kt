@@ -36,7 +36,7 @@ class SearchGithubIdDaoTest {
 
     @Test
     fun iWantToKnowTheDatabaseIsFind() = runBlocking{
-        val searchGithubId = SearchGithubId(gid = 0, gidName = "github")
+        val searchGithubId = SearchGithubId(gidName = "github")
 
         db.searchGithubIdDao().insert(searchGithubId)
         var entity = db.searchGithubIdDao().selectAll("g")[0]
@@ -47,8 +47,8 @@ class SearchGithubIdDaoTest {
     }
 
     private fun assertHabitEquals(expected: SearchGithubId, actual: SearchGithubId) {
-        // id 는 자동생성되므로, 검증을 위해서 id의 동일성은 무시하자.
-        assertEquals(expected.copy(gid = 0), actual.copy(gid = 0))
+        // id 는 자동생성되므로, 검증을 위해서 id의 동일성은 무시
+        assertEquals(expected.copy(), actual.copy())
     }
 
 }
