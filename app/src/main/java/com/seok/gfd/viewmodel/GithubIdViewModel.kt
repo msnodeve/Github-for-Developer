@@ -33,6 +33,12 @@ class GithubIdViewModel(val context: Application) : AndroidViewModel(context){
         }
     }
 
+    fun deleteGithubId(githubId: SearchGithubId){
+        runBlocking {
+            database.searchGithubIdDao().delete(githubId)
+        }
+    }
+
     fun closeDatabase(){
         database.close()
     }
