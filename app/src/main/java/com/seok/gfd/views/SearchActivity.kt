@@ -1,23 +1,30 @@
 package com.seok.gfd.views
 
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View.OnFocusChangeListener
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.room.Room
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.seok.gfd.R
-import com.seok.gfd.room.AppDatabase
+import com.seok.gfd.adapter.SearchGithubIdAdapter
 import com.seok.gfd.room.entity.SearchGithubId
 import com.seok.gfd.viewmodel.GithubIdViewModel
+import kotlinx.android.synthetic.main.activity_guest_main.*
 import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.coroutines.runBlocking
-import java.util.*
+
 
 class SearchActivity : AppCompatActivity() {
     private lateinit var githubIdsViewModel: GithubIdViewModel
+    private lateinit var gridLayoutManager: GridLayoutManager
+    private lateinit var searchGithubIdAdapter: SearchGithubIdAdapter
+    private lateinit var githubIds: ArrayList<SearchGithubId>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,17 +32,61 @@ class SearchActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
         init()
+        initViewModel()
         setAnimation()
+        setListener()
+    }
+
+    private fun setListener() {
+        // EditText 포커싱 되었을 때
+//        search_edt_id.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+//            if (hasFocus) {
+//                githubIdsViewModel.getGithubId("")
+//            }
+//        }
+        search_edt_id.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                githubIdsViewModel.getGithubId(search_edt_id.text.toString())
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+        })
+
+        search_btn_ok.setOnClickListener {
+            githubIdsViewModel.insertGithubId(SearchGithubId(search_edt_id.text.toString()))
+        }
+
+        // githubIdsViewModel.closeDatabase() db 컨넥션 끊기
     }
 
     private fun init() {
+        githubIds = ArrayList()
+        searchGithubIdAdapter = SearchGithubIdAdapter(githubIds)
+        gridLayoutManager = GridLayoutManager(this, 1)
+        search_recycler_view.layoutManager = gridLayoutManager
+        search_recycler_view.adapter = searchGithubIdAdapter
+        search_recycler_view.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                LinearLayoutManager.VERTICAL
+            )
+        )
+    }
+
+    private fun initViewModel() {
         githubIdsViewModel = ViewModelProviders.of(this).get(GithubIdViewModel::class.java)
         githubIdsViewModel.githubIds.observe(this, Observer {
-            for(a in it){
-                println("data${a.gid},${a.gidName},${a.created}")
-            }
+            githubIds.clear()
+            githubIds.addAll(it)
+            searchGithubIdAdapter.notifyDataSetChanged()
+            println(githubIds)
         })
-        githubIdsViewModel.getGithubId("t")
+        // 전체 검색해놓은 것 가져오기
+        githubIdsViewModel.getGithubId("")
     }
 
     private fun setAnimation() {
@@ -47,29 +98,8 @@ class SearchActivity : AppCompatActivity() {
         val leftToRight = AnimationUtils.loadAnimation(this, R.anim.left_to_right)
         leftToRight.startOffset = 800
         search_layout_id.startAnimation(leftToRight)
+        val rightToLeft = AnimationUtils.loadAnimation(this, R.anim.right_to_left)
+        rightToLeft.startOffset = 1000
+        search_recycler_view.startAnimation(rightToLeft)
     }
-
-//    private fun iWantToKnowTheDatabaseIsFind() {
-//        // 테스트 용으로 메모리상 생성
-//        val database = Room.inMemoryDatabaseBuilder(
-//            this,
-//            AppDatabase::class.java
-//        ).build()
-//
-//        // id를 0 으로 설정해주어서 id가 autoGeneration 되게 한다.
-//        val test = SearchGithubId(gidName = "test")
-//        runBlocking {
-//            // 습관을 씁니다.
-//            database.searchGithubIdDao().insert(test)
-//
-//            // 실제 DB에 써진 것을 확인합니다.
-//            var dbHabitSchema = database.searchGithubIdDao().selectAll("t")[0]
-//            Log.d(this.javaClass.name, "방금 넣은 것 $dbHabitSchema")
-//
-//            // 지우는 것도 잘 동작하는지 확인해 봅니다.
-//            database.searchGithubIdDao().delete(dbHabitSchema)
-//
-//            Log.d(this.javaClass.name, "방금 지워서 아무것도 없음. ${database.searchGithubIdDao().selectAll("t")}")
-//        }
-//    }
 }

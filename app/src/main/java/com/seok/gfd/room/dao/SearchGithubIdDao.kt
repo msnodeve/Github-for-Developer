@@ -13,7 +13,7 @@ interface SearchGithubIdDao {
     @Delete
     suspend fun delete(searchGithubId: SearchGithubId)
 
-    @Query("SELECT * FROM $TABLE_NAME WHERE gid_name = :gidName LIKE '%' || :gidName || '%' ORDER BY created DESC")
+    @Query("SELECT * FROM $TABLE_NAME WHERE gid_name LIKE '%' || :gidName || '%' ORDER BY created DESC")
     suspend fun selectAll(gidName: String): List<SearchGithubId>
 
     @Query("SELECT * FROM $TABLE_NAME ORDER BY created DESC")

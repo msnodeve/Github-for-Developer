@@ -10,6 +10,7 @@ import kotlinx.coroutines.runBlocking
 
 class GithubIdViewModel(val context: Application) : AndroidViewModel(context){
     private val TAG = this.javaClass.toString()
+    private val database = AppDatabase.getInstance(context)
 
     private val _githubIds = MutableLiveData<List<SearchGithubId>>()
 
@@ -17,21 +18,22 @@ class GithubIdViewModel(val context: Application) : AndroidViewModel(context){
         get() = _githubIds
 
     fun insertGithubId(githubId: SearchGithubId){
-        val database = AppDatabase.getInstance(context)
         runBlocking {
             database.searchGithubIdDao().insert(githubId)
         }
     }
 
     fun getGithubId(name : String){
-        val database = AppDatabase.getInstance(context)
         runBlocking {
             if(name == "" || name.isEmpty()) {
-                _githubIds.value = database.searchGithubIdDao().selectAll(name)
-            }else{
                 _githubIds.value = database.searchGithubIdDao().selectAll()
+            }else{
+                _githubIds.value = database.searchGithubIdDao().selectAll(name)
             }
-            database.close()
         }
+    }
+
+    fun closeDatabase(){
+        database.close()
     }
 }
