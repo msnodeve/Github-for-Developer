@@ -3,7 +3,6 @@ package com.seok.gfd.views
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View.OnFocusChangeListener
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +15,6 @@ import com.seok.gfd.R
 import com.seok.gfd.adapter.SearchGithubIdAdapter
 import com.seok.gfd.room.entity.SearchGithubId
 import com.seok.gfd.viewmodel.GithubIdViewModel
-import kotlinx.android.synthetic.main.activity_guest_main.*
 import kotlinx.android.synthetic.main.activity_search.*
 
 
@@ -65,7 +63,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun init() {
         githubIds = ArrayList()
-        searchGithubIdAdapter = SearchGithubIdAdapter(githubIds)
+        searchGithubIdAdapter = SearchGithubIdAdapter(githubIds, search_edt_id)
         gridLayoutManager = GridLayoutManager(this, 1)
         search_recycler_view.layoutManager = gridLayoutManager
         search_recycler_view.adapter = searchGithubIdAdapter
