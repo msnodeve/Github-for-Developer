@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.room.Room
 import com.seok.gfd.room.AppDatabase
 import com.seok.gfd.room.entity.SearchGithubId
 import kotlinx.coroutines.runBlocking
@@ -27,7 +26,11 @@ class GithubIdViewModel(val context: Application) : AndroidViewModel(context){
     fun getGithubId(name : String){
         val database = AppDatabase.getInstance(context)
         runBlocking {
-            _githubIds.value = database.searchGithubIdDao().selectAll(name)
+            if(name == "" || name.isEmpty()) {
+                _githubIds.value = database.searchGithubIdDao().selectAll(name)
+            }else{
+                _githubIds.value = database.searchGithubIdDao().selectAll()
+            }
             database.close()
         }
     }
