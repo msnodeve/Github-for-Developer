@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import com.ogaclejapan.smarttablayout.utils.v4.Bundler
 import com.seok.gfd.R
 import com.seok.gfd.retrofit.domain.resopnse.CommitsResponseDto
-import com.seok.gfd.utils.CommonUtils
 import kotlinx.android.synthetic.main.fragment_main_sub.*
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.textColor
@@ -27,8 +26,8 @@ class MainSub : Fragment() {
 
     companion object {
         fun arguments(param: CommitsResponseDto): Bundle {
-            val str = CommonUtils.gson.toJson(param)
-            return Bundler().putString("year", str).get()
+//            val str = CommonUtils.gson.toJson(param)
+            return Bundler().putString("year", "str").get()
         }
     }
 
@@ -55,7 +54,6 @@ class MainSub : Fragment() {
 
     private fun init() {
         val yearContribution = arguments?.getString("year")
-        commitResponse = CommonUtils.gson.fromJson(yearContribution, CommitsResponseDto::class.java)
     }
 
     private fun createContributionUI(commitSize: Int, startDay: Int, commits : List<CommitsResponseDto.Contribution>) {

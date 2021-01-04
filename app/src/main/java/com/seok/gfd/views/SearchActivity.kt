@@ -3,6 +3,7 @@ package com.seok.gfd.views
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +12,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.seok.gfd.R
 import com.seok.gfd.adapter.SearchGithubIdAdapter
 import com.seok.gfd.room.entity.SearchGithubId
+import com.seok.gfd.utils.ValidationCheck
 import com.seok.gfd.viewmodel.GithubIdViewModel
 import kotlinx.android.synthetic.main.activity_search.*
 
@@ -36,12 +39,6 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setListener() {
-        // EditText 포커싱 되었을 때
-//        search_edt_id.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-//            if (hasFocus) {
-//                githubIdsViewModel.getGithubId("")
-//            }
-//        }
         search_edt_id.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 githubIdsViewModel.getGithubId(search_edt_id.text.toString())
@@ -55,7 +52,16 @@ class SearchActivity : AppCompatActivity() {
         })
 
         search_btn_ok.setOnClickListener {
-            githubIdsViewModel.insertGithubId(SearchGithubId(search_edt_id.text.toString()))
+            val githubId = search_edt_id.text.toString()
+            if(ValidationCheck.validIsEmptyString(githubId)){
+                Snackbar.make(search_main_layout, "아이디칸이 비어있네요!", Snackbar.LENGTH_SHORT).show()
+            }else{
+                if(ValidationCheck.isExistSite(githubId)){
+
+                }else{
+                    Snackbar.make(search_main_layout, "존재하지 않는 아이디 같아요.\n문제가 생겼다면 개발자에게 문의해주세요!", Snackbar.LENGTH_SHORT).show()
+                }
+            }
         }
 
         // githubIdsViewModel.closeDatabase() db 컨넥션 끊기

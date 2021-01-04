@@ -17,15 +17,14 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
 import com.seok.gfd.R
 import com.seok.gfd.retrofit.domain.User
 import com.seok.gfd.retrofit.domain.resopnse.CommitsResponseDto
-import com.seok.gfd.utils.CommonUtils
 import com.seok.gfd.utils.ProgressbarDialog
 import com.seok.gfd.utils.SharedPreference
+import com.seok.gfd.utils.ValidationCheck
 import com.seok.gfd.viewmodel.GithubContributionViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 import java.time.LocalDate
 
 class MainFragment : Fragment() {
-    private lateinit var commonUtils: CommonUtils
     private lateinit var sharedPreference: SharedPreference
     private lateinit var progressbar: ProgressbarDialog
     private lateinit var githubContributionViewModel: GithubContributionViewModel
@@ -52,7 +51,6 @@ class MainFragment : Fragment() {
         progressbar.show()
         sharedPreference = SharedPreference(this.activity!!.application)
         user = sharedPreference.getValueObject(getString(R.string.user_info))
-        commonUtils = CommonUtils.instance
         githubContributionViewModel =
             ViewModelProviders.of(this).get(GithubContributionViewModel::class.java)
         githubContributionViewModel.getContributions(user.login)
@@ -79,9 +77,6 @@ class MainFragment : Fragment() {
 
     private fun initSetUI() {
         main_tv_today.text = LocalDate.now().toString()
-        main_top_scalable_layout.scaleWidth = commonUtils.getScreenWidth()
-        main_top_scalable_layout.scaleHeight = commonUtils.getScreenHeight()
-
         main_tv_user_name.text = user.login
 
         val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(50))
