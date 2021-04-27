@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Github-for-Developer.iml" filepath="$PROJECT_DIR$/.idea/Github-for-Developer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Github-for-Developer.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Github-for-Developer.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Github-for-Developer_copy.iml" filepath="$PROJECT_DIR$/.idea/modules/Github-for-Developer_copy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Github-for-Developer_copy.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Github-for-Developer_copy.app.iml" />
     </modules>
   </component>
 </project>

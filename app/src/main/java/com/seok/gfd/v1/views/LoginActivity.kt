@@ -13,7 +13,6 @@ import com.seok.gfd.R
 import com.seok.gfd.utils.SharedPreference
 import com.seok.gfd.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_login.*
-import org.jetbrains.anko.longToast
 import java.net.HttpURLConnection
 
 class LoginActivity : AppCompatActivity() {
@@ -55,7 +54,6 @@ class LoginActivity : AppCompatActivity() {
                 goToMainActivity()
             } else {
                 login_progress_bar.visibility = View.INVISIBLE
-                longToast(getString(R.string.fail_access_token))
             }
         })
         userViewModel.userInfo.observe(this, Observer {

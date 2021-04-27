@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import com.seok.gfd.database.Commits
 import com.seok.gfd.retrofit.RetrofitClient
 import com.seok.gfd.retrofit.domain.resopnse.CommitsResponseDto
-import org.jetbrains.anko.doAsync
 import org.jsoup.Connection
 import org.jsoup.Jsoup
 import retrofit2.Call
@@ -36,33 +35,33 @@ class GithubCommitDataViewModel: ViewModel() {
     // 사용자 깃허브에서 데이터 크롤링
     fun getCommitFromGithub(uri : String){
         // Crawling 백그라운드 실행
-        doAsync {
-            val soup = Jsoup.connect(uri).method(Connection.Method.GET).execute().parse()
-            val partOfContributionData = soup.select("div[class=js-yearly-contributions]").first()
-            val lines = partOfContributionData.select("rect[class=day]")
-
-            val contributions = ArrayList<Commits>()
-            for (line in lines) {
-                val attrDataDate = line.attr("data-date")
-                val attrDataCount = line.attr("data-count")
-                val attrFill = line.attr("fill")
-                contributions.add(Commits(attrDataDate, attrDataCount.toInt(), attrFill))
-            }
-//            _commits.postValue(contributions)
-            _commit.postValue(contributions[contributions.size-1])
-            _maxCommit.postValue(contributions.maxBy { it.dataCount }?.dataCount.toString())
-        }
+//        doAsync {
+//            val soup = Jsoup.connect(uri).method(Connection.Method.GET).execute().parse()
+//            val partOfContributionData = soup.select("div[class=js-yearly-contributions]").first()
+//            val lines = partOfContributionData.select("rect[class=day]")
+//
+//            val contributions = ArrayList<Commits>()
+//            for (line in lines) {
+//                val attrDataDate = line.attr("data-date")
+//                val attrDataCount = line.attr("data-count")
+//                val attrFill = line.attr("fill")
+//                contributions.add(Commits(attrDataDate, attrDataCount.toInt(), attrFill))
+//            }
+////            _commits.postValue(contributions)
+//            _commit.postValue(contributions[contributions.size-1])
+//            _maxCommit.postValue(contributions.maxBy { it.dataCount }?.dataCount.toString())
+//        }
     }
 
     // 사용자 1년 동안 커밋 데이 크롤링
     fun getYearCommitFromGithub(uri : String){
         // Crawling 백그라운드 실행
-        doAsync {
-            val soup = Jsoup.connect(uri).method(Connection.Method.GET).execute().parse()
-            val contributionYearData = soup.select("h2[class=f4 text-normal mb-2]").first()
-            val contribution = contributionYearData.text().split(" ")
-            _yearCommit.postValue(contribution[0])
-        }
+//        doAsync {
+//            val soup = Jsoup.connect(uri).method(Connection.Method.GET).execute().parse()
+//            val contributionYearData = soup.select("h2[class=f4 text-normal mb-2]").first()
+//            val contribution = contributionYearData.text().split(" ")
+//            _yearCommit.postValue(contribution[0])
+//        }
     }
 
     // 깃허브 사용자 커밋 데이터 가져오기

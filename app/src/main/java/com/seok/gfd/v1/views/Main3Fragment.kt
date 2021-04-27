@@ -22,8 +22,6 @@ import com.seok.gfd.utils.SharedPreference
 import com.seok.gfd.viewmodel.GithubCommitDataViewModel
 import com.seok.gfd.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_main3.*
-import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.margin
 import java.time.LocalDate
 
 class Main3Fragment : Fragment() {
@@ -105,24 +103,18 @@ class Main3Fragment : Fragment() {
         val maxCommit = sharedPreference.getValue(getString(R.string.user_max))
 
         this.activity?.runOnUiThread {
-            contribute.removeAllViews()
-            contribute.columnCount = 53
-            contribute.rowCount = 7
             for (index in lastCommitIndex downTo nowCommitIndex) {
                 val layout = LinearLayout(activity)
                 val param = LinearLayout.LayoutParams(65, 65)
                 val commit = it[index]
-                param.margin = 4
                 layout.layoutParams = param
 //                val txt = TextView(this.activity)
 //                txt.text = commit.count.toString()
 //                layout.gravity = Gravity.CENTER
 //                layout.addView(txt)
-                layout.backgroundColor = Color.parseColor(commit.color)
                 if (commit.count == maxCommit.toInt()) {
                     layout.background = activity?.getDrawable(R.drawable.rect_background)
                 }
-                contribute.addView(layout)
             }
         }
         progressbar.hide()

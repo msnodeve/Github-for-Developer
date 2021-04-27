@@ -13,8 +13,6 @@ import com.ogaclejapan.smarttablayout.utils.v4.Bundler
 import com.seok.gfd.R
 import com.seok.gfd.retrofit.domain.resopnse.CommitsResponseDto
 import kotlinx.android.synthetic.main.fragment_main_sub.*
-import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.textColor
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -61,7 +59,6 @@ class MainSub : Fragment() {
         var weekPosTop = 20f
         for (index in 1..ceil(commitSize.toDouble() / 7).toInt() step 2) {
             val weekText = TextView(activity)
-            weekText.textColor = activity!!.getColor(R.color.userRankPos)
             weekText.text = index.toString() + "W"
             main_sub_scalable_layout.addView(weekText, 20f, weekPosTop, 100f, 50f)
             main_sub_scalable_layout.setScale_TextSize(weekText, 35f)
@@ -70,7 +67,6 @@ class MainSub : Fragment() {
         weekPosTop = 20f
         for (index in 2..commitSize / 7 step 2) {
             val weekText = TextView(activity)
-            weekText.textColor = activity!!.getColor(R.color.userRankPos)
             weekText.text = index.toString() + "W"
             main_sub_scalable_layout.addView(weekText, 570f, weekPosTop, 100f, 50f)
             main_sub_scalable_layout.setScale_TextSize(weekText, 35f)
@@ -90,7 +86,6 @@ class MainSub : Fragment() {
             val commit = commits[index]
             val linearLayout = LinearLayout(activity)
             main_sub_scalable_layout.addView(linearLayout, layoutPScaleLeft, layoutPScaleTop, layoutSize, layoutSize)
-            linearLayout.backgroundColor = Color.parseColor(commit.color)
             layoutPScaleLeft += 55f
             lineChange++
             if (lineChange % 14 == 0) {

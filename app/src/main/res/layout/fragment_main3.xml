@@ -312,13 +312,13 @@
                             android:layout_height="match_parent"
                             android:scrollbars="none">
 
-                        <androidx.gridlayout.widget.GridLayout
-                                android:id="@+id/contribute"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                app:orientation="vertical">
+<!--                        <androidx.gridlayout.widget.GridLayout-->
+<!--                                android:id="@+id/contribute"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                app:orientation="vertical">-->
 
-                        </androidx.gridlayout.widget.GridLayout>
+<!--                        </androidx.gridlayout.widget.GridLayout>-->
                     </HorizontalScrollView>
                 </ScrollView>
             </LinearLayout>
