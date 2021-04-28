@@ -108,8 +108,8 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
 
     // jsoup, anko
-    implementation "org.jetbrains.anko:anko:$rootProject.anko_version"
-    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+//    implementation "org.jetbrains.anko:anko:$rootProject.anko_version"
+//    implementation 'androidx.gridlayout:gridlayout:1.0.0'
 
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.8'

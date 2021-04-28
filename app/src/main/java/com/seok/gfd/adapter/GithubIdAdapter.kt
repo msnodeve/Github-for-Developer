@@ -8,26 +8,26 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.seok.gfd.R
-import com.seok.gfd.room.entity.SearchGithubId
+import com.seok.gfd.room.entity.GithubId
 import com.seok.gfd.viewmodel.GithubIdViewModel
 import kotlinx.android.synthetic.main.item_search_github_id.view.*
 
-class SearchGithubIdAdapter(list: ArrayList<SearchGithubId>, edtText : EditText) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val githubIds: ArrayList<SearchGithubId> = list
+class GithubIdAdapter(list: ArrayList<GithubId>, edtText : EditText) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val githubIds: ArrayList<GithubId> = list
     private val searchEditText = edtText
     private lateinit var githubIdsViewModel: GithubIdViewModel
 
     inner class SearchGithubIdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        fun bind(searchGithubId: SearchGithubId){
-            itemView.item_search_txt_github_id.text = searchGithubId.gidName
+        fun bind(githubId: GithubId){
+            itemView.item_search_txt_github_id.text = githubId.githubId
             itemView.item_search_img_close.setOnClickListener {
-                githubIdsViewModel.deleteGithubId(searchGithubId)
+                githubIdsViewModel.deleteGithubId(githubId)
                 githubIds.removeAt(this.adapterPosition)
                 notifyItemRemoved(this.adapterPosition)
                 notifyDataSetChanged()
             }
             itemView.item_search_card_view.setOnClickListener {
-                searchEditText.setText(searchGithubId.gidName)
+                searchEditText.setText(githubId.githubId)
             }
         }
     }
